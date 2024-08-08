@@ -1,0 +1,37 @@
+export const MenuItems = [
+  {
+    title: "Início",
+    url: "/",
+    cName: "nav-links",
+  },
+  {
+    title: "Categorias de Clubes",
+    url: "#section1",
+    cName: "nav-links",
+  },
+  {
+    title: "Clubes em destaque",
+    url: "#section2",
+    cName: "nav-links",
+  },
+  {
+    title: "Eventos",
+    url: "/sign-up",
+    cName: "nav-links",
+  },
+  {
+    title: "Cadastrar Clube",
+    url: "/about-us",
+    cName: "nav-links",
+  },
+  {
+    title: "Sobre nós",
+    url: "/about-us",
+    cName: "nav-links",
+  },
+  {
+    title: "Login",
+    url: "/login",
+    cName: "nav-links-mobile",
+  },
+];
