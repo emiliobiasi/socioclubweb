@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Box = ({ columns, rows, margin, padding, width, height, children }) => {
+const Box = ({ columns, rows, margin, padding, paddingTop, paddingRight, paddingBottom, paddingLeft, width, height, children }) => {
   const boxStyle = {
     display: 'grid',
     gridTemplateColumns: `repeat(${columns}, 1fr)`,
@@ -9,6 +9,10 @@ const Box = ({ columns, rows, margin, padding, width, height, children }) => {
     height: height,
     margin: margin,
     padding: padding,
+    paddingTop: paddingTop,
+    paddingRight: paddingRight,
+    paddingBottom: paddingBottom,
+    paddingLeft: paddingLeft,
   };
 
   return <div style={boxStyle}>{children}</div>;
@@ -19,6 +23,10 @@ Box.propTypes = {
   rows: PropTypes.number.isRequired,
   margin: PropTypes.string,
   padding: PropTypes.string,
+  paddingTop: PropTypes.string,
+  paddingRight: PropTypes.string,
+  paddingBottom: PropTypes.string,
+  paddingLeft: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
   children: PropTypes.node.isRequired,
@@ -27,6 +35,10 @@ Box.propTypes = {
 Box.defaultProps = {
   margin: '0',
   padding: '0',
+  paddingTop: '0',
+  paddingRight: '0',
+  paddingBottom: '0',
+  paddingLeft: '0',
   width: '100vw',   // Valor padrão para largura
   height: '93.5vh', // Valor padrão para altura
 };
