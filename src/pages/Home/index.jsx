@@ -29,7 +29,7 @@ const Home = () => {
       <SectionSocioClub />
       <SectionCategory />
       <SectionClubDestaque />
-      <CarouselComponent items={carouselItems}/>
+      {/* <CarouselComponent items={carouselItems}/> */}
     </>
   );
 };

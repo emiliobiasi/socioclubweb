@@ -1,10 +1,10 @@
 import Box from "../../components/Boxes/Box";
 import BoxRow from "../../components/Boxes/BoxRow";
 import CategoryCard from "../../components/Cards/CategoryCard";
-import Brush from '../../assets/images/Brush.svg'
-import Basketball from '../../assets/images/Basketball.svg'
-import MusicNotes from '../../assets/images/MusicNotes.svg'
+import Basketball from "../../assets/images/Basketball.svg";
+import MusicNotes from "../../assets/images/MusicNotes.svg";
 import styles from "./Home.module.css";
+import BestClubsCard from "../../components/Cards/BestClubsCard";
 
 const SectionClubDestaque = () => {
   return (
@@ -22,30 +22,45 @@ const SectionClubDestaque = () => {
         >
           <BoxRow>
             <div className={styles["box-row-div"]}>
-              <CategoryCard
+              <BestClubsCard
                 backgroundImage={
-                  "https://www.w3schools.com/howto/img_avatar.png"
+                  "https://yt3.googleusercontent.com/C8rCyrTuhCFBj7U0Od4-4ISbgp5i7OMfAudqi2h7vgcFOy70J6pSao6qG0YO6p7LpdTqlqbceQ=s900-c-k-c0x00ffffff-no-rj"
                 }
-                iconImage={Brush}
-                title={"Artes"}
+                description={"Esporte ⚽"}
+                followers={"1.000"}
+                iconImage={
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjCzKoHvGZzgGXlF6deMhhn-lfJceYhar0Jg&s"
+                }
+                members={"200"}
+                title={"São Paulo"}
               />
             </div>
             <div className={styles["box-row-div"]}>
-              <CategoryCard
+              <BestClubsCard
                 backgroundImage={
-                  "https://www.w3schools.com/howto/img_avatar.png"
+                  "https://www.casaca.com.br/site/wp-content/uploads/2017/10/papal-de-parede-do-vasco-da-gama-wallpaper-14.jpg"
                 }
-                iconImage={Basketball}
-                title={"Esporte"}
+                description={"Esporte ⚽"}
+                followers={"1.000"}
+                iconImage={
+                  "https://logodownload.org/wp-content/uploads/2016/09/vasco-logo-0.png"
+                }
+                members={"200"}
+                title={"Vasco da Gama"}
               />
             </div>
             <div className={styles["box-row-div"]}>
-              <CategoryCard
+              <BestClubsCard
                 backgroundImage={
-                  "https://www.w3schools.com/howto/img_avatar.png"
+                  "https://portaleducacao.guarulhos.sp.gov.br/siseduc/media/django-summernote/2020-12-29/e810522c-e8ea-4490-b165-efa38fb9ce25.jpeg"
                 }
-                iconImage={MusicNotes}
-                title={"Música"}
+                description={"Estudos 🎓"}
+                followers={"1.000"}
+                iconImage={
+                  "https://cdn-icons-png.flaticon.com/512/196/196363.png"
+                }
+                members={"200"}
+                title={"Clube do Livro"}
               />
             </div>
           </BoxRow>

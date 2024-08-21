@@ -3,6 +3,9 @@ import BoxRow from "../../components/Boxes/BoxRow";
 import CategoryCard from "../../components/Cards/CategoryCard";
 import Brush from '../../assets/images/Brush.svg'
 import Basketball from '../../assets/images/Basketball.svg'
+import backgroundBasket from '../../assets/images/backgroundBasket.svg'
+import PhotographyBackground from '../../assets/images/PhotographyBackground.png'
+import MusicBackground from '../../assets/images/MusicBackground.png'
 import MusicNotes from '../../assets/images/MusicNotes.svg'
 import Camera from '../../assets/images/Camera.svg'
 import videoPlay from '../../assets/images/videoPlay.svg'
@@ -38,7 +41,7 @@ const SectionCategory = () => {
             <div className={styles["box-row-div"]}>
               <CategoryCard
                 backgroundImage={
-                  "https://www.w3schools.com/howto/img_avatar.png"
+                  backgroundBasket
                 }
                 iconImage={Basketball}
                 title={"Esporte"}
@@ -47,7 +50,7 @@ const SectionCategory = () => {
             <div className={styles["box-row-div"]}>
               <CategoryCard
                 backgroundImage={
-                  "https://www.w3schools.com/howto/img_avatar.png"
+                  MusicBackground
                 }
                 iconImage={MusicNotes}
                 title={"Música"}
@@ -56,7 +59,7 @@ const SectionCategory = () => {
             <div className={styles["box-row-div"]}>
               <CategoryCard
                 backgroundImage={
-                  "https://www.w3schools.com/howto/img_avatar.png"
+                  PhotographyBackground
                 }
                 iconImage={Camera}
                 title={"Fotografia"}
