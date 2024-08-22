@@ -21,7 +21,7 @@ export const MenuItems = [
   },
   {
     title: "Cadastrar Clube",
-    url: "/about-us",
+    url: "/cadastrar-clube",
     cName: "nav-links",
   },
   {
