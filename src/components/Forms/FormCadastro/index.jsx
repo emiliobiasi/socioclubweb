@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputField from "../../Inputs/InputField";
 import styles from "./FormCadastro.module.css";
+import ClubService from "../../../services/club.service.js"
 
 const FormCadastro = () => {
   const [cnpj, setCnpj] = useState("");
@@ -20,6 +21,14 @@ const FormCadastro = () => {
       cepClube,
       enderecoComercial,
     }
+
+    ClubService.createClub(
+      nomeClube,
+      emailClube,
+      senhaAcesso,
+      cnpj,
+      cepClube
+    )
     console.log('Dados do formulário:', formData);
   };
 
