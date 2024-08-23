@@ -8,7 +8,6 @@ const FormCadastro = () => {
   const [emailClube, setEmailClube] = useState("");
   const [senhaAcesso, setSenhaAcesso] = useState("");
   const [cepClube, setCepClube] = useState("");
-  const [inscricaoMunicipal, setInscricaoMunicipal] = useState("");
   const [enderecoComercial, setEnderecoComercial] = useState("");
 
   const handleSubmit = (e) => {
@@ -19,7 +18,6 @@ const FormCadastro = () => {
       emailClube,
       senhaAcesso,
       cepClube,
-      inscricaoMunicipal,
       enderecoComercial,
     }
     console.log('Dados do formulário:', formData);
@@ -63,13 +61,6 @@ const FormCadastro = () => {
         type="text"
         value={cepClube}
         onChange={(e) => setCepClube(e.target.value)}
-      />
-
-      <InputField
-        label="Inscrição Municipal do Clube"
-        type="text"
-        value={inscricaoMunicipal}
-        onChange={(e) => setInscricaoMunicipal(e.target.value)}
       />
 
       <InputField

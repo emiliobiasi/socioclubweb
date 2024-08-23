@@ -1,0 +1,83 @@
+.eventCard {
+  position: relative;
+  width: 100%;
+  height: 1170px;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Evita distorção mantendo a imagem dentro das proporções do contêiner */
+  border-radius: inherit; /* Mantém os cantos arredondados da imagem */
+}
+
+
+.category {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.category img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  object-fit: cover;
+}
+
+.title {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.viewEventButton {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewEventButton:hover {
+  background-color: #f0f0f0;
+}
+
+.timerBox {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.timerBox span:first-child {
+  font-size: 24px;
+  font-weight: bold;
+}
