@@ -24,7 +24,7 @@ const SectionEvents = () => {
       dataEvento: "2024-09-25T18:00:00",
     },
   ];
-  return <EventCarousel events={events} interval={2000} />;
+  return <EventCarousel events={events} interval={5000} />;
 };
 
 export default SectionEvents;

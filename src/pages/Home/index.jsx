@@ -1,18 +1,10 @@
-import Navbar from "../../components/Navbar";
-import SectionSocioClub from "./sectionSocioClub";
-import SectionCategory from "./sectionCategory";
-import SectionClubDestaque from "./sectionClubDestaque";
-import SectionEvents from "./sectionEvents";
-
+import SideBar from "../../components/SideBar";
+import SideBar2 from "../../components/SideBar2";
 
 const Home = () => {
   return (
     <>
-      <Navbar />
-      <SectionSocioClub />
-      <SectionCategory />
-      <SectionClubDestaque />
-      <SectionEvents />
+      <SideBar />
     </>
   );
 };

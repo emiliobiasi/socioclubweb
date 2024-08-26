@@ -12,7 +12,7 @@ import videoPlay from '../../assets/images/videoPlay.svg'
 import Car from '../../assets/images/Car.svg'
 import Game from '../../assets/images/Game.svg'
 import Teacher from '../../assets/images/Teacher.svg'
-import styles from "./Home.module.css";
+import styles from "./LandingPage.module.css";
 
 const SectionCategory = () => {
   return (

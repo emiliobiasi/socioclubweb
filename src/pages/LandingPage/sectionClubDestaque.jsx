@@ -1,9 +1,6 @@
 import Box from "../../components/Boxes/Box";
 import BoxRow from "../../components/Boxes/BoxRow";
-import CategoryCard from "../../components/Cards/CategoryCard";
-import Basketball from "../../assets/images/Basketball.svg";
-import MusicNotes from "../../assets/images/MusicNotes.svg";
-import styles from "./Home.module.css";
+import styles from "./LandingPage.module.css";
 import BestClubsCard from "../../components/Cards/BestClubsCard";
 
 const SectionClubDestaque = () => {

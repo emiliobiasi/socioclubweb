@@ -1,5 +1,5 @@
 import Box from "../../components/Boxes/Box";
-import styles from "./Home.module.css";
+import styles from "./LandingPage.module.css";
 
 const SectionSocioClub = () => {
   return (
