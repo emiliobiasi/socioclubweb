@@ -2,10 +2,11 @@
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  min-width: 330px;
-  height: 430px; /* Define uma altura fixa para o card */
+  width: 270px;
+  height: 350px; /* Define uma altura fixa para o card */
   overflow: hidden; /* Evita que elementos internos ultrapassem os limites do card */
   border-radius: 30px; /* Adiciona bordas arredondadas */
+  margin-bottom: 30px;
 }
 
 .card:hover {
@@ -13,8 +14,9 @@
 }
 
 .card h3 {
-  font-size: 30px; /* Ajusta o tamanho da fonte */
+  font-size: 20px; /* Ajusta o tamanho da fonte */
   margin-left: 16px; /* Ajusta a margem esquerda do título */
+  color: var(--color-white);
 }
 
 .backgroundImage {
@@ -33,8 +35,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 1; /* Garante que o ícone fique sobre a imagem de fundo */

@@ -1,16 +1,10 @@
-import Box from "../../components/Boxes/Box";
-import styles from "./LandingPage.module.css";
+import styles from "./SectionSocioClub.module.css";
+import backgroundFootball from "../../../assets/images/backgroundFootball.png"
 
 const SectionSocioClub = () => {
   return (
     <div className={styles.home}>
-      <Box
-        columns={2}
-        rows={1}
-        paddingLeft={"300px"}
-        paddingRight={"300px"}
-        height="100vh"
-      >
+      <div className={styles.container}>
         {/* Coluna da esquerda */}
         <div className={styles["left-column-section1"]}>
           <h1>SOCIOCLUB</h1>
@@ -42,11 +36,11 @@ const SectionSocioClub = () => {
         {/* Coluna da direita */}
         <div className={styles["right-column"]}>
           <img
-            src="https://cdn.pixabay.com/photo/2016/11/29/03/53/athletes-1867185_1280.jpg"
+            src={backgroundFootball}
             alt="Soccer Team"
           />
         </div>
-      </Box>
+      </div>
     </div>
   );
 };

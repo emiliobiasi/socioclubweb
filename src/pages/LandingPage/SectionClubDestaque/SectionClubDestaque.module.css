@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-blue1);
+  align-items: center;
+}
+
+.title {
+  text-align: left;
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: var(--color-white);
+}
+
+/* Layout for cards */
+.cardsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 4 colunas de largura igual */
+  gap: 30px; /* Espaçamento entre os cards */
+  width: 100%;
+  max-width: 1200px; /* Limita a largura máxima para evitar que os cards se espalhem demais */
+}
+
+@media screen and (max-width: 1200px) {
+  .cardsRow {
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cardsRow {
+    grid-template-columns: 1fr; /* 1 coluna em telas muito pequenas */
+  }
+}

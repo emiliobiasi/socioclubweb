@@ -1,8 +1,8 @@
 import Navbar from "../../components/Navbar";
-import SectionSocioClub from "./sectionSocioClub";
-import SectionCategory from "./sectionCategory";
-import SectionClubDestaque from "./sectionClubDestaque";
+import SectionClubDestaque from "./SectionClubDestaque";
 import SectionEvents from "./sectionEvents";
+import SectionCategory from "./SectionCategory";
+import SectionSocioClub from "./SectionSocioClub";
 
 
 const LandingPage = () => {
