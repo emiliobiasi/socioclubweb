@@ -1,8 +1,8 @@
-import EventCarousel from "../../components/Carousel/EventCarousel";
-import EventCar from "../../assets/images/EventCar.png";
-import Car from "../../assets/images/Car.svg";
-import Teacher from "../../assets/images/Teacher.svg";
-import Basketball from "../../assets/images/Basketball.svg";
+import EventCarousel from "../../../components/Carousel/EventCarousel";
+import EventCar from "../../../assets/images/EventCar.png";
+import Car from "../../../assets/images/Car.svg";
+import Teacher from "../../../assets/images/Teacher.svg";
+import Basketball from "../../../assets/images/Basketball.svg";
 
 const SectionEvents = () => {
   const events = [

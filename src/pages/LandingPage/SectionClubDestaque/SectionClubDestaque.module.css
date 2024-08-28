@@ -5,6 +5,7 @@
   flex-direction: column;
   background-color: var(--color-blue1);
   align-items: center;
+  padding-top: 200px;
 }
 
 .title {
@@ -20,7 +21,9 @@
   grid-template-columns: repeat(3, 1fr); /* 4 colunas de largura igual */
   gap: 30px; /* Espaçamento entre os cards */
   width: 100%;
-  max-width: 1200px; /* Limita a largura máxima para evitar que os cards se espalhem demais */
+  max-width: 1000px; /* Limita a largura máxima para evitar que os cards se espalhem demais */
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1200px) {

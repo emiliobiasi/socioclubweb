@@ -3,8 +3,8 @@ import BestClubsCard from "../../../components/Cards/BestClubsCard";
 
 const SectionClubDestaque = () => {
   return (
-    <div className={styles.container}>
-      <div id="section2" className={styles.title}>
+    <div id="section2" className={styles.container}>
+      <div className={styles.title}>
         <h2>Clubes Em Destaque</h2>
       </div>
         <div className={styles.cardsRow}>

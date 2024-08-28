@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import SectionClubDestaque from "./SectionClubDestaque";
-import SectionEvents from "./sectionEvents";
+import SectionEvents from "./SectionEvent/index.jsx";
 import SectionCategory from "./SectionCategory";
 import SectionSocioClub from "./SectionSocioClub";
 
