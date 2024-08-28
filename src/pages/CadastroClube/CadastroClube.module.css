@@ -17,7 +17,7 @@
 }
 
 .logo {
-  width: 350px;
+  width: 250px;
   margin-bottom: 20px;
 }
 
@@ -27,17 +27,17 @@
 
 .infoImage {
   width: 100%;
-  max-width: 500px;
+  max-width: 320px;
   margin-bottom: 20px;
 }
 
 .infoSection h1 {
-  font-size: 40px;
+  font-size: 30px;
   margin-bottom: 10px;
 }
 
 .infoSection p {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.5;
 }
 
@@ -65,7 +65,7 @@
 .navigationLinks a {
   color: #333;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .navigationLinks a strong {

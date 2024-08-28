@@ -37,8 +37,8 @@
 
 .title {
   position: absolute;
-  bottom: 70px;
-  left: 50%;
+  bottom: 190px;
+  left: 11%;
   transform: translateX(-50%);
   font-size: 24px;
   font-weight: bold;
@@ -49,10 +49,10 @@
 
 .viewEventButton {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
+  bottom: 100px;
+  left: 11%;
   transform: translateX(-50%);
-  padding: 10px 20px;
+  padding: 25px 60px;
   font-size: 18px;
   color: #000;
   background-color: #fff;
@@ -60,6 +60,7 @@
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .viewEventButton:hover {
@@ -68,16 +69,53 @@
 
 .timerBox {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 10px 20px;
+  bottom: 100px;
+  right: 100px;
+  width: 450px;
+  height: 150px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px 25px;
   border-radius: 20px;
   text-align: center;
-  font-size: 16px;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
 }
 
-.timerBox span:first-child {
+.timerBox > span:first-child {
+  display: block;
+  margin-bottom: 10px;
   font-size: 24px;
-  font-weight: bold;
+  color: #ccc;
 }
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timerNumber {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.timerLabel {
+  font-size: 12px;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+.colon {
+  margin: 0 10px;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+

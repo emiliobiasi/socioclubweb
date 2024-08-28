@@ -20,14 +20,14 @@ const SectionSocioClub = () => {
             modi repellendus eum a consectetur nemo ea commodi ullam, explicabo
             eos qui? Omnis assumenda laboriosam natus quisquam dolor.
           </p>
-          <button>🚀 Get Started</button>
+          <button>🚀 Começar agora</button>
           <div className={styles["stats-row"]}>
             <div>
-              <h2>240k+</h2>
-              <p>Total Usuarios</p>
+              <h2>5.2m+</h2>
+              <p>Total Usuários</p>
             </div>
             <div>
-              <h2>100k+</h2>
+              <h2>1.1k+</h2>
               <p>Total Clubes</p>
             </div>
           </div>

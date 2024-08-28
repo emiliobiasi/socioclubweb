@@ -7,6 +7,7 @@ import MusicBackground from "../../../assets/images/MusicBackground.png";
 import BrushBackground from "../../../assets/images/BrushBackground.png";
 import CarsBackground from "../../../assets/images/CarsBackground.png";
 import JoystickBackground from "../../../assets/images/JoystickBackground.png";
+import BookWallpaper from "../../../assets/images/BookWallpaper.png";
 import FilmBackground from "../../../assets/images/FilmBackground.png";
 import MusicNotes from "../../../assets/images/MusicNotes.svg";
 import Camera from "../../../assets/images/Camera.svg";
@@ -72,7 +73,7 @@ const SectionCategory = () => {
         </div>
         <div className={styles.cardColumn}>
           <CategoryCard
-            backgroundImage={"https://www.w3schools.com/howto/img_avatar.png"}
+            backgroundImage={BookWallpaper}
             iconImage={Teacher}
             title={"Estudos"}
           />

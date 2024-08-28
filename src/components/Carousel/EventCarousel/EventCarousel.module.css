@@ -6,7 +6,6 @@
   height: 100%;
   overflow: hidden;
   position: relative;
-  padding-top: 50px;
+  padding-top: 70px;
   background-color: var(--color-blue1);
-  padding-top: 200px;
 }

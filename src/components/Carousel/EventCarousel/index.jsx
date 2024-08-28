@@ -18,7 +18,7 @@ const EventCarousel = ({ events, interval = 5000 }) => {
   console.log(events)
 
   return (
-    <div id="section3" className={styles.carousel}>
+    <div id="section4" className={styles.carousel}>
       <EventCard
         backgroundImage={events[currentIndex].backgroundImage}
         categoria={events[currentIndex].categoria}

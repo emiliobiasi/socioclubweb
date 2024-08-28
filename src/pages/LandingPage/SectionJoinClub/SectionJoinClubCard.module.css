@@ -5,7 +5,6 @@
   flex-direction: column;
   background-color: var(--color-blue1);
   align-items: center;
-  padding-top: 200px;
   padding-bottom: 200px;
 }
 
@@ -19,17 +18,17 @@
 /* Layout for cards */
 .cardsRow {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 4 colunas de largura igual */
+  grid-template-columns: repeat(1, 1fr); /* 4 colunas de largura igual */
   gap: 30px; /* Espaçamento entre os cards */
   width: 100%;
-  max-width: 1000px; /* Limita a largura máxima para evitar que os cards se espalhem demais */
+  max-width: 1050px; /* Limita a largura máxima para evitar que os cards se espalhem demais */
   align-items: center;
   justify-content: center;
 }
 
 @media screen and (max-width: 1200px) {
   .cardsRow {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+    grid-template-columns: repeat(1, 1fr); /* 2 colunas em telas menores */
   }
 }
 

@@ -15,8 +15,13 @@ export const MenuItems = [
     cName: "nav-links",
   },
   {
-    title: "Eventos",
+    title: "Categorias em destaque",
     url: "#section3",
+    cName: "nav-links",
+  },
+  {
+    title: "Eventos",
+    url: "#section4",
     cName: "nav-links",
   },
   {
