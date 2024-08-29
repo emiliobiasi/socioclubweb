@@ -1,0 +1,95 @@
+.cadastroContainer {
+  display: flex;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.leftSection {
+  flex: 0.5; /* Aproximadamente 30% da largura */
+  background-color: var(--color-blue1); /* Cor de fundo da seção esquerda */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.logo {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.infoSection {
+  margin-top: 20px;
+}
+
+.infoImage {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 20px;
+  border-radius: 5%;
+}
+
+.infoSection h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.infoSection p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.rightSection {
+  flex: 1;
+  background-color: white;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigationLinks {
+  width: 65%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  position: fixed; /* Fixar no topo */
+  top: 0; /* Posicionar no topo da página */
+  padding: 10px 20px; /* Adicionar espaçamento ao redor */
+  margin-top: 20px;
+}
+
+.navigationLinks a {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navigationLinks a strong {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .cadastroContainer {
+    flex-direction: column;
+  }
+
+  .leftSection,
+  .rightSection {
+    width: 100%;
+    height: auto;
+  }
+
+  .navigationLinks {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navigationLinks a {
+    margin-bottom: 10px;
+  }
+}
