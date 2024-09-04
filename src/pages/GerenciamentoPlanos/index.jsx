@@ -4,6 +4,7 @@ const GerenciamentoPlanos = () => {
   return (
     <>
       <h1>Gerenciamento de Planos</h1>
+      
     </>
   );
 };
