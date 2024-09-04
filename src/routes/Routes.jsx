@@ -1,20 +1,33 @@
-import CadastroClube from "../pages/CadastroClube";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "../pages/LandingPage";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
+import CadastroClube from "../pages/CadastroClube/index.jsx";
+import LandingPage from "../pages/LandingPage/index.jsx";
+import Login from "../pages/Login/index.jsx";
+import { AuthProvider } from "../contexts/AuthContext.jsx";
+import PrivateRoute from "../components/PrivateRoute/PrivateRoute.jsx";
+import Home from "../pages/Home/index.jsx";
+import GerenciamentoPlanos from "../pages/GerenciamentoPlanos/index.jsx";
 
 const AppRoutes = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage/>}></Route>
-        <Route path="/cadastrar-clube" element={<CadastroClube/>}></Route>
-        <Route path="/home" element={<Home/>}></Route>
-        <Route path="/login" element={<Login/>}></Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/cadastrar-clube" element={<CadastroClube />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route
+            path="/gerenciar-planos"
+            element={
+              <PrivateRoute>
+                <GerenciamentoPlanos />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
     </Router>
-  )
-}
+  );
+};
 
-export default AppRoutes
+export default AppRoutes;

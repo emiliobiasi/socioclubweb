@@ -1,7 +1,7 @@
 import SideBar from "../../components/SideBar";
 // import SideBar2 from "../../components/SideBar2";
 
-const Home = () => {
+const GerenciamentoPlanos = () => {
   return (
     <>
       <SideBar />
@@ -9,4 +9,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default GerenciamentoPlanos;

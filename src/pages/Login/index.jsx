@@ -1,9 +1,23 @@
+// src/pages/Login.jsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import LogoTexto from "../../assets/images/LogoTexto.svg";
 import BackgoundLogin from "../../assets/images/BackgoundLogin.svg";
 import FormLogin from "../../components/Forms/FormLogin";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();  
+  const navigate = useNavigate();  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(email, password); 
+  };
+
   return (
     <div className={styles.cadastroContainer}>
       <div className={styles.leftSection}>
@@ -23,14 +37,21 @@ const Login = () => {
       </div>
       <div className={styles.rightSection}>
         <div className={styles.navigationLinks}>
-          <a href="/">
+          <button onClick={() => navigate("/")}>
             <i className="fas fa-chevron-left"></i> Retornar para página inicial
-          </a>
-          <a href="/cadastrar-clube">
+          </button>
+          <button onClick={() => navigate("/cadastrar-clube")}>
             Ainda não é um sócio? <strong>CADASTRE-SE AGORA</strong>
-          </a>
+          </button>
         </div>
-        <FormLogin />
+        <form onSubmit={handleSubmit}>
+          <FormLogin 
+            email={email} 
+            setEmail={setEmail} 
+            password={password} 
+            setPassword={setPassword} 
+          />
+        </form>
       </div>
     </div>
   );
