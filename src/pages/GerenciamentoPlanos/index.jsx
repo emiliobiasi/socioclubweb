@@ -1,10 +1,9 @@
-import SideBar from "../../components/SideBar";
-// import SideBar2 from "../../components/SideBar2";
+
 
 const GerenciamentoPlanos = () => {
   return (
     <>
-      <SideBar />
+      <h1>Gerenciamento de Planos</h1>
     </>
   );
 };
