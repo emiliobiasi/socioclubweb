@@ -1,22 +1,12 @@
 // src/pages/Login.jsx
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import LogoTexto from "../../assets/images/LogoTexto.svg";
 import BackgoundLogin from "../../assets/images/BackgoundLogin.svg";
 import FormLogin from "../../components/Forms/FormLogin";
-import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login } = useAuth();  
-  const navigate = useNavigate();  
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(email, password); 
-  };
+  const navigate = useNavigate();
 
   return (
     <div className={styles.cadastroContainer}>
@@ -44,14 +34,7 @@ const Login = () => {
             Ainda não é um sócio? <strong>CADASTRE-SE AGORA</strong>
           </button>
         </div>
-        <form onSubmit={handleSubmit}>
-          <FormLogin 
-            email={email} 
-            setEmail={setEmail} 
-            password={password} 
-            setPassword={setPassword} 
-          />
-        </form>
+        <FormLogin /> 
       </div>
     </div>
   );

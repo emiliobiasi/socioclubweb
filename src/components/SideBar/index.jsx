@@ -9,9 +9,9 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 
 
-const { Header, Sider, Content } = Layout;  // Adicionei Content
+const { Header, Sider, Content } = Layout; 
 
-const SideBar = ({ children }) => {  // Adicionei children como prop
+const SideBar = ({ children }) => {  
   const [darkTheme, setDarkTheme] = useState(true);
   const [collapsed, setCollapsed] = useState(false);
 

@@ -1,25 +1,19 @@
-import axios from "axios"
+import axios from "axios";
 
-const API_URL = 'http://localhost:8000/'
+const API_URL = import.meta.env.VITE_API_URL;
 
-const createClub = async (
+const createClub = async (name, email, password, cnpj, address) => {
+  return axios.post(API_URL + "createClub", {
     name,
     email,
     password,
     cnpj,
     address,
-  ) => {
-    return axios.post(API_URL + "createClub", {
-        name,
-        email,
-        password,
-        cnpj,
-        address,
-    });
+  });
 };
 
 const ClubService = {
-    createClub
+  createClub,
 };
 
-export default ClubService
+export default ClubService;

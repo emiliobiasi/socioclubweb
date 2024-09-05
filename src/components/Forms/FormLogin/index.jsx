@@ -1,35 +1,44 @@
 import { useState } from "react";
 import InputField from "../../Inputs/InputField/index.jsx";
 import styles from "./FormLogin.module.css";
-import ClubService from "../../../services/club.service.js";
+import { useAuth } from "../../../contexts/AuthContext.jsx";
 
 const FormLogin = () => {
-  const [cnpj, setCnpj] = useState("");
-  const [nomeClube, setNomeClube] = useState("");
   const [emailClube, setEmailClube] = useState("");
   const [senhaAcesso, setSenhaAcesso] = useState("");
-  const [cepClube, setCepClube] = useState("");
-  const [enderecoComercial, setEnderecoComercial] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = {
-      cnpj,
-      nomeClube,
-      emailClube,
-      senhaAcesso,
-      cepClube,
-      enderecoComercial,
-    };
 
-    ClubService.createClub(nomeClube, emailClube, senhaAcesso, cnpj, cepClube);
-    console.log("Dados do formulário:", formData);
+    setError("");
+
+    if (!emailClube || !senhaAcesso) {
+      setError("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await login(emailClube, senhaAcesso);
+      console.log("Login realizado com sucesso.");
+    } catch (error) {
+      console.error("Erro ao realizar login:", error);
+      setError("Erro ao realizar login. Tente novamente mais tarde.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form className={styles.formCadastro} onSubmit={handleSubmit}>
-      <h2>ENTRE E GERENCIE SUA PLATAFORMA </h2>
-      <p>CONTINUE ADMNISTRANDO E PERSONALIZANDO SEU SOCIO CLUB </p>
+    <form className={styles.formLogin} onSubmit={handleSubmit}>
+      <h2>ENTRE E GERENCIE SUA PLATAFORMA</h2>
+      <p>CONTINUE ADMINISTRANDO E PERSONALIZANDO SEU SOCIO CLUB</p>
+
+      {error && <p className={styles.error}>{error}</p>}
 
       <InputField
         label="E-mail do Clube"
@@ -45,8 +54,8 @@ const FormLogin = () => {
         onChange={(e) => setSenhaAcesso(e.target.value)}
       />
 
-      <button type="submit" className={styles.submitButton}>
-        Acessar minha conta
+      <button type="submit" className={styles.submitButton} disabled={loading}>
+        {loading ? "Aguarde..." : "Acessar minha conta"}
       </button>
     </form>
   );
