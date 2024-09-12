@@ -1,15 +1,18 @@
 import { Menu } from "antd";
 import {
   HomeOutlined,
-  AppstoreOutlined,
+  // AppstoreOutlined,
   AreaChartOutlined,
   PayCircleOutlined,
   SettingOutlined,
   BarsOutlined,
 } from "@ant-design/icons";
 import styles from "./SideBar.module.css";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const MenuList = ({ darkTheme }) => {
+  const navigate = useNavigate();
   return (
     <Menu
       theme={darkTheme ? "dark" : "light"}
@@ -17,30 +20,48 @@ const MenuList = ({ darkTheme }) => {
       className={styles.menuBar}
     >
       <Menu.Item key="home" icon={<HomeOutlined />}>
-        Home{" "}
+        Início{" "}
       </Menu.Item>
-      <Menu.Item key="activity" icon={<AppstoreOutlined />}>
+      {/* <Menu.Item key="activity" icon={<AppstoreOutlined />}>
         Activity
-      </Menu.Item>
-      <Menu.SubMenu key="subtarks" icon={<BarsOutlined />} title="Tasks">
-        <Menu.Item key="taks-1">Task 1</Menu.Item>
-        <Menu.Item key="taks-2">Task 2</Menu.Item>
-        <Menu.SubMenu key="subtasks" title="Subtasks">
+      </Menu.Item> */}
+      <Menu.SubMenu key="subtarks" icon={<BarsOutlined />} title="Gerenciar">
+        <Menu.Item key="taks-1" onClick={() => navigate("/gerenciar-planos")}>
+          Planos
+        </Menu.Item>
+        <Menu.Item key="taks-2" onClick={() => navigate("/gerenciar-produtos")}>
+          Produtos
+        </Menu.Item>
+        <Menu.Item key="taks-3" onClick={() => navigate("/gerenciar-eventos")}>
+          Eventos
+        </Menu.Item>
+        <Menu.Item key="taks-4" onClick={() => navigate("/gerenciar-noticias")}>
+          Notícias
+        </Menu.Item>
+        {/* <Menu.SubMenu key="subtasks" title="Subtasks">
           <Menu.Item key="subtask-1">Subtask 1</Menu.Item>
           <Menu.Item key="subtask-2">Subtask 2</Menu.Item>
-        </Menu.SubMenu>
+        </Menu.SubMenu> */}
       </Menu.SubMenu>
       <Menu.Item key="progress" icon={<AreaChartOutlined />}>
-        Progress
+        Financeiro
       </Menu.Item>
-      <Menu.Item key="payment" icon={<PayCircleOutlined />}>
-        Payment
+      <Menu.Item
+        key="payment"
+        icon={<PayCircleOutlined />}
+        onClick={() => navigate("/personalizar-clube")}
+      >
+        Personalização
       </Menu.Item>
       <Menu.Item key="setting" icon={<SettingOutlined />}>
-        Setting
+        Configuraçõespersonalizar-clube
       </Menu.Item>
     </Menu>
   );
+};
+
+MenuList.propTypes = {
+  darkTheme: PropTypes.string.isRequired,
 };
 
 export default MenuList;

@@ -13,8 +13,7 @@ import CriarPlano from "../pages/CriarPlano/index.jsx";
 import CriarEvento from "../pages/CriarEvento/index.jsx";
 import CriarNoticia from "../pages/CriarNoticia/index.jsx";
 import CriarProduto from "../pages/CriarProduto/index.jsx";
-
-
+import PersonalizarClube from "../pages/PersonalizarClube/index.jsx";
 
 const AppRoutes = () => {
   return (
@@ -34,23 +33,41 @@ const AppRoutes = () => {
             /> */}
 
           <Route path="/" element={<Home />}>
-            <Route path="gerenciar-produtos" element={<PrivateRoute>
-              <GerenciamentoProdutos />
-            </PrivateRoute> } />
-            <Route path="gerenciar-eventos" element={<GerenciamentoEventos />} />
-            <Route path="gerenciar-noticias" element={<GerenciamentoNoticias />} />
+            <Route
+              path="gerenciar-produtos"
+              element={
+                <PrivateRoute>
+                  <GerenciamentoProdutos />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="gerenciar-eventos"
+              element={<GerenciamentoEventos />}
+            />
+            <Route
+              path="gerenciar-noticias"
+              element={<GerenciamentoNoticias />}
+            />
             <Route path="gerenciar-planos" element={<GerenciamentoPlanos />} />
 
             <Route path="criar-plano" element={<CriarPlano />} />
 
             <Route path="criar-produto" element={<CriarProduto />} />
-            
+
             <Route path="criar-evento" element={<CriarEvento />} />
-            
+
             <Route path="criar-noticia" element={<CriarNoticia />} />
 
+            <Route
+              path="personalizar-clube"
+              element={
+                <PrivateRoute>
+                  <PersonalizarClube />
+                </PrivateRoute>
+              }
+            />
           </Route>
-
         </Routes>
       </AuthProvider>
     </Router>
