@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
         // Atualiza o estado de autenticação com o token, clube e data de expiração
         setAuth({ token: access_token, club, expiresAt: expires_at });
-        navigate("/home/gerenciar-produtos");
+        navigate("/gerenciar-produtos");
       } else {
         alert("Credenciais inválidas");
       }

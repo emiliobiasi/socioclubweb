@@ -31,7 +31,7 @@ export const MenuItems = [
   },
   {
     title: "Sobre nós",
-    url: "/home",
+    url: "/gereciar-eventos",
     cName: "nav-links",
   },
   {
