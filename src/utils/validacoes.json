@@ -1,0 +1,23 @@
+{
+    "cnpj": {
+      "regex": "^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$",
+      "mensagemErro": "CNPJ inválido! Use o formato 00.000.000/0000-00."
+    },
+    "nomeClube": {
+      "regex": "^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$",
+      "mensagemErro": "Nome inválido! Somente letras e espaços são permitidos."
+    },
+    "senhaAcesso": {
+      "regex": "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+      "mensagemErro": "A senha deve ter no mínimo 8 caracteres, incluindo letras, números e caracteres especiais."
+    },
+    "cepClube": {
+      "regex": "^\\d{5}-\\d{3}$",
+      "mensagemErro": "CEP inválido! Use o formato 00000-000."
+    },
+    "emailClube": {
+      "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+      "mensagemErro": "Email inválido! Certifique-se de que o email está no formato correto."
+    }
+  }
+  
