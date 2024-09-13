@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import PlanService from "../../services/plan.service.js";
-import { useAuth } from "../../contexts/AuthContext";
+
 import PlanCard from "../../components/Cards/PlanCard/index.jsx";
+import { useAuth } from "../../contexts/auth/useAuth.jsx";
 
 const GerenciamentoPlanos = () => {
   const [plans, setPlans] = useState([]);
@@ -37,7 +38,7 @@ const GerenciamentoPlanos = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {!loading && !error && plans.length > 0 ? (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
           {plans.map((plan) => (
             <PlanCard key={plan.id} plan={plan} />
           ))}

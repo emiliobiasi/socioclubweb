@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+// AuthContext.js
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -9,8 +10,8 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
     const token = localStorage.getItem("access_token");
-    const club = JSON.parse(localStorage.getItem("club_info")); // Carrega o clube do localStorage se existir
-    const expiresAt = localStorage.getItem("expires_at"); // Carrega a data de expiração se existir
+    const club = JSON.parse(localStorage.getItem("club_info"));
+    const expiresAt = localStorage.getItem("expires_at");
     return token ? { token, club, expiresAt } : null;
   });
 
@@ -24,16 +25,14 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (response.status === 200) {
-        const { access_token, expires_at, club } = response.data; // Obtem os dados da resposta
+        const { access_token, expires_at, club } = response.data;
 
-        // Armazena os dados no localStorage
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("club_info", JSON.stringify(club));
         localStorage.setItem("expires_at", expires_at);
 
-        // Atualiza o estado de autenticação com o token, clube e data de expiração
-        setAuth({ token: access_token, club, expiresAt: expires_at });
-        navigate("/gerenciar-produtos");
+        setAuth({ token: access_token, club: club, expiresAt: expires_at });
+        navigate("/inicio");
       } else {
         alert("Credenciais inválidas");
       }
@@ -62,6 +61,4 @@ AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export { AuthContext };
