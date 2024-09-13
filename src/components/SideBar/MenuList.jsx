@@ -19,7 +19,11 @@ const MenuList = ({ darkTheme }) => {
       mode="inline"
       className={styles.menuBar}
     >
-      <Menu.Item key="home" icon={<HomeOutlined />}>
+      <Menu.Item
+        key="home"
+        icon={<HomeOutlined />}
+        onClick={() => navigate("/inicio")}
+      >
         Início{" "}
       </Menu.Item>
       {/* <Menu.Item key="activity" icon={<AppstoreOutlined />}>
@@ -61,7 +65,7 @@ const MenuList = ({ darkTheme }) => {
 };
 
 MenuList.propTypes = {
-  darkTheme: PropTypes.string.isRequired,
+  darkTheme: PropTypes.bool.isRequired,
 };
 
 export default MenuList;

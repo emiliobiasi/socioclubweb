@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./CriarPlano.module.css";
 import PlanService from "../../services/plan.service.js";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/auth/useAuth.jsx";
 
 const CriarPlano = () => {
   const [name, setName] = useState("");
@@ -76,35 +76,68 @@ const CriarPlano = () => {
       <form onSubmit={handleSubmit}>
         <div className={styles.inputGroup}>
           <label>Nome</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
 
         <div className={styles.inputGroup}>
           <label>Descrição</label>
-          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} required />
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
         </div>
 
         <div className={styles.inputGroup}>
           <label>Imagem (URL)</label>
-          <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
+          <input
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            required
+          />
         </div>
 
         <div className={styles.inputGroup}>
           <label>Preço</label>
-          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} step="0.01" required />
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            step="0.01"
+            required
+          />
         </div>
 
         <div className={styles.inputGroup}>
           <label>Desconto (%)</label>
-          <input type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} />
+          <input
+            type="number"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
+          />
         </div>
 
         <div className={styles.inputGroup}>
           <label>Prioridade</label>
-          <input type="number" value={priority} onChange={(e) => setPriority(e.target.value)} />
+          <input
+            type="number"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+          />
         </div>
 
-        <button type="submit" className={styles.submitButton} disabled={loading}>
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={loading}
+        >
           {loading ? "Criando plano..." : "Criar Plano"}
         </button>
       </form>

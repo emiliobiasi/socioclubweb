@@ -1,14 +1,15 @@
 import { useState } from "react";
 import InputField from "../../Inputs/InputField/index.jsx";
 import styles from "./FormLogin.module.css";
-import { useAuth } from "../../../contexts/AuthContext.jsx";
+import { useAuth } from "../../../contexts/auth/useAuth.jsx";
+
 
 const FormLogin = () => {
   const [emailClube, setEmailClube] = useState("");
   const [senhaAcesso, setSenhaAcesso] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -24,7 +25,6 @@ const FormLogin = () => {
     try {
       setLoading(true);
       await login(emailClube, senhaAcesso);
-      console.log("Login realizado com sucesso.");
     } catch (error) {
       console.error("Erro ao realizar login:", error);
       setError("Erro ao realizar login. Tente novamente mais tarde.");
