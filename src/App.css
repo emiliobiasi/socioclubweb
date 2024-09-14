@@ -17,14 +17,20 @@
   --color-warning: #ffbb55;
   --color-white: #fff;
   --color-black: #000;
-  --color-blue0: #1D9BF0;
-  --color-blue1: #15202B;
+  --color-blue0: #1d9bf0;
+  --color-blue1: #15202b;
   --color-blue2: #253341;
-  --color-blue3: #0C111B;
-  --color-blue4: #0A639E;
+  --color-blue3: #0c111b;
+  --color-blue4: #0a639e;
   --color-selected: #e2e2e2;
 
+  // Shadow planos cards
 
+  --color-plan-bronze: rgba(205, 127, 50, 0.8);
+  --color-plan-bronze: rgba(205, 127, 50, 0.8);
+  --color-plan-ouro: rgba(255, 215, 0, 0.8);
+  --color-plan-diamante: rgba(185, 242, 255, 0.8);
+  --color-plan-ametista: rgba(153, 102, 204, 0.8);
 
   --color-info-dark: #7d8da1;
   --color-info-light: #dce1eb;
@@ -68,4 +74,3 @@
 .warning {
   color: var(--color-warning);
 }
-

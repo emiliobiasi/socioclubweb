@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import "./Button.css";
 
 const STYLES = ["btn--primary", "btn--outline"];
-const SIZES = ["btn--medium", "btn--large"];
+const SIZES = ["btn--small", "btn--medium", "btn--large"];
 
 export const Button = ({
   children,
@@ -10,6 +10,7 @@ export const Button = ({
   onClick,
   buttonStyle,
   buttonSize,
+  icon, // nova prop para o ícone
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
@@ -23,6 +24,7 @@ export const Button = ({
       onClick={onClick}
       type={type}
     >
+      {icon && <span className="btn-icon">{icon}</span>}
       {children}
     </button>
   );
@@ -34,6 +36,7 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   buttonStyle: PropTypes.oneOf(STYLES),
   buttonSize: PropTypes.oneOf(SIZES),
+  icon: PropTypes.node, // nova propType para o ícone
 };
 
 Button.defaultProps = {

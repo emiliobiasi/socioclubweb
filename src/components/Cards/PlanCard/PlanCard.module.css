@@ -1,5 +1,5 @@
 .planCard {
-  background-color: #fff; /* Container principal branco */
+  background-color: var(--color-white); /* Container principal branco */
   border-radius: 16px;
   padding: 20px;
   margin: 15px;
@@ -10,7 +10,13 @@
 }
 
 .planHeader {
-  background-color: var(--color-blue0);
+  background: linear-gradient(
+    270deg,
+    var(--color-blue0),
+    #0674BD,
+    var(--color-blue4),
+    #034A7A
+  );
   border-radius: 12px;
   padding: 10px;
   margin-bottom: 15px;
@@ -20,24 +26,30 @@
   font-size: 1.6em;
   font-weight: bold;
   margin: 0;
-  color: #fff;
+  color: var(--color-white);
 }
 
 .planPrice {
-  font-size: 2em;
-  color: #1D9BF0;
+  font-size: 2.5em;
+  color: var(--color-blue4);
   font-weight: bold;
 }
 
 .planPriceMonth {
   font-size: 1em;
-  color: #1D9BF0;
+  color: var(--color-blue4);
   margin-top: -25px;
   font-weight: bold;
 }
 
 .planDescriptionContainer {
-  background: linear-gradient(180deg, #1D9BF0 0%, #0C111B 100%); /* Fundo padrão para o container das descrições */
+  background: linear-gradient(
+    180deg,
+    var(--color-blue0),
+    #0674BD,
+    var(--color-blue4),
+    #034A7A
+  );
   border-radius: 12px;
   padding: 10px;
   margin-bottom: 20px;
@@ -61,28 +73,38 @@
 }
 
 .iconActive {
-  color: #fff;
+  color: var(--color-success);
   margin-right: 8px;
+  width: 16px;
+  font-size: 2em;
 }
 
 .iconInactive {
-  color: #666;
+  color: var(--color-danger);
   margin-right: 8px;
+  font-size: 2em;
+  width: 16px;
 }
 
 /* Cores alternadas para os containers individuais das descrições */
 .altBackground {
-  background: var(--color-blue4);
-  color: #fff;
+  background: #034A7A;
+  color: var(--color-white);
 }
 
 .normalBackground {
-  color: #fff;
+  color: var(--color-white);
+}
+
+.containerButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .subscribeButton {
-  background-color: var(--color-blue0);
-  color: #fff;
+  background-color: var(--color-blue4);
+  color: var(--color-white);
   padding: 10px 20px;
   font-size: 1em;
   font-weight: bold;
@@ -93,5 +115,25 @@
 }
 
 .subscribeButton:hover {
-  background-color: #ff8044;
+  background-color: var(--color-blue0);
+}
+
+/* Sombra Bronze */
+.shadowPriority1 {
+  box-shadow: 0 4px 12px var(--color-plan-bronze); /* bronze */
+}
+
+/* Sombra Ouro */
+.shadowPriority2 {
+  box-shadow: 0 4px 12px var(--color-plan-ouro); /* ouro */
+}
+
+/* Sombra Diamante */
+.shadowPriority3 {
+  box-shadow: 0 4px 12px var(--color-plan-diamante); /* diamante */
+}
+
+/* Sombra Ametista */
+.shadowPriority4 {
+  box-shadow: 0 4px 12px var(--color-plan-ametista); /* ametista */
 }

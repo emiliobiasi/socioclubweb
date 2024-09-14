@@ -1,4 +1,5 @@
 import { ColorCard } from "../../components/ColorCard";
+import Smartphone from "../../components/Smartphone";
 import { useAuth } from "../../contexts/auth/useAuth";
 
 const PersonalizarClube = () => {
@@ -27,6 +28,9 @@ const PersonalizarClube = () => {
       ) : (
         <p>Informações do clube não disponíveis.</p>
       )}
+      <div>
+        <Smartphone></Smartphone>
+      </div>
     </>
   );
 };
