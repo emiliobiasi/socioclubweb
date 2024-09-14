@@ -15,6 +15,7 @@ import CriarNoticia from "../pages/CriarNoticia/index.jsx";
 import CriarProduto from "../pages/CriarProduto/index.jsx";
 import PersonalizarClube from "../pages/PersonalizarClube/index.jsx";
 import Inicio from "../pages/Inicio/index.jsx";
+import Financeiro from "../pages/Financeiro/index.jsx";
 
 const AppRoutes = () => {
   return (
@@ -73,6 +74,14 @@ const AppRoutes = () => {
               element={
                 <PrivateRoute>
                   <PersonalizarClube />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="financeiro"
+              element={
+                <PrivateRoute>
+                  <Financeiro />
                 </PrivateRoute>
               }
             />

@@ -47,7 +47,11 @@ const MenuList = ({ darkTheme }) => {
           <Menu.Item key="subtask-2">Subtask 2</Menu.Item>
         </Menu.SubMenu> */}
       </Menu.SubMenu>
-      <Menu.Item key="progress" icon={<AreaChartOutlined />}>
+      <Menu.Item
+        key="progress"
+        icon={<AreaChartOutlined />}
+        onClick={() => navigate("/financeiro")}
+      >
         Financeiro
       </Menu.Item>
       <Menu.Item
