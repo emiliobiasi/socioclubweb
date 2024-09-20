@@ -1,24 +1,38 @@
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import styles from "./ColorCard.module.css";
+import { ChromePicker } from "react-color";
+import Modal from "react-modal";
 
-export const ColorCard = ({ title, color }) => {
+Modal.setAppElement("#root"); // Define o elemento raiz para acessibilidade
+
+export const ColorCard = ({ title, color, onColorChange }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentColor, setCurrentColor] = useState(color);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleColorChange = (newColor) => {
+    setCurrentColor(newColor.hex);
+    onColorChange(newColor.hex); // Passa a nova cor para o componente pai, se necessário
+  };
+
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div className={styles.colorCard}>
       <h4>{title}</h4>
       <div
-        style={{
-          width: "150px",
-          height: "100px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
+        className={styles.containerCard}
+        onClick={handleOpenModal} // Abre o modal ao clicar no card
       >
         <div
           style={{
-            backgroundColor: color,
+            backgroundColor: currentColor,
             height: "60%",
             display: "flex",
             alignItems: "center",
@@ -26,24 +40,42 @@ export const ColorCard = ({ title, color }) => {
             color: "#FFF",
           }}
         >
-          <span>AA 4.55</span>{" "}
+          <span>AA 4.55</span>
         </div>
         <div
-          style={{
-            backgroundColor: "#FFF",
-            height: "40%",
-            padding: "10px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "12px",
-          }}
+          className={styles.containerCode}
         >
           <strong>900</strong>
-          <span>{color}</span>
+          <span>{currentColor}</span>
         </div>
       </div>
+
+      {/* Modal com seletor de cores */}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        contentLabel="Selecione uma cor"
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+          },
+        }}
+      >
+        <h2>Escolha uma cor</h2>
+        <div className={styles.container}>
+          <ChromePicker color={currentColor} onChange={handleColorChange} />
+        </div>
+        <div className={styles.container}>
+          <button onClick={handleCloseModal} className={styles.button}>
+            Fechar
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };
@@ -51,4 +83,5 @@ export const ColorCard = ({ title, color }) => {
 ColorCard.propTypes = {
   title: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  onColorChange: PropTypes.func, // Função para enviar a cor selecionada ao pai
 };

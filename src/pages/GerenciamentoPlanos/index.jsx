@@ -90,7 +90,7 @@ const examplePlans = [
       },
     ],
     image: "https://storage.googleapis.com/socioclub/plan/3/3.jpeg",
-    price: 49.99,
+    price: 69.99,
     discount: 15,
     priority: 4,
     club_id: 1,

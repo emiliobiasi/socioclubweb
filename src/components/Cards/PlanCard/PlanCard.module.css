@@ -118,22 +118,3 @@
   background-color: var(--color-blue0);
 }
 
-/* Sombra Bronze */
-.shadowPriority1 {
-  box-shadow: 0 4px 12px var(--color-plan-bronze); /* bronze */
-}
-
-/* Sombra Ouro */
-.shadowPriority2 {
-  box-shadow: 0 4px 12px var(--color-plan-ouro); /* ouro */
-}
-
-/* Sombra Diamante */
-.shadowPriority3 {
-  box-shadow: 0 4px 12px var(--color-plan-diamante); /* diamante */
-}
-
-/* Sombra Ametista */
-.shadowPriority4 {
-  box-shadow: 0 4px 12px var(--color-plan-ametista); /* ametista */
-}

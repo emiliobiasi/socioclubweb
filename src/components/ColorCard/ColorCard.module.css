@@ -1,0 +1,52 @@
+.colorCard {
+  margin-bottom: 20px;
+  width: 200px;
+}
+
+.containerCard {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid #555555;
+}
+
+.containerCard:hover {
+  box-shadow: 0 4px 12px rgba(8, 242, 255, 0.8);
+}
+
+.containerCode {
+  backgroundColor: #FFF;
+  height: 40%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  border-top: 1px solid #555555;
+}
+
+.button {
+  margin-top: 20px;
+  border-radius: 8px;
+  width: 100%;
+  height: 35px;
+  background-color: var(--color-blue1);
+  color: var(--color-white);
+}
+
+.button:hover {
+  background-color: var(--color-blue0);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
