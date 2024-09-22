@@ -1,0 +1,120 @@
+.eventCard {
+    position: relative;
+    width: 100%;
+    height: 900px;
+    overflow: hidden;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .eventCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Evita distorção mantendo a imagem dentro das proporções do contêiner */
+    border-radius: inherit; /* Mantém os cantos arredondados da imagem */
+  }
+  
+  
+  .category {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .category img {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    object-fit: cover;
+  }
+  
+  .title {
+    position: absolute;
+    bottom: 190px;
+    left: 11%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 20px;
+    border-radius: 20px;
+  }
+  
+  .viewEventButton {
+    position: absolute;
+    bottom: 100px;
+    left: 11%;
+    transform: translateX(-50%);
+    padding: 25px 60px;
+    font-size: 18px;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .viewEventButton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .timerBox {
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    width: 450px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 25px;
+    border-radius: 20px;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .timerBox > span:first-child {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #ccc;
+  }
+  
+  .timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .timer div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .timerNumber {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+  }
+  
+  .timerLabel {
+    font-size: 12px;
+    margin-top: 5px;
+    text-transform: uppercase;
+  }
+  
+  .colon {
+    margin: 0 10px;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }

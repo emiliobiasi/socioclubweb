@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import styles from "./EventCard.module.css";
+import styles from "./ProductCard.module.css";
 
-const EventCard = ({ event }) => {
-  const { name, description, date, location, price, image } = event;
+const ProductCard = ({ product }) => {
+  const { name, description, price, image } = product;
 
   return (
     <div className={styles.card}>
@@ -10,26 +10,20 @@ const EventCard = ({ event }) => {
       <div className={styles.content}>
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.description}>{description}</p>
-        <p className={styles.date}>
-          Data: {new Date(date).toLocaleDateString()}
-        </p>
-        <p className={styles.location}>Local: {location}</p>
-        <p className={styles.price}>Preço: R$ {price / 100}</p>{" "}
+        <p className={styles.price}>R$ {price / 100}</p>{" "}
       </div>
       <button className={styles.button}>Ver Detalhes</button>
     </div>
   );
 };
 
-EventCard.propTypes = {
-  event: PropTypes.shape({
+ProductCard.propTypes = {
+  product: PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default EventCard;
+export default ProductCard;

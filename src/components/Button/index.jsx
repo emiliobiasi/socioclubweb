@@ -33,16 +33,17 @@ export const Button = ({
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   type: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   buttonStyle: PropTypes.oneOf(STYLES),
   buttonSize: PropTypes.oneOf(SIZES),
-  icon: PropTypes.node, // nova propType para o ícone
+  icon: PropTypes.node,
 };
 
 Button.defaultProps = {
   type: "button",
   buttonStyle: STYLES[0],
   buttonSize: SIZES[0],
+  onClick: () => {},
 };
 
 export default Button;

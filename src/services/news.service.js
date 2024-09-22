@@ -1,1 +1,38 @@
-// TODO: news service
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+const createNews = async (
+  text,
+  image,
+  author,
+  title,
+  publish_date,
+  fk_Club_id
+) => {
+  return axios.post(API_URL + "createNews", {
+    text,
+    image,
+    author,
+    title,
+    publish_date,
+    fk_Club_id: parseInt(fk_Club_id, 10),
+  });
+};
+
+const getNewsByClubId = async (fk_Club_id) => {
+  try {
+    const response = await axios.get(`${API_URL}getNewsByClubId/${fk_Club_id}`);
+    return response.data.news;
+  } catch (error) {
+    console.error("Erro ao obter as notícias:", error);
+    throw error;
+  }
+};
+
+const NewsService = {
+  createNews,
+  getNewsByClubId,
+};
+
+export default NewsService;

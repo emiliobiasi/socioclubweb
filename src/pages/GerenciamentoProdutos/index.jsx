@@ -1,21 +1,64 @@
+import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/auth/useAuth";
-
+import styles from "./GerenciamentoProdutos.module.css";
+import Button from "../../components/Button";
+import { CiCirclePlus } from "react-icons/ci";
+import ProductService from "../../services/product.service";
+import ProductCard from "../../components/Cards/ProductCard";
 
 const GerenciamentoProdutos = () => {
-  const { logout, auth } = useAuth();
-  const clubInfo = auth?.club.id;
-  const token = auth?.token;
-  const expiresAt = auth?.expiresAt;
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const { auth } = useAuth();
+  const clubId = auth?.club?.id;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (clubId) {
+        try {
+          setLoading(true);
+          const productsData = await ProductService.getProductsByClubId(clubId);
+          setProducts(productsData);
+          console.log(productsData);
+        } catch (err) {
+          console.error("Erro ao obter os produtos:", err);
+          setError("Erro ao obter os produtos. Por favor, tente novamente.");
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchProducts();
+  }, [clubId]);
 
   return (
-    <>
-      <h1>Gerenciamento de Produtos</h1>
-      <p>Clube: {JSON.stringify(clubInfo)}</p>
-      <p>Token: {token}</p>
-      <p>Expira em: {expiresAt}</p>
+    <div>
+      <div className={styles.title}>
+        <h1>Gerenciamento de Produtos</h1>
+        <div className={styles.button}>
+          <Button buttonSize="btn--small" icon={<CiCirclePlus size={30} />}>
+            Adicionar Produto
+          </Button>
+        </div>
+      </div>
+      <div className={styles.container}>
+        {loading && <p>Carregando produtos...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button onClick={logout}>Logout</button>
-    </>
+        {!loading && !error && products.length > 0 ? (
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          !loading && <p>Nenhum produto encontrado.</p>
+        )}
+      </div>
+    </div>
   );
 };
 
