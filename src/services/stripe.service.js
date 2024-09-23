@@ -36,9 +36,28 @@ const createAccountLink = async (connectedAccountId) => {
   }
 };
 
+const updateStripeAccount = async (accountId, businessType = "individual") => {
+  try {
+    const response = await axios.post(`${API_URL}stripe/account/${accountId}`, {
+      business_type: businessType,
+    });
+    const { account, error } = response.data;
+
+    if (error) {
+      throw new Error("Erro ao atualizar a conta Stripe: " + error);
+    }
+
+    return account;
+  } catch (error) {
+    console.error("Erro ao atualizar a conta Stripe:", error);
+    throw error;
+  }
+};
+
 const StripeService = {
   createStripeAccount,
   createAccountLink,
+  updateStripeAccount,
 };
 
 export default StripeService;
