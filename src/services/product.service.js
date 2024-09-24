@@ -15,14 +15,16 @@ const createProduct = async (
     description,
     price: parseInt(price, 10),
     image,
-    fk_Club_id: parseInt(fk_Club_id, 10),
-    fk_ProductCategory_id: parseInt(fk_ProductCategory_id, 10),
+    category_id: parseInt(fk_ProductCategory_id, 10),
+    club_id: parseInt(fk_Club_id, 10),
   });
 };
 
 const getProductsByClubId = async (fk_Club_id) => {
   try {
-    const response = await axios.get(`${API_URL}getProductsByClubId/${fk_Club_id}`);
+    const response = await axios.get(
+      `${API_URL}getProductsByClubId/${fk_Club_id}`
+    );
     return response.data.products;
   } catch (error) {
     console.error("Erro ao obter os produtos:", error);

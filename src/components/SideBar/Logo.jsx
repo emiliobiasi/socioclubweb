@@ -1,11 +1,11 @@
 import styles from "./SideBar.module.css";
-import { FireFilled } from "@ant-design/icons";
+import logoSideBar from "../../assets/images/logoSideBar.png";
 
 const Logo = () => {
   return (
     <div className={styles.logo}>
       <div className={styles.logoIcon}>
-        <FireFilled />
+        <img src={logoSideBar} alt="Logo" />
       </div>
     </div>
   );
