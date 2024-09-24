@@ -1,4 +1,3 @@
-// AuthContext.js
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -13,13 +12,13 @@ export const AuthProvider = ({ children }) => {
     const clubInfo = localStorage.getItem("club_info");
     const expiresAt = localStorage.getItem("expires_at");
 
-    // Verifica se o `club_info` é uma string válida e faz o parse
     let club = null;
     try {
+      // Verifica se `club_info` é válido antes de tentar o parse
       club = clubInfo ? JSON.parse(clubInfo) : null;
     } catch (error) {
       console.error("Erro ao fazer parse de club_info do localStorage:", error);
-      club = null;
+      club = null; // Define como null se o JSON for inválido
     }
 
     return token ? { token, club, expiresAt } : null;
@@ -41,7 +40,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("club_info", JSON.stringify(club));
         localStorage.setItem("expires_at", expires_at);
 
-        setAuth({ token: access_token, club: club, expiresAt: expires_at });
+        setAuth({ token: access_token, club, expiresAt: expires_at });
         navigate("/inicio");
       } else {
         alert("Credenciais inválidas");
@@ -61,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider value={{ auth, login, logout, setAuth }}>
       {children}
     </AuthContext.Provider>
   );
