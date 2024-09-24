@@ -5,11 +5,13 @@ import Button from "../../components/Button";
 import { CiCirclePlus } from "react-icons/ci";
 import ProductService from "../../services/product.service";
 import ProductCard from "../../components/Cards/ProductCard";
+import { useNavigate } from "react-router-dom";
 
 const GerenciamentoProdutos = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const { auth } = useAuth();
   const clubId = auth?.club?.id;
@@ -39,7 +41,11 @@ const GerenciamentoProdutos = () => {
       <div className={styles.title}>
         <h1>Gerenciamento de Produtos</h1>
         <div className={styles.button}>
-          <Button buttonSize="btn--small" icon={<CiCirclePlus size={30} />}>
+          <Button
+            buttonSize="btn--small"
+            icon={<CiCirclePlus size={30} />}
+            onClick={() => navigate("/criar-produto")}
+          >
             Adicionar Produto
           </Button>
         </div>

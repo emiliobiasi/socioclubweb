@@ -1,54 +1,106 @@
+import { useState } from "react";
 import { ColorCard } from "../../components/ColorCard";
-import Smartphone from "../../components/Smartphone";
 import NoticiaScreen from "../../components/Smartphone/SmartphoneScreens/NoticiasScreen";
 import { useAuth } from "../../contexts/auth/useAuth";
-import styles from "./PersonalizarClube.module.css"; // Importando o CSS Module
-
+import styles from "./PersonalizarClube.module.css";
+import Button from "../../components/Button";
+import ClubService from "../../services/club.service";
 
 const PersonalizarClube = () => {
   const { auth } = useAuth();
   const clubInfo = auth?.club;
 
-  // Smartphones disponíveis (array com base no mock de clubInfo)
-  const smartphones = [
-    <Smartphone />,
-    <Smartphone />,
-    <Smartphone />,
-    <Smartphone />,
-    <Smartphone />,
-    <Smartphone />,
-    <Smartphone />,
-  ];
+  // Mova todos os hooks useState para o topo, antes do retorno condicional
+  const [titleColor, setTitleColor] = useState(clubInfo?.titles_color || "");
+  const [subtitleColor, setSubtitleColor] = useState(
+    clubInfo?.subtitles_color || ""
+  );
+  const [buttonColor, setButtonColor] = useState(clubInfo?.buttons_color || "");
+  const [primaryColor, setPrimaryColor] = useState(clubInfo?.palette_1 || "");
+  const [secondaryColor, setSecondaryColor] = useState(
+    clubInfo?.palette_2 || ""
+  );
+  const [alternativeColor, setAlternativeColor] = useState(
+    clubInfo?.palette_3 || ""
+  );
+
+  if (!clubInfo) {
+    return <p>Informações do clube não disponíveis.</p>;
+  }
+
+  const handleUpdateColors = async () => {
+    if (clubInfo) {
+      const updatedColors = {
+        titles_color: titleColor,
+        subtitles_color: subtitleColor,
+        buttons_color: buttonColor,
+        palette_1: primaryColor,
+        palette_2: secondaryColor,
+        palette_3: alternativeColor,
+      };
+
+      try {
+        await ClubService.updateColorScheme(clubInfo.id, updatedColors);
+        alert("Cores atualizadas com sucesso!");
+      } catch (error) {
+        console.error("Erro ao atualizar as cores:", error);
+        alert("Erro ao atualizar as cores.");
+      }
+    }
+  };
 
   return (
     <>
       <h1>Personalizar Clube</h1>
-      {clubInfo ? (
-        <div className={styles.container}>
-          <div className={styles.leftColumn}>
-            <div>
-              <ColorCard title="Title color" color={clubInfo.titles_color} />
-              <ColorCard
-                title="Subtitle color"
-                color={clubInfo.subtitles_color}
-              />
-              <ColorCard title="Button color" color={clubInfo.buttons_color} />
-            </div>
-            <div>
-              <ColorCard title="Primary color" color={clubInfo.palette_1} />
-              <ColorCard title="Secondary color" color={clubInfo.palette_2} />
-              <ColorCard title="Alternative color" color={clubInfo.palette_3} />
-            </div>
+      <div className={styles.container}>
+        <div className={styles.leftColumn}>
+          <div>
+            <ColorCard
+              title="Title color"
+              color={titleColor}
+              onColorChange={setTitleColor}
+            />
+            <ColorCard
+              title="Subtitle color"
+              color={subtitleColor}
+              onColorChange={setSubtitleColor}
+            />
+            <ColorCard
+              title="Button color"
+              color={buttonColor}
+              onColorChange={setButtonColor}
+            />
           </div>
-
-          <div className={styles.rightColumn}>
-            {/* Tela de Noticias */}
-            <NoticiaScreen />
+          <div>
+            <ColorCard
+              title="Primary color"
+              color={primaryColor}
+              onColorChange={setPrimaryColor}
+            />
+            <ColorCard
+              title="Secondary color"
+              color={secondaryColor}
+              onColorChange={setSecondaryColor}
+            />
+            <ColorCard
+              title="Alternative color"
+              color={alternativeColor}
+              onColorChange={setAlternativeColor}
+            />
           </div>
         </div>
-      ) : (
-        <p>Informações do clube não disponíveis.</p>
-      )}
+
+        <div className={styles.rightColumn}>
+          {/* Tela de Noticias */}
+          <NoticiaScreen />
+        </div>
+
+        <div className={styles.buttonContainer}>
+          <Button onClick={handleUpdateColors} className={styles.saveButton}>
+            Salvar Cores
+          </Button>
+        </div>
+      </div>
     </>
   );
 };

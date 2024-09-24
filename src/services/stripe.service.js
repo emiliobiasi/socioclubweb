@@ -54,10 +54,29 @@ const updateStripeAccount = async (accountId, businessType = "individual") => {
   }
 };
 
+const updateClubStripeId = async (clubId, stripeId) => {
+  try {
+    const response = await axios.put(`${API_URL}updateStripeId/${clubId}`, {
+      stripe_id: stripeId,
+    });
+    const { club, error } = response.data;
+
+    if (error) {
+      throw new Error("Erro ao atualizar o Stripe ID do clube: " + error);
+    }
+
+    return club;
+  } catch (error) {
+    console.error("Erro ao atualizar o Stripe ID do clube:", error);
+    throw error;
+  }
+};
+
 const StripeService = {
   createStripeAccount,
   createAccountLink,
   updateStripeAccount,
+  updateClubStripeId,
 };
 
 export default StripeService;

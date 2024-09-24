@@ -5,6 +5,7 @@ import PlanCard from "../../components/Cards/PlanCard/index.jsx";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import Button from "../../components/Button";
 import { CiCirclePlus } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 const examplePlans = [
   {
@@ -101,6 +102,7 @@ const GerenciamentoPlanos = () => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const { auth } = useAuth();
 
@@ -129,7 +131,11 @@ const GerenciamentoPlanos = () => {
       <div className={styles.title}>
         <h1>Gerenciamento de Planos</h1>
         <div className={styles.button}>
-          <Button buttonSize="btn--small" icon={<CiCirclePlus size={30} />}>
+          <Button
+            buttonSize="btn--small"
+            icon={<CiCirclePlus size={30} />}
+            onClick={() => navigate("/criar-plano")}
+          >
             Adicionar Plano
           </Button>
         </div>

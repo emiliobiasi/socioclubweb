@@ -5,11 +5,13 @@ import Button from "../../components/Button";
 import { CiCirclePlus } from "react-icons/ci";
 import EventService from "../../services/event.service";
 import EventCard from "../../components/Cards/EventCard";
+import { useNavigate } from "react-router-dom";
 
 const GerenciamentoEventos = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const { auth } = useAuth();
   const clubId = auth?.club?.id;
@@ -45,10 +47,6 @@ const GerenciamentoEventos = () => {
     fetchEvents();
   }, [clubId]);
 
-  const handleAddEvent = () => {
-    console.log("Função de adicionar evento foi chamada");
-  };
-
   return (
     <div>
       <div className={styles.title}>
@@ -57,7 +55,7 @@ const GerenciamentoEventos = () => {
           <Button
             buttonSize="btn--small"
             icon={<CiCirclePlus size={30} />}
-            onClick={handleAddEvent}
+            onClick={() => navigate("/criar-evento")}
           >
             Adicionar Evento
           </Button>

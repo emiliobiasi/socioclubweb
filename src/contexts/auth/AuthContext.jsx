@@ -10,8 +10,18 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
     const token = localStorage.getItem("access_token");
-    const club = JSON.parse(localStorage.getItem("club_info"));
+    const clubInfo = localStorage.getItem("club_info");
     const expiresAt = localStorage.getItem("expires_at");
+
+    // Verifica se o `club_info` é uma string válida e faz o parse
+    let club = null;
+    try {
+      club = clubInfo ? JSON.parse(clubInfo) : null;
+    } catch (error) {
+      console.error("Erro ao fazer parse de club_info do localStorage:", error);
+      club = null;
+    }
+
     return token ? { token, club, expiresAt } : null;
   });
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./ColorCard.module.css";
 import { ChromePicker } from "react-color";
@@ -20,7 +20,7 @@ export const ColorCard = ({ title, color, onColorChange }) => {
 
   const handleColorChange = (newColor) => {
     setCurrentColor(newColor.hex);
-    onColorChange(newColor.hex); // Passa a nova cor para o componente pai, se necessário
+    onColorChange(newColor.hex); // Passa a nova cor para o componente pai
   };
 
   return (
@@ -42,9 +42,7 @@ export const ColorCard = ({ title, color, onColorChange }) => {
         >
           <span>AA 4.55</span>
         </div>
-        <div
-          className={styles.containerCode}
-        >
+        <div className={styles.containerCode}>
           <strong>900</strong>
           <span>{currentColor}</span>
         </div>

@@ -5,11 +5,13 @@ import Button from "../../components/Button";
 import { CiCirclePlus } from "react-icons/ci";
 import NewsService from "../../services/news.service";
 import NewsCard from "../../components/Cards/NewsCard";
+import { useNavigate } from "react-router-dom";
 
 const GerenciamentoNoticias = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const { auth } = useAuth();
   const clubId = auth?.club?.id;
@@ -39,7 +41,11 @@ const GerenciamentoNoticias = () => {
       <div className={styles.title}>
         <h1>Gerenciamento de Notícias</h1>
         <div className={styles.button}>
-          <Button buttonSize="btn--small" icon={<CiCirclePlus size={30} />}>
+          <Button
+            buttonSize="btn--small"
+            icon={<CiCirclePlus size={30} />}
+            onClick={() => navigate("/criar-noticia")}
+          >
             Adicionar Notícia
           </Button>
         </div>
