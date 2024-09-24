@@ -1,11 +1,14 @@
 import PropTypes from "prop-types"; // Importando PropTypes
 import styles from "./Smartphone.module.css";
 
-const Smartphone = ({ children, borderColor, shadowColor }) => {
+const Smartphone = ({ children, borderColor, shadowColor, PrimaryColor }) => {
+
+  const backgroundColor = PrimaryColor || "#15202B";
+
   return (
     <div
       className={styles.smartphone}
-      style={{ borderColor, boxShadow: `15px 15px 10px ${shadowColor}` }}
+      style={{ borderColor, boxShadow: `15px 15px 10px ${shadowColor}`, backgroundColor: backgroundColor }}
     >
       <div className={styles.screen}>{children}</div>
       <div className={styles.homeButton}>
@@ -20,6 +23,7 @@ Smartphone.propTypes = {
   children: PropTypes.node.isRequired, // Validação para conteúdo interno
   borderColor: PropTypes.string, // Cor da borda
   shadowColor: PropTypes.string, // Cor da sombra
+  PrimaryColor: PropTypes.string, // Cor da sombra
 };
 
 Smartphone.defaultProps = {

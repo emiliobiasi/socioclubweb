@@ -1,5 +1,4 @@
 .newsCard {
-  background-color: #253341;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -20,17 +19,14 @@
 .newsTitle {
   font-size: 1.2em;
   margin: 0 0 10px 0;
-  color: #fff;
   font-weight: bold;
 }
 
 .newsDescription {
   font-size: 1em;
-  color: #fff;
   margin-bottom: 10px;
 }
 
 .newsCreator {
   font-size: 0.9em;
-  color: #AAB8C2;
 }

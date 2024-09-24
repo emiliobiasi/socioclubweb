@@ -5,12 +5,14 @@ import { useAuth } from "../../contexts/auth/useAuth";
 import styles from "./PersonalizarClube.module.css";
 import Button from "../../components/Button";
 import ClubService from "../../services/club.service";
+import ProdutosScreen from "../../components/Smartphone/SmartphoneScreens/ProdutosScreen";
 
 const PersonalizarClube = () => {
   const { auth } = useAuth();
   const clubInfo = auth?.club;
 
   // Mova todos os hooks useState para o topo, antes do retorno condicional
+  const [name, setName] = useState(clubInfo?.name || "");
   const [titleColor, setTitleColor] = useState(clubInfo?.titles_color || "");
   const [subtitleColor, setSubtitleColor] = useState(
     clubInfo?.subtitles_color || ""
@@ -92,7 +94,8 @@ const PersonalizarClube = () => {
 
         <div className={styles.rightColumn}>
           {/* Tela de Noticias */}
-          <NoticiaScreen />
+          <NoticiaScreen Name={name} ButtonColor={buttonColor} SubtitleColor={subtitleColor} TitleColor={titleColor} PrimaryColor={primaryColor} SecondaryColor={secondaryColor} />
+          <ProdutosScreen />
         </div>
 
         <div className={styles.buttonContainer}>
