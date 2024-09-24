@@ -2,31 +2,38 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-// const createEvent = async (
-//   name,
-//   description,
-//   date,
-//   image,
-//   location,
-//   price,
-//   club_id
-// ) => {
-//   try {
-//     const response = await axios.post(API_URL + "createEvent", {
-//       name,
-//       description,
-//       date,
-//       image,
-//       location,
-//       price: parseFloat(price),
-//       club_id: parseInt(club_id, 10),
-//     });
-//     return response.data; // Retorna a resposta do servidor
-//   } catch (error) {
-//     console.error("Erro ao criar o evento:", error);
-//     throw error; // Lança o erro para ser tratado pelo chamador da função
-//   }
-// };
+const createEvent = async (
+  eventName,
+  description,
+  image,
+  price,
+  date,
+  tickets_away,
+  tickets_home,
+  club_id
+) => {
+  try {
+    const response = await axios.post(API_URL + "createEvent", {
+      eventName,
+      description,
+      image,
+      fullPrice: parseFloat(price),
+      eventDate: date,
+      ticketsAway: parseInt(tickets_away),
+      ticketsHome: parseInt(tickets_home),
+      fkClubId: parseInt(club_id, 10),
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Erro inesperado ao criar o evento");
+    }
+  } catch (error) {
+    console.error("Erro ao criar o evento:", error);
+    throw error;
+  }
+};
 
 const getEventsByClubId = async (club_id) => {
   try {
@@ -39,7 +46,7 @@ const getEventsByClubId = async (club_id) => {
 };
 
 const EventService = {
-  //   createEvent,
+  createEvent,
   getEventsByClubId,
 };
 
