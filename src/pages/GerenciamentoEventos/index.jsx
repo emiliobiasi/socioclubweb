@@ -23,7 +23,6 @@ const GerenciamentoEventos = () => {
           setLoading(true);
           const eventsData = await EventService.getEventsByClubId(clubId);
 
-          // Verifique se eventsData é um array antes de definir
           if (Array.isArray(eventsData)) {
             setEvents(eventsData);
           } else {
@@ -47,6 +46,19 @@ const GerenciamentoEventos = () => {
     fetchEvents();
   }, [clubId]);
 
+  // Função para deletar um evento e remover do estado
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      await EventService.deleteEvent(eventId);
+      setEvents((prevEvents) =>
+        prevEvents.filter((event) => event.id !== eventId)
+      );
+    } catch (err) {
+      console.error("Erro ao deletar o evento:", err);
+      setError("Erro ao deletar o evento. Por favor, tente novamente.");
+    }
+  };
+
   return (
     <div>
       <div className={styles.title}>
@@ -68,7 +80,11 @@ const GerenciamentoEventos = () => {
         {!loading && !error && Array.isArray(events) && events.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {events.map((event) => (
-              <EventCard key={event.id} event={event} />
+              <EventCard
+                key={event.id}
+                event={event}
+                onDelete={() => handleDeleteEvent(event.id)} // Passa o callback para deletar
+              />
             ))}
           </div>
         ) : (

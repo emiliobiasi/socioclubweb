@@ -36,6 +36,17 @@ const GerenciamentoNoticias = () => {
     fetchNews();
   }, [clubId]);
 
+  // Função para deletar uma notícia e remover do estado
+  const handleDeleteNews = async (newsId) => {
+    try {
+      await NewsService.deleteNew(newsId);
+      setNews((prevNews) => prevNews.filter((item) => item.id !== newsId));
+    } catch (err) {
+      console.error("Erro ao deletar a notícia:", err);
+      setError("Erro ao deletar a notícia. Por favor, tente novamente.");
+    }
+  };
+
   return (
     <div>
       <div className={styles.title}>
@@ -56,7 +67,11 @@ const GerenciamentoNoticias = () => {
         {!loading && !error && news.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {news.map((item) => (
-              <NewsCard key={item.id} news={item} />
+              <NewsCard
+                key={item.id}
+                news={item}
+                onDelete={() => handleDeleteNews(item.id)} // Passa o callback para deletar
+              />
             ))}
           </div>
         ) : (

@@ -45,9 +45,24 @@ const getEventsByClubId = async (club_id) => {
   }
 };
 
+const deleteEvent = async (event_id) => {
+  try {
+    const response = await axios.delete(`${API_URL}deleteEvent/${event_id}`);
+    if (response.status === 200) {
+      return response.data.message;
+    } else {
+      throw new Error("Erro inesperado ao deletar o evento");
+    }
+  } catch (error) {
+    console.error("Erro ao deletar o evento:", error);
+    throw error;
+  }
+};
+
 const EventService = {
   createEvent,
   getEventsByClubId,
+  deleteEvent,
 };
 
 export default EventService;

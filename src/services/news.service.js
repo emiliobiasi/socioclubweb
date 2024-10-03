@@ -22,9 +22,20 @@ const getNewsByClubId = async (fk_Club_id) => {
   }
 };
 
+const deleteNew = async (new_id) => {
+  try {
+    const response = await axios.delete(`${API_URL}deleteNew/${new_id}`);
+    return response.data.message;
+  } catch (error) {
+    console.error("Erro ao deletar a notícia:", error);
+    throw error;
+  }
+};
+
 const NewsService = {
   createNews,
   getNewsByClubId,
+  deleteNew,
 };
 
 export default NewsService;

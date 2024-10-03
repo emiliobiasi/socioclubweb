@@ -37,10 +37,10 @@ const CriarNoticia = () => {
       setLoading(true);
 
       const response = await NewsService.createNews(
-        title,
         text,
         image,
         author,
+        title,
         parseInt(clubId, 10)
       );
 
