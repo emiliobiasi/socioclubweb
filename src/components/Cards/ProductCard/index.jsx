@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import styles from "./ProductCard.module.css";
 import InputField from "../../Inputs/InputField";
+import ProductService from "../../../services/product.service";
 
 const ProductCard = ({ product, onEdit, onDelete }) => {
-  const { name, description, price, image } = product;
-  console.log(product);
+  const { id, name, description, price, image } = product;
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
@@ -16,15 +16,23 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
 
   const handleDeleteClick = () => {
     setDeleteModalOpen(true);
-    onDelete();
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await ProductService.deleteProduct(id);
+      setDeleteModalOpen(false);
+      onDelete(id); // Chama a função onDelete após a exclusão
+    } catch (error) {
+      console.error("Erro ao deletar produto:", error);
+    }
   };
 
   return (
     <div className={styles.card}>
       <img
-        src={
-          "https://images.tcdn.com.br/img/img_prod/1141538/camisa_sao_paulo_ii_new_balance_24_25_superbet_listrada_18061_1_28901b9ea6cb2828d13d99fce2afe37a.jpg"
-        }
+        // src={image || "https://via.placeholder.com/150"}
+        src={"https://via.placeholder.com/150"}
         alt={name}
         className={styles.image}
       />
@@ -60,43 +68,41 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
               &times;
             </span>
             <h2>Editar Produto</h2>
-            <p></p> {/* Linha horizontal já está aplicada no CSS */}
-            {/* Formulário de edição */}
             <div className={styles.formulario}>
               <InputField
                 label="Nome do produto"
                 type="text"
-                value={""}
-                onChange={""}
+                value={name}
+                onChange={""} // Aqui você pode passar a função para lidar com as mudanças
                 labelColor={"#fff"}
               />
               <InputField
                 label="Descrição do produto"
                 type="text"
-                value={""}
-                onChange={""}
+                value={description}
+                onChange={""} // Aqui você pode passar a função para lidar com as mudanças
                 labelColor={"#fff"}
               />
               <InputField
                 label="Preço do produto"
                 type="text"
-                value={""}
-                onChange={""}
+                value={price}
+                onChange={""} // Aqui você pode passar a função para lidar com as mudanças
                 labelColor={"#fff"}
               />
             </div>
             <div className={styles.modalActions}>
               <button
                 className={styles.modalButton}
-                onClick={() => setDeleteModalOpen(false)}
+                onClick={() => setEditModalOpen(false)}
               >
-                Sim
+                Confirmar
               </button>
               <button
                 className={styles.modalButton}
-                onClick={() => setDeleteModalOpen(false)}
+                onClick={() => setEditModalOpen(false)}
               >
-                Não
+                Cancelar
               </button>
             </div>
           </div>
@@ -114,11 +120,10 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
               &times;
             </span>
             <h2>Confirme para excluir</h2>
-            <p></p> {/* Linha horizontal já está aplicada no CSS */}
             <div className={styles.modalActions}>
               <button
                 className={styles.modalButton}
-                onClick={() => setDeleteModalOpen(false)}
+                onClick={confirmDelete} // Chama a função de confirmação de exclusão
               >
                 Sim
               </button>
@@ -138,13 +143,14 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
   }).isRequired,
   onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired, // Adiciona a prop onDelete como obrigatória
 };
 
 export default ProductCard;

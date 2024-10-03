@@ -32,9 +32,22 @@ const getProductsByClubId = async (fk_Club_id) => {
   }
 };
 
+const deleteProduct = async (product_id) => {
+  try {
+    const response = await axios.delete(
+      `${API_URL}deleteProduct/${product_id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar o produto:", error);
+    throw error;
+  }
+};
+
 const ProductService = {
   createProduct,
   getProductsByClubId,
+  deleteProduct,
 };
 
 export default ProductService;

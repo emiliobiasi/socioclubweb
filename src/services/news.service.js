@@ -2,21 +2,13 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const createNews = async (
-  text,
-  image,
-  author,
-  title,
-  publish_date,
-  fk_Club_id
-) => {
+const createNews = async (text, image, author, title, fk_Club_id) => {
   return axios.post(API_URL + "createNews", {
     text,
     image,
     author,
     title,
-    publish_date,
-    fk_Club_id: parseInt(fk_Club_id, 10),
+    club_id: parseInt(fk_Club_id, 10),
   });
 };
 

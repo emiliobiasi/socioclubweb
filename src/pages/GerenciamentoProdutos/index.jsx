@@ -36,6 +36,20 @@ const GerenciamentoProdutos = () => {
     fetchProducts();
   }, [clubId]);
 
+  // Função para remover o produto do estado
+  const handleDelete = async (productId) => {
+    try {
+      await ProductService.deleteProduct(productId); // Deleta o produto no backend
+      setProducts(
+        (prevProducts) =>
+          prevProducts.filter((product) => product.id !== productId) // Atualiza a lista de produtos no estado
+      );
+    } catch (err) {
+      console.error("Erro ao deletar o produto:", err);
+      setError("Erro ao deletar o produto. Por favor, tente novamente.");
+    }
+  };
+
   return (
     <div>
       <div className={styles.title}>
@@ -57,7 +71,11 @@ const GerenciamentoProdutos = () => {
         {!loading && !error && products.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onDelete={() => handleDelete(product.id)} // Passa a função de deletar
+              />
             ))}
           </div>
         ) : (
