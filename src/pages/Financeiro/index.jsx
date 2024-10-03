@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StripeService from "../../services/stripe.service";
+import { useAuth } from "../../contexts/auth/useAuth";
+import styles from "./Financeiro.module.css"; // Importar o arquivo CSS
 
 const Financeiro = () => {
   const [accountCreatePending, setAccountCreatePending] = useState(false);
@@ -8,16 +10,33 @@ const Financeiro = () => {
   const [accountUpdatePending, setAccountUpdatePending] = useState(false);
   const [connectedAccountUpdated, setConnectedAccountUpdated] = useState(false);
   const [error, setError] = useState(false);
-  const [connectedAccountId, setConnectedAccountId] = useState();
+  const [connectedAccountId, setConnectedAccountId] = useState(null);
 
-  // Função para criar a conta
+  const { auth, setAuth } = useAuth();
+  const clubId = auth?.club?.id;
+  const existingStripeId = auth?.club?.stripe_id;
+
+  useEffect(() => {
+    if (existingStripeId) {
+      setConnectedAccountId(existingStripeId);
+    }
+  }, [existingStripeId]);
+
   const handleCreateAccount = async () => {
     setAccountCreatePending(true);
     setError(false);
-
     try {
       const account = await StripeService.createStripeAccount();
       setConnectedAccountId(account);
+      const updatedClub = await StripeService.updateClubStripeId(
+        clubId,
+        account
+      );
+      setAuth((prevAuth) => ({
+        ...prevAuth,
+        club: updatedClub,
+      }));
+      localStorage.setItem("club_info", JSON.stringify(updatedClub));
     } catch (error) {
       setError(true);
     } finally {
@@ -25,11 +44,9 @@ const Financeiro = () => {
     }
   };
 
-  // Função para criar o link da conta
   const handleCreateAccountLink = async () => {
     setAccountLinkCreatePending(true);
     setError(false);
-
     try {
       const url = await StripeService.createAccountLink(connectedAccountId);
       if (url) {
@@ -42,11 +59,9 @@ const Financeiro = () => {
     }
   };
 
-  // Função para atualizar a conta conectada
   const handleUpdateAccount = async () => {
     setAccountUpdatePending(true);
     setError(false);
-
     try {
       await StripeService.updateStripeAccount(connectedAccountId, "individual");
       setConnectedAccountUpdated(true);
@@ -58,17 +73,20 @@ const Financeiro = () => {
   };
 
   return (
-    <div className="container">
-      <div className="banner">
+    <div className={styles.container}>
+      <div className={styles.banner}>
         <h1>Financeiro</h1>
       </div>
-      <div className="content">
+      <div className={styles.content}>
+        {error && <p className={styles.error}>Algo deu errado!</p>}
         {!connectedAccountId && <h2>Prepare-se para a decolagem</h2>}
         {!connectedAccountId && (
           <p>SocioClub: junte-se à nossa comunidade de clubes.</p>
         )}
         {connectedAccountId && (
-          <h2>Adicione informações para começar a aceitar pagamentos</h2>
+          <h2>
+            Adicione ou edite informações para começar a aceitar pagamentos
+          </h2>
         )}
         {connectedAccountId && (
           <p>
@@ -77,43 +95,41 @@ const Financeiro = () => {
           </p>
         )}
 
-        {/* Botão para criar conta */}
         {!accountCreatePending && !connectedAccountId && (
-          <button onClick={handleCreateAccount}>Criar uma conta!</button>
-        )}
-
-        {/* Botão para adicionar informações à conta já criada */}
-        {connectedAccountId && !accountLinkCreatePending && (
-          <button onClick={handleCreateAccountLink}>
-            Adicionar informações
+          <button onClick={handleCreateAccount} className={styles.button}>
+            Criar uma conta!
           </button>
         )}
 
-        {/* Novo botão para atualizar a conta com novos dados */}
+        {connectedAccountId && !accountLinkCreatePending && (
+          <button onClick={handleCreateAccountLink} className={styles.button}>
+            Adicionar/Editar informações
+          </button>
+        )}
+
         {connectedAccountId &&
           !accountUpdatePending &&
           !connectedAccountUpdated && (
-            <button onClick={handleUpdateAccount}>Atualizar Conta</button>
+            <button onClick={handleUpdateAccount} className={styles.button}>
+              Atualizar Conta
+            </button>
           )}
 
         {connectedAccountUpdated && (
-          <div className="example-form">
+          <div className={styles["example-form"]}>
             <h2>O fluxo de integração vai aqui</h2>
           </div>
         )}
 
-        {error && <p className="error">Algo deu errado!</p>}
-
-        {/* Exibição de status */}
         {(connectedAccountId ||
           accountCreatePending ||
           accountLinkCreatePending ||
           accountUpdatePending) && (
-          <div className="dev-callout">
+          <div className={styles["dev-callout"]}>
             {connectedAccountId && (
               <p>
                 Seu ID de conta conectada é:{" "}
-                <code className="bold">{connectedAccountId}</code>
+                <code className={styles.bold}>{connectedAccountId}</code>
               </p>
             )}
             {accountCreatePending && <p>Criando uma conta conectada...</p>}
@@ -143,7 +159,7 @@ const Financeiro = () => {
           </div>
         )}
 
-        <div className="info-callout">
+        <div className={styles["info-callout"]}>
           <p>
             Este é um app de exemplo para onboarding de Connect hospedado no
             Stripe.{" "}

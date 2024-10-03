@@ -56,7 +56,8 @@ const updateStripeAccount = async (accountId, businessType = "individual") => {
 
 const updateClubStripeId = async (clubId, stripeId) => {
   try {
-    const response = await axios.put(`${API_URL}updateStripeId/${clubId}`, {
+    const response = await axios.put(`${API_URL}updateStripeId`, {
+      club_id: clubId, // Inclui o clubId no corpo da requisição
       stripe_id: stripeId,
     });
     const { club, error } = response.data;
