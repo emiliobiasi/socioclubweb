@@ -16,6 +16,7 @@ import CriarProduto from "../pages/CriarProduto/index.jsx";
 import PersonalizarClube from "../pages/PersonalizarClube/index.jsx";
 import Inicio from "../pages/Inicio/index.jsx";
 import Financeiro from "../pages/Financeiro/index.jsx";
+import StripeReturn from "../pages/StripeReturn/index.jsx";
 
 const AppRoutes = () => {
   return (
@@ -34,7 +35,14 @@ const AppRoutes = () => {
               }
             /> */}
 
-          <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>}>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          >
             <Route
               path="inicio"
               element={
@@ -82,6 +90,14 @@ const AppRoutes = () => {
               element={
                 <PrivateRoute>
                   <Financeiro />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/financeiro/:connectedAccountId"
+              element={
+                <PrivateRoute>
+                  <StripeReturn />
                 </PrivateRoute>
               }
             />

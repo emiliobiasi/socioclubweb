@@ -73,11 +73,38 @@ const updateClubStripeId = async (clubId, stripeId) => {
   }
 };
 
+const createProduct = async (
+  name,
+  price,
+  currency = "usd",
+  interval = null
+) => {
+  try {
+    const response = await axios.post(`${API_URL}stripe/create_product`, {
+      name,
+      price,
+      currency,
+      interval,
+    });
+    const { price_id, error } = response.data;
+
+    if (error) {
+      throw new Error("Erro ao criar o produto na Stripe: " + error);
+    }
+
+    return price_id;
+  } catch (error) {
+    console.error("Erro ao criar o produto na Stripe:", error);
+    throw error;
+  }
+};
+
 const StripeService = {
   createStripeAccount,
   createAccountLink,
   updateStripeAccount,
   updateClubStripeId,
+  createProduct,
 };
 
 export default StripeService;
