@@ -1,55 +1,22 @@
 import PropTypes from "prop-types";
-import InputField from "../../Inputs/InputField";
-import styles from "./EditModal.module.css";
+import styles from "./DeleteModal.module.css";
 
-const EditModal = ({
-  isOpen,
-  onClose,
-  name,
-  description,
-  price,
-  onChangeName,
-  onChangeDescription,
-  onChangePrice,
-}) => {
+const DeleteModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (
     <div className={styles.modal}>
-      <div className={styles.modalContentForm}>
+      <div className={styles.modalContent}>
         <span className={styles.close} onClick={onClose}>
           &times;
         </span>
-        <h2 className={styles.title}>Editar Produto</h2>
-        <div className={styles.formulario}>
-          <InputField
-            label="Nome do produto"
-            type="text"
-            value={name}
-            onChange={onChangeName}
-            labelColor={"#fff"}
-          />
-          <InputField
-            label="Descrição do produto"
-            type="text"
-            value={description}
-            onChange={onChangeDescription}
-            labelColor={"#fff"}
-          />
-          <InputField
-            label="Preço do produto"
-            type="text"
-            value={price}
-            onChange={onChangePrice}
-            labelColor={"#fff"}
-          />
-        </div>
+        <h2 className={styles.title}>Confirme para excluir</h2>
         <div className={styles.modalActions}>
-          <button className={styles.modalButton} onClick={onClose}>
-            Confirmar
+          <button className={styles.modalButton} onClick={onConfirm}>
+            Sim
           </button>
           <button className={styles.modalButton} onClick={onClose}>
-            Cancelar
+            Não
           </button>
         </div>
       </div>
@@ -57,15 +24,10 @@ const EditModal = ({
   );
 };
 
-EditModal.propTypes = {
+DeleteModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  onChangeName: PropTypes.func.isRequired,
-  onChangeDescription: PropTypes.func.isRequired,
-  onChangePrice: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
-export default EditModal;
+export default DeleteModal;

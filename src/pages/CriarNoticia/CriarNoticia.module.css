@@ -39,6 +39,12 @@
     border-color: #007bff;
     outline: none;
   }
+
+  .text_area {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
   
   .submitButton {
     width: 100%;

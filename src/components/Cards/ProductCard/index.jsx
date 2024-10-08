@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import styles from "./ProductCard.module.css";
 import ProductService from "../../../services/product.service";
-import EditModal from "../../Modais/DeleteModal";
-import DeleteModal from "../../Modais/EditModal";
+import EditModal from "../../Modais/EditModal";
+import DeleteModal from "../../Modais/DeleteModal";
 
 const ProductCard = ({ product, onEdit, onDelete }) => {
   const { id, name, description, price, image } = product;

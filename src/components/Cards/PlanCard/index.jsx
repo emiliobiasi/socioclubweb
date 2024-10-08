@@ -1,10 +1,34 @@
 import PropTypes from "prop-types";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { useState } from "react";
+// import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import styles from "./PlanCard.module.css";
+import EditModalProduto from "../../Modais/EditModalProduto";
+import DeleteModal from "../../Modais/DeleteModal";
 
 const PlanCard = ({ plan }) => {
   // Determinar a classe de cor e sombra com base na prioridade
   const shadowClass = `shadowPriority${plan.priority}`;
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const handleEditClick = () => {
+    setEditModalOpen(true);
+    // onEdit();
+  };
+
+  const handleDeleteClick = () => {
+    setDeleteModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      // await ProductService.deleteProduct(id);
+      setDeleteModalOpen(false);
+      // onDelete(id); // Chama a função onDelete após a exclusão
+    } catch (error) {
+      console.error("Erro ao deletar produto:", error);
+    }
+  };
 
   return (
     <div className={`${styles.planCard} ${styles[shadowClass]}`}>
@@ -19,7 +43,8 @@ const PlanCard = ({ plan }) => {
       {/* Container envolvendo todas as descrições */}
       <div className={styles.planDescriptionContainer}>
         <ul className={styles.planDescriptionList}>
-          {plan.description.map((desc, index) => (
+          {plan.description}
+          {/* {plan.description.map((desc, index) => (
             <li
               key={index}
               className={`${styles.planDescription} ${
@@ -33,12 +58,34 @@ const PlanCard = ({ plan }) => {
               )}
               {desc.descricao}
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
       <div className={styles.containerButton}>
-        <button className={styles.subscribeButton}>EDITAR</button>
-        <button className={styles.subscribeButton}>DELETAR</button>
+        {/* Modal de Edição */}
+        {isEditModalOpen && (
+          <EditModalProduto
+            isOpen={isEditModalOpen}
+            onClose={() => setEditModalOpen(false)}
+            name={name}
+            // description={description}
+            // price={price}
+            // onChangeName={handleNameChange}
+            // onChangeDescription={handleDescriptionChange}
+            // onChangePrice={handlePriceChange}
+          />
+        )}
+
+        {/* Modal de Exclusão */}
+        {isDeleteModalOpen && (
+          <DeleteModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setDeleteModalOpen(false)}
+            onConfirm={confirmDelete}
+          />
+        )}
+        <button className={styles.subscribeButton} onClick={handleEditClick}>EDITAR</button>
+        <button className={styles.subscribeButton} onClick={handleDeleteClick}>DELETAR</button>
       </div>
     </div>
   );

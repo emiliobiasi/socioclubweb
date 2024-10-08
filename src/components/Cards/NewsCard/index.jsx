@@ -1,9 +1,14 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import styles from "./NewsCard.module.css";
 import NewsService from "../../../services/news.service";
+import DeleteModal from "../../Modais/EditModal";
 
 const NewsCard = ({ news, onDelete }) => {
   const { id, title, author, publish_date, image, text } = news;
+
+  // Estado para controlar a expansão do texto
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleDelete = async () => {
     try {
@@ -16,20 +21,51 @@ const NewsCard = ({ news, onDelete }) => {
     }
   };
 
+  // Função para alternar o estado de expansão
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const handleDeleteClick = () => {
+    setDeleteModalOpen(true);
+  };
+
   return (
     <div className={styles.card}>
       <img src={image} alt={title} className={styles.image} />
       <div className={styles.content}>
-        <h3 className={styles.title}>{title}</h3>
+        <div className={styles.content_head}>
+          <h3 className={styles.title}>{title}</h3>
+          {isDeleteModalOpen && (
+            <DeleteModal
+              isOpen={isDeleteModalOpen}
+              onClose={() => setDeleteModalOpen(false)}
+              onConfirm={handleDelete}
+            />
+          )}
+          <button className={styles.deleteButton} onClick={handleDeleteClick}>
+            <i className="fas fa-trash-alt"></i>
+          </button>
+        </div>
         <p className={styles.author}>Autor: {author}</p>
         <p className={styles.date}>
           Publicado em: {new Date(publish_date).toLocaleDateString()}
         </p>
-        <p className={styles.text}>{text.substring(0, 100)}...</p>
+
+        {/* Renderiza o texto truncado ou completo baseado no estado de expansão */}
+        <p className={styles.text}>
+          {isExpanded ? text : `${text.substring(0, 1000)}...`}
+        </p>
+
+        {/* Exibe o botão se o texto for maior que 1000 caracteres */}
+        {text.length > 1000 && (
+          <button className={styles.expandButton} onClick={toggleExpand}>
+            {isExpanded ? "Mostrar menos" : "Ler mais"}
+          </button>
+        )}
       </div>
-      <button className={styles.button} onClick={handleDelete}>
-        Deletar Notícia
-      </button>
     </div>
   );
 };

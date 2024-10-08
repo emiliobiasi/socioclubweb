@@ -2,10 +2,16 @@ import PropTypes from "prop-types";
 import styles from "./EventCard.module.css";
 import { useState } from "react";
 import EventService from "../../../services/event.service";
+import DeleteModal from "../../Modais/EditModal";
 
 const EventCard = ({ event, onDelete }) => {
   const { id, eventName, description, eventDate, fullPrice, image } = event;
   const [loading, setLoading] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const handleDeleteClick = () => {
+    setDeleteModalOpen(true);
+  };
 
   const handleDelete = async () => {
     try {
@@ -33,9 +39,16 @@ const EventCard = ({ event, onDelete }) => {
         {/* <p className={styles.location}>Local: {location}</p> */}
         <p className={styles.price}>Preço: R$ {(fullPrice / 100).toFixed(2)}</p>
       </div>
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onConfirm={handleDelete}
+        />
+      )}
       <button
         className={styles.button}
-        onClick={handleDelete}
+        onClick={handleDeleteClick}
         disabled={loading}
       >
         {loading ? "Deletando..." : "Deletar Evento"}

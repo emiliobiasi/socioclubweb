@@ -82,6 +82,7 @@ const CriarNoticia = () => {
         <div className={styles.inputGroup}>
           <label>Texto da Notícia</label>
           <textarea
+            className={styles.text_area}
             value={text}
             onChange={(e) => setText(e.target.value)}
             rows={5}

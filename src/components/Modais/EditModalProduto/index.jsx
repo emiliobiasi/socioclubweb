@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import InputField from "../../Inputs/InputField";
-import styles from "./EditModal.module.css";
+import styles from "./EditModalProduto.module.css";
 
-const EditModal = ({
+const EditModalProduto = ({
   isOpen,
   onClose,
   name,
@@ -20,28 +20,31 @@ const EditModal = ({
         <span className={styles.close} onClick={onClose}>
           &times;
         </span>
-        <h2 className={styles.title}>Editar Produto</h2>
+        <h2 className={styles.title}>Editar Plano</h2>
         <div className={styles.formulario}>
           <InputField
-            label="Nome do produto"
+            label="Nome do plano"
             type="text"
             value={name}
             onChange={onChangeName}
             labelColor={"#fff"}
           />
           <InputField
-            label="Descrição do produto"
-            type="text"
-            value={description}
-            onChange={onChangeDescription}
-            labelColor={"#fff"}
-          />
-          <InputField
-            label="Preço do produto"
+            label="Preço do plano"
             type="text"
             value={price}
             onChange={onChangePrice}
             labelColor={"#fff"}
+          />
+          <label className={styles.label}>
+            Descricao do Plano
+          </label>
+          <textarea
+            className={styles.text_area}
+            // value={text}
+            // onChange={(e) => setText(e.target.value)}
+            rows={5}
+            required
           />
         </div>
         <div className={styles.modalActions}>
@@ -57,7 +60,7 @@ const EditModal = ({
   );
 };
 
-EditModal.propTypes = {
+EditModalProduto.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
@@ -68,4 +71,4 @@ EditModal.propTypes = {
   onChangePrice: PropTypes.func.isRequired,
 };
 
-export default EditModal;
+export default EditModalProduto;

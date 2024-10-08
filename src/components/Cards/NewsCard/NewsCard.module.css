@@ -1,67 +1,81 @@
 .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    max-width: 350px;
-    margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    background-color: white;
-  }
-  
-  .card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .content {
-    padding: 10px 0;
-  }
-  
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #333;
-  }
-  
-  .author {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  .date {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 10px;
-  }
-  
-  .text {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 10px;
-  }
-  
-  .button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 950px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  background-color: white;
+}
+
+.content_head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.content {
+  padding: 10px 0;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #333;
+}
+
+.author {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.date {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.deleteButton {
+  background: transparent; /* Fundo transparente */
+  border: none;            /* Remove a borda */
+  cursor: pointer;         /* Indica que o botão é clicável */
+  padding: 0;              /* Remove o padding */
+  display: inline-flex;     /* Mantém o alinhamento do ícone */
+  align-items: center;      /* Centraliza o ícone */
+  justify-content: center;
+}
+
+.deleteButton i {
+  color: red;              /* Define a cor vermelha do ícone */
+  font-size: 1.5rem;       /* Aumenta o tamanho do ícone, ajuste conforme necessário */
+}
+
+.deleteButton:hover {
+  cursor: pointer;      /* Apenas altera o cursor no hover */
+  background: transparent;
+}
+
+.expandButton {
+  width: 110px;
+  height: 40px;
+  font-size: 10px;
+  text-align: center;
+}

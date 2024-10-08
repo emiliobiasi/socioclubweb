@@ -65,7 +65,7 @@ const GerenciamentoNoticias = () => {
         {loading && <p>Carregando notícias...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
         {!loading && !error && news.length > 0 ? (
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div>
             {news.map((item) => (
               <NewsCard
                 key={item.id}
