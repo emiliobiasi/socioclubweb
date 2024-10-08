@@ -126,6 +126,13 @@ const GerenciamentoPlanos = () => {
     fetchPlans();
   }, [auth]);
 
+  // Função para remover o plano deletado da lista
+  const handleDeletePlan = (deletedPlanId) => {
+    setPlans((prevPlans) =>
+      prevPlans.filter((plan) => plan.id !== deletedPlanId)
+    );
+  };
+
   return (
     <div>
       <div className={styles.title}>
@@ -147,7 +154,11 @@ const GerenciamentoPlanos = () => {
         {!loading && !error && plans.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {plans.map((plan) => (
-              <PlanCard key={plan.id} plan={plan} />
+              <PlanCard
+                key={plan.id}
+                plan={plan}
+                onDelete={handleDeletePlan} // Passa a função onDelete para o PlanCard
+              />
             ))}
           </div>
         ) : (

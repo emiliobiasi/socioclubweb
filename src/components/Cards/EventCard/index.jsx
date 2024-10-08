@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import styles from "./EventCard.module.css";
 import { useState } from "react";
 import EventService from "../../../services/event.service";
-import DeleteModal from "../../Modais/EditModal";
+import DeleteModal from "../../Modais/DeleteModal";
 
 const EventCard = ({ event, onDelete }) => {
   const { id, eventName, description, eventDate, fullPrice, image } = event;

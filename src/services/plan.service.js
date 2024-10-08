@@ -21,19 +21,31 @@ const createPlan = async (
     club_id: parseInt(club_id, 10),
   });
 };
+
 const getPlansByClubId = async (club_id) => {
   try {
     const response = await axios.get(`${API_URL}plans/${club_id}`);
-    return response.data.plans; 
+    return response.data.plans;
   } catch (error) {
     console.error("Erro ao obter os planos:", error);
-    throw error; 
+    throw error;
+  }
+};
+
+const deletePlan = async (plan_id) => {
+  try {
+    const response = await axios.delete(`${API_URL}deletePlan/${plan_id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar o plano:", error);
+    throw error;
   }
 };
 
 const PlanService = {
   createPlan,
-  getPlansByClubId, 
+  getPlansByClubId,
+  deletePlan,
 };
 
 export default PlanService;

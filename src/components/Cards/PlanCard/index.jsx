@@ -1,19 +1,19 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-// import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import styles from "./PlanCard.module.css";
 import EditModalProduto from "../../Modais/EditModalProduto";
 import DeleteModal from "../../Modais/DeleteModal";
+import PlanService from "../../../services/plan.service";
 
-const PlanCard = ({ plan }) => {
-  // Determinar a classe de cor e sombra com base na prioridade
-  const shadowClass = `shadowPriority${plan.priority}`;
+const PlanCard = ({ plan, onDelete }) => {
+  const { id, name, description, price, priority } = plan;
+  const shadowClass = `shadowPriority${priority}`;
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleEditClick = () => {
     setEditModalOpen(true);
-    // onEdit();
   };
 
   const handleDeleteClick = () => {
@@ -21,71 +21,62 @@ const PlanCard = ({ plan }) => {
   };
 
   const confirmDelete = async () => {
+    setLoading(true);
     try {
-      // await ProductService.deleteProduct(id);
-      setDeleteModalOpen(false);
-      // onDelete(id); // Chama a função onDelete após a exclusão
+      await PlanService.deletePlan(id); // Chama o serviço de deleção com o ID do plano
+      setDeleteModalOpen(false); // Fecha o modal após a deleção
+      if (onDelete) {
+        onDelete(id); // Chama o callback de onDelete passado pelo pai para remover o plano
+      }
     } catch (error) {
-      console.error("Erro ao deletar produto:", error);
+      console.error("Erro ao deletar plano:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={`${styles.planCard} ${styles[shadowClass]}`}>
       <div className={styles.planHeader}>
-        <h2 className={styles.planName}>{plan.name}</h2>
+        <h2 className={styles.planName}>{name}</h2>
       </div>
       <p className={styles.planPrice}>
-        {plan.price === 0 ? "$ 0.00" : `R$ ${plan.price.toFixed(2)}`}
+        {price === 0 ? "R$ 0,00" : `R$ ${price.toFixed(2)}`}
       </p>
       <p className={styles.planPriceMonth}>por mês</p>
 
-      {/* Container envolvendo todas as descrições */}
       <div className={styles.planDescriptionContainer}>
-        <ul className={styles.planDescriptionList}>
-          {plan.description}
-          {/* {plan.description.map((desc, index) => (
-            <li
-              key={index}
-              className={`${styles.planDescription} ${
-                index % 2 === 0 ? styles.altBackground : styles.normalBackground
-              }`}
-            >
-              {desc.ativo ? (
-                <FaCheckCircle className={styles.iconActive} />
-              ) : (
-                <FaTimesCircle className={styles.iconInactive} />
-              )}
-              {desc.descricao}
-            </li>
-          ))} */}
-        </ul>
+        <ul className={styles.planDescriptionList}>{description}</ul>
       </div>
+
       <div className={styles.containerButton}>
-        {/* Modal de Edição */}
         {isEditModalOpen && (
           <EditModalProduto
             isOpen={isEditModalOpen}
             onClose={() => setEditModalOpen(false)}
             name={name}
-            // description={description}
-            // price={price}
-            // onChangeName={handleNameChange}
-            // onChangeDescription={handleDescriptionChange}
-            // onChangePrice={handlePriceChange}
           />
         )}
 
-        {/* Modal de Exclusão */}
         {isDeleteModalOpen && (
           <DeleteModal
             isOpen={isDeleteModalOpen}
             onClose={() => setDeleteModalOpen(false)}
-            onConfirm={confirmDelete}
+            onConfirm={confirmDelete} // Chama a função confirmDelete ao confirmar
+            loading={loading} // Passa o estado de loading para o modal
           />
         )}
-        <button className={styles.subscribeButton} onClick={handleEditClick}>EDITAR</button>
-        <button className={styles.subscribeButton} onClick={handleDeleteClick}>DELETAR</button>
+
+        <button className={styles.subscribeButton} onClick={handleEditClick}>
+          EDITAR
+        </button>
+        <button
+          className={styles.subscribeButton}
+          onClick={handleDeleteClick}
+          disabled={loading}
+        >
+          {loading ? "Deletando..." : "DELETAR"}
+        </button>
       </div>
     </div>
   );
@@ -93,16 +84,13 @@ const PlanCard = ({ plan }) => {
 
 PlanCard.propTypes = {
   plan: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.arrayOf(
-      PropTypes.shape({
-        ativo: PropTypes.bool.isRequired,
-        descricao: PropTypes.string.isRequired,
-      })
-    ).isRequired,
+    description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     priority: PropTypes.number.isRequired,
   }).isRequired,
+  onDelete: PropTypes.func, // Função callback opcional para deletar o plano da lista
 };
 
 export default PlanCard;

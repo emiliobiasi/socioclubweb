@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import styles from "./NewsCard.module.css";
 import NewsService from "../../../services/news.service";
-import DeleteModal from "../../Modais/EditModal";
+import DeleteModal from "../../Modais/DeleteModal";
 
 const NewsCard = ({ news, onDelete }) => {
   const { id, title, author, publish_date, image, text } = news;

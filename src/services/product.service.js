@@ -10,6 +10,10 @@ const createProduct = async (
   fk_Club_id,
   fk_ProductCategory_id
 ) => {
+  
+
+
+
   return axios.post(API_URL + "createProduct", {
     name,
     description,
