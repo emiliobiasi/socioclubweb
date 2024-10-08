@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import styles from "./ProductCard.module.css";
-import InputField from "../../Inputs/InputField";
 import ProductService from "../../../services/product.service";
+import EditModal from "../../Modais/DeleteModal";
+import DeleteModal from "../../Modais/EditModal";
 
 const ProductCard = ({ product, onEdit, onDelete }) => {
   const { id, name, description, price, image } = product;
@@ -31,10 +32,12 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
   return (
     <div className={styles.card}>
       <img
-        // src={image || "https://via.placeholder.com/150"}
-        src={"https://via.placeholder.com/150"}
+        src={image}
         alt={name}
         className={styles.image}
+        onError={(e) => {
+          e.target.src = "https://via.placeholder.com/150"; // URL da imagem padrão
+        }}
       />
       <div className={styles.content}>
         <h3 className={styles.name}>{name}</h3>
@@ -59,83 +62,25 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
 
       {/* Modal de Edição */}
       {isEditModalOpen && (
-        <div className={styles.modal}>
-          <div className={styles.modalContentForm}>
-            <span
-              className={styles.close}
-              onClick={() => setEditModalOpen(false)}
-            >
-              &times;
-            </span>
-            <h2>Editar Produto</h2>
-            <div className={styles.formulario}>
-              <InputField
-                label="Nome do produto"
-                type="text"
-                value={name}
-                onChange={""} // Aqui você pode passar a função para lidar com as mudanças
-                labelColor={"#fff"}
-              />
-              <InputField
-                label="Descrição do produto"
-                type="text"
-                value={description}
-                onChange={""} // Aqui você pode passar a função para lidar com as mudanças
-                labelColor={"#fff"}
-              />
-              <InputField
-                label="Preço do produto"
-                type="text"
-                value={price}
-                onChange={""} // Aqui você pode passar a função para lidar com as mudanças
-                labelColor={"#fff"}
-              />
-            </div>
-            <div className={styles.modalActions}>
-              <button
-                className={styles.modalButton}
-                onClick={() => setEditModalOpen(false)}
-              >
-                Confirmar
-              </button>
-              <button
-                className={styles.modalButton}
-                onClick={() => setEditModalOpen(false)}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
+        <EditModal
+          isOpen={isEditModalOpen}
+          onClose={() => setEditModalOpen(false)}
+          name={name}
+          description={description}
+          price={price}
+          // onChangeName={handleNameChange}
+          // onChangeDescription={handleDescriptionChange}
+          // onChangePrice={handlePriceChange}
+        />
       )}
 
       {/* Modal de Exclusão */}
       {isDeleteModalOpen && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <span
-              className={styles.close}
-              onClick={() => setDeleteModalOpen(false)}
-            >
-              &times;
-            </span>
-            <h2>Confirme para excluir</h2>
-            <div className={styles.modalActions}>
-              <button
-                className={styles.modalButton}
-                onClick={confirmDelete} // Chama a função de confirmação de exclusão
-              >
-                Sim
-              </button>
-              <button
-                className={styles.modalButton}
-                onClick={() => setDeleteModalOpen(false)}
-              >
-                Não
-              </button>
-            </div>
-          </div>
-        </div>
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onConfirm={confirmDelete}
+        />
       )}
     </div>
   );
