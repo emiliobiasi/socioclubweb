@@ -16,7 +16,12 @@ const NoticiaScreen = ({
   return (
     <>
       <Smartphone PrimaryColor={PrimaryColor}>
-        <TopBar Name={Name} TitleColor={TitleColor} PrimaryColor={PrimaryColor} ButtonColor={ButtonColor} />
+        <TopBar
+          Name={Name}
+          TitleColor={TitleColor}
+          PrimaryColor={PrimaryColor}
+          ButtonColor={ButtonColor}
+        />
         <div className={styles.container}>
           <div className={styles.container2}>
             <h2 className={styles.title}>Notícias</h2>
@@ -31,7 +36,10 @@ const NoticiaScreen = ({
             SubtitleColor={SubtitleColor}
           />
         </div>
-        <BottomNavBar ButtonColor={ButtonColor} SecondaryColor={SecondaryColor} />
+        <BottomNavBar
+          ButtonColor={ButtonColor}
+          SecondaryColor={SecondaryColor}
+        />
       </Smartphone>
     </>
   );

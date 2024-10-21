@@ -12,6 +12,7 @@
   cursor: pointer;
   outline: none;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .dropdownButton:hover {

@@ -1,14 +1,31 @@
 import PropTypes from "prop-types";
 import styles from "./ProdutoCard.module.css";
 
-const ProdutoCard = ({ productName, price, imageUrl }) => {
+const ProdutoCard = ({
+  productName,
+  price,
+  imageUrl,
+  SecondaryColor,
+  TitleColor,
+  SubtitleColor,
+}) => {
+  const backgroundColor = SecondaryColor || "#253341";
+  const titleColor = TitleColor || "#fff";
+  const subTitleColor = SubtitleColor || "#fff";
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} style={{ backgroundColor: backgroundColor }}>
       <img className={styles.productImage} src={imageUrl} alt={productName} />
       <div className={styles.cardContent}>
-        <h2 className={styles.productName}>{productName}</h2>
-        <div className={styles.priceTag}>Preço</div>
-        <p className={styles.price}>{price}</p>
+        <h2 className={styles.productName} style={{ color: titleColor }}>
+          {productName}
+        </h2>
+        <div className={styles.priceTag}>
+          Preço
+        </div>
+        <p className={styles.price} style={{ color: subTitleColor }}>
+          {price}
+        </p>
       </div>
     </div>
   );

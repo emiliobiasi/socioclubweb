@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./CriarProduto.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import ProductService from "../../services/product.service.js";
+import ImageService from "../../services/image.service.js"
 
 const CriarProduto = () => {
   const [name, setName] = useState("");
@@ -12,7 +13,6 @@ const CriarProduto = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
 
@@ -22,25 +22,61 @@ const CriarProduto = () => {
     }
   }, [auth]);
 
+
+  const handleUpload = async (imgUrl) => {
+    if (!image) return;
+
+    console.log('oi')
+
+    const uploadResponse = await fetch(imgUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/octet-stream",
+      },
+      body: image,
+    });
+
+    console.log(uploadResponse);
+  };
+
+  const handleImgUrl = async (imageName) => {
+    const response = await ImageService.generateImageUrl(
+      imageName
+    );
+
+    handleUpload(response.data.url);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
     setSuccess("");
 
+
     if (!name || !description || !price || !image || !clubId || !categoryId) {
       setError("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
+    
+
+    const timestamp = Date.now();
+    const imgName = timestamp + "_" + image.name
+
+    console.log(imgName)
+
+    handleImgUrl(imgName);
 
     try {
       setLoading(true);
+      const imgUrl = `https://storage.googleapis.com/socioclub/${imgName}`;
+
 
       const response = await ProductService.createProduct(
         name,
         description,
         parseFloat(price),
-        image,
+        imgUrl,
         parseInt(clubId, 10),
         parseInt(categoryId, 10)
       );
@@ -92,11 +128,11 @@ const CriarProduto = () => {
         </div>
 
         <div className={styles.inputGroup}>
-          <label>Imagem (URL)</label>
+          <label>Imagem (Arquivo)</label>
           <input
-            type="text"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            onChange={(e) => setImage(e.target.files[0])}
+            accept="image/*"
             required
           />
         </div>

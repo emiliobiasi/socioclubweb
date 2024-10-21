@@ -18,11 +18,10 @@
   border: none;
   outline: none;
   background-color: transparent;
-  color: #95a5a6;
   font-size: 1em;
   flex-grow: 1;
 }
 
 .searchInput::placeholder {
-  color: #95a5a6;
+  color: var(--placeholderColor);
 }

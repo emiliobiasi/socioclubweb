@@ -94,8 +94,22 @@ const PersonalizarClube = () => {
 
         <div className={styles.rightColumn}>
           {/* Tela de Noticias */}
-          <NoticiaScreen Name={name} ButtonColor={buttonColor} SubtitleColor={subtitleColor} TitleColor={titleColor} PrimaryColor={primaryColor} SecondaryColor={secondaryColor} />
-          <ProdutosScreen />
+          <NoticiaScreen
+            Name={name}
+            ButtonColor={buttonColor}
+            SubtitleColor={subtitleColor}
+            TitleColor={titleColor}
+            PrimaryColor={primaryColor}
+            SecondaryColor={secondaryColor}
+          />
+          <ProdutosScreen
+            Name={name}
+            ButtonColor={buttonColor}
+            SubtitleColor={subtitleColor}
+            TitleColor={titleColor}
+            PrimaryColor={primaryColor}
+            SecondaryColor={secondaryColor}
+          />
         </div>
 
         <div className={styles.buttonContainer}>
