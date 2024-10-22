@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./CriarNoticia.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import NewsService from "../../services/news.service.js";
+import ImageService from "../../services/image.service.js"
 
 const CriarNoticia = () => {
   const [title, setTitle] = useState("");
@@ -22,6 +23,30 @@ const CriarNoticia = () => {
     }
   }, [auth]);
 
+  const handleUpload = async (imgUrl) => {
+    if (!image) return;
+
+    console.log('oi')
+
+    const uploadResponse = await fetch(imgUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/octet-stream",
+      },
+      body: image,
+    });
+
+    console.log(uploadResponse);
+  };
+
+  const handleImgUrl = async (imageName) => {
+    const response = await ImageService.generateImageUrl(
+      imageName
+    );
+
+    handleUpload(response.data.url);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,12 +58,18 @@ const CriarNoticia = () => {
       return;
     }
 
+    const timestamp = Date.now();
+    const imgName = timestamp + "_" + image.name
+
+    handleImgUrl(imgName);
+
     try {
       setLoading(true);
+      const imgUrl = `https://storage.googleapis.com/socioclub/${imgName}`;
 
       const response = await NewsService.createNews(
         text,
-        image,
+        imgUrl,
         author,
         title,
         parseInt(clubId, 10)
@@ -91,11 +122,11 @@ const CriarNoticia = () => {
         </div>
 
         <div className={styles.inputGroup}>
-          <label>Imagem (URL)</label>
+          <label>Imagem (Arquivo)</label>
           <input
-            type="text"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            onChange={(e) => setImage(e.target.files[0])}
+            accept="image/*"
             required
           />
         </div>

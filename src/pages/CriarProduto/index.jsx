@@ -58,12 +58,9 @@ const CriarProduto = () => {
       setError("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
-    
 
     const timestamp = Date.now();
     const imgName = timestamp + "_" + image.name
-
-    console.log(imgName)
 
     handleImgUrl(imgName);
 

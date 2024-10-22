@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./CriarEvento.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import EventService from "../../services/event.service.js";
+import ImageService from "../../services/image.service.js"
 
 const CriarEvento = () => {
   const [name, setName] = useState("");
@@ -24,6 +25,30 @@ const CriarEvento = () => {
     }
   }, [auth]);
 
+  const handleUpload = async (imgUrl) => {
+    if (!image) return;
+
+    console.log('oi')
+
+    const uploadResponse = await fetch(imgUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/octet-stream",
+      },
+      body: image,
+    });
+
+    console.log(uploadResponse);
+  };
+
+  const handleImgUrl = async (imageName) => {
+    const response = await ImageService.generateImageUrl(
+      imageName
+    );
+
+    handleUpload(response.data.url);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,13 +69,19 @@ const CriarEvento = () => {
       return;
     }
 
+    const timestamp = Date.now();
+    const imgName = timestamp + "_" + image.name
+
+    handleImgUrl(imgName);
+
     try {
       setLoading(true);
+      const imgUrl = `https://storage.googleapis.com/socioclub/${imgName}`;
 
       const response = await EventService.createEvent(
         name,
         description,
-        image,
+        imgUrl,
         parseFloat(price),
         date,
         parseInt(ticketsAway, 10),
@@ -107,11 +138,11 @@ const CriarEvento = () => {
         </div>
 
         <div className={styles.inputGroup}>
-          <label>Imagem (URL)</label>
+          <label>Imagem (Arquivo)</label>
           <input
-            type="text"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            onChange={(e) => setImage(e.target.files[0])}
+            accept="image/*"
             required
           />
         </div>

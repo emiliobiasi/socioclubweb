@@ -1,6 +1,9 @@
 import { useAuth } from "../../contexts/auth/useAuth";
+import styles from "./Inicio.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Inicio = () => {
+  const navigate = useNavigate();
   const { logout, auth } = useAuth();
 
   const clubInfo = auth?.club;
@@ -8,39 +11,66 @@ const Inicio = () => {
   const expiresAt = auth?.expiresAt;
 
   return (
-    <>
-      <h1>Tela inicial</h1>
+    <div className={styles.container}>
+      {/* Background */}
+      <div className={styles.clubbackground}>
+        <img src={clubInfo?.background} alt="Background do clube" />
+      </div>
 
-      <h2>Informações do Clube:</h2>
-      {clubInfo ? (
-        <div>
-          <p>ID: {clubInfo.id}</p>
-          <p>Nome: {clubInfo.name}</p>
-          <p>Email: {clubInfo.email}</p>
-          <p>CNPJ: {clubInfo.cnpj}</p>
-          <p>Descrição: {clubInfo.description}</p>
-          <p>Endereço: {clubInfo.address}</p>
-          <p>
-            Logo: <img src={clubInfo.logo} alt="Logo do clube" width={100} />
-          </p>
-          <p>
-            Background:{" "}
+      <div className={styles.profileSection}>
+        {/* Logo */}
+        {clubInfo?.logo && (
+          <div className={styles.logoContainer}>
             <img
-              src={clubInfo.background}
-              alt="Background do clube"
-              width={200}
+              src={clubInfo.logo}
+              alt="Logo do clube"
+              className={styles.logo}
             />
-          </p>
+          </div>
+        )}
+
+        {/* Edit Profile Button */}
+        <button className={styles.editButton}>Editar perfil</button>
+      </div>
+      {/* User Info */}
+      <div className={styles.userInfo}>
+        <h2 className={styles.username}>{clubInfo?.name || "Nome usuário"}</h2>
+        <p className={styles.description}>
+          {clubInfo?.description || "Descrição"}
+        </p>
+        <p className={styles.address}>{clubInfo?.address || "Endereço"}</p>
+      </div>
+
+      {/* Quick Access Section */}
+      <div className={styles.quickAccessSection}>
+        <h2>Acesso rápido</h2>
+        <div className={styles.buttonsContainer}>
+          <button
+            className={styles.quickButton}
+            onClick={() => navigate("/personalizar-clube")}
+          >
+            Personalizar Clube
+          </button>
+          <button
+            className={styles.quickButton}
+            onClick={() => navigate("/financeiro")}
+          >
+            Financeiro
+          </button>
+          <button
+            className={styles.quickButton}
+            onClick={() => navigate("/gerenciar-produtos")}
+          >
+            Produtos
+          </button>
         </div>
-      ) : (
-        <p>Informações do clube não disponíveis.</p>
-      )}
-
-      <p>Token: {token}</p>
-      <p>Expira em: {expiresAt}</p>
-
-      <button onClick={logout}>Logout</button>
-    </>
+        <p>Token: {token}</p>
+        <p>Expira em: {expiresAt}</p>
+        <button onClick={logout} className={styles.logoutButton}>
+          Logout
+        </button>
+      </div>
+    </div>
   );
 };
 
