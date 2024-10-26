@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./CriarProduto.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import ProductService from "../../services/product.service.js";
-import ImageService from "../../services/image.service.js"
+import ImageService from "../../services/image.service.js";
 
 const CriarProduto = () => {
   const [name, setName] = useState("");
@@ -15,18 +15,20 @@ const CriarProduto = () => {
   const [success, setSuccess] = useState("");
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
+  const [stripeAccountId, setStripeAccountId] = useState("");
 
   useEffect(() => {
     if (auth?.club?.id) {
       setClubId(auth.club.id);
     }
-  }, [auth]);
 
+    if (auth?.club?.stripe_id) {
+      setStripeAccountId(auth.club.stripe_id);
+    }
+  }, [auth]);
 
   const handleUpload = async (imgUrl) => {
     if (!image) return;
-
-    console.log('oi')
 
     const uploadResponse = await fetch(imgUrl, {
       method: "PUT",
@@ -36,16 +38,16 @@ const CriarProduto = () => {
       body: image,
     });
 
-    console.log(uploadResponse);
+    if (!uploadResponse.ok) {
+      throw new Error("Erro ao fazer upload da imagem.");
+    }
   };
 
   const handleImgUrl = async (imageName) => {
-    const response = await ImageService.generateImageUrl(
-      imageName
-    );
+    const response = await ImageService.generateImageUrl(imageName);
 
-    handleUpload(response.data.url);
-  }
+    await handleUpload(response.data.url);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,32 +55,35 @@ const CriarProduto = () => {
     setError("");
     setSuccess("");
 
-
     if (!name || !description || !price || !image || !clubId || !categoryId) {
       setError("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
     const timestamp = Date.now();
-    const imgName = timestamp + "_" + image.name
-
-    handleImgUrl(imgName);
+    const imgName = timestamp + "_" + image.name;
 
     try {
       setLoading(true);
+
+      await handleImgUrl(imgName);
+
       const imgUrl = `https://storage.googleapis.com/socioclub/${imgName}`;
 
+      console.log("Stripe ID no Criar Produto: ", stripeAccountId);
 
+      // Inclua o stripeAccountId ao chamar createProduct
       const response = await ProductService.createProduct(
         name,
         description,
         parseFloat(price),
         imgUrl,
         parseInt(clubId, 10),
-        parseInt(categoryId, 10)
+        parseInt(categoryId, 10),
+        stripeAccountId
       );
 
-      if (response.status === 200) {
+      if (response.existingProduct) {
         setSuccess("Produto criado com sucesso!");
         setName("");
         setDescription("");

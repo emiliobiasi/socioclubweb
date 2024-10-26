@@ -77,7 +77,8 @@ const createProduct = async (
   name,
   price,
   currency = "usd",
-  interval = null
+  interval = null,
+  stripe_account
 ) => {
   try {
     const response = await axios.post(`${API_URL}stripe/create_product`, {
@@ -85,6 +86,7 @@ const createProduct = async (
       price,
       currency,
       interval,
+      stripe_account,
     });
     const { price_id, error } = response.data;
 

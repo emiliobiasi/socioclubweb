@@ -8,7 +8,8 @@ const createProduct = async (
   price,
   image,
   fk_Club_id,
-  fk_ProductCategory_id
+  fk_ProductCategory_id,
+  stripeAccountId
 ) => {
   try {
     // Primeiro, cria o produto e preço na Stripe
@@ -16,8 +17,9 @@ const createProduct = async (
       API_URL + "stripe/create_product",
       {
         name,
-        price: parseInt(price, 10),
+        price: parseInt(price * 100, 10), // Converter para centavos
         currency: "usd",
+        stripe_account_id: stripeAccountId, // Inclua o stripeAccountId
       }
     );
 
@@ -29,13 +31,13 @@ const createProduct = async (
       stripePriceId,
     });
 
-    // Caso o produto na Stripe seja criado com sucesso, cria o produto no sistema existente
+    // Em seguida, cria o produto no seu sistema existente
     const existingProductResponse = await axios.post(
       API_URL + "createProduct",
       {
         name,
         description,
-        price: parseInt(price, 10),
+        price: parseFloat(price),
         image,
         category_id: parseInt(fk_ProductCategory_id, 10),
         club_id: parseInt(fk_Club_id, 10),
@@ -48,13 +50,14 @@ const createProduct = async (
 
     // Agora faz a vinculação chamando a rota '/vinculate'
     await axios.post(API_URL + "stripe/vinculate", {
-      socioclub_id: parseInt(socioclubId), // ID do produto criado no sistema
-      stripe_id: stripeProductId, // ID do produto criado no Stripe
-      price_id: stripePriceId, // ID do preço criado no Stripe
+      socioclub_id: parseInt(socioclubId),
+      stripe_id: stripeProductId,
+      price_id: stripePriceId,
     });
+
     console.log("Produto vinculado com sucesso entre o sistema e Stripe.");
 
-    // Retorna todas as respostas
+    // Retorna as respostas
     return {
       stripeProduct: stripeProductResponse.data,
       existingProduct: existingProductResponse.data,
