@@ -73,30 +73,52 @@ const updateClubStripeId = async (clubId, stripeId) => {
   }
 };
 
-const createProduct = async (
+const createProductInStripe = async (
   name,
   price,
-  currency = "usd",
-  interval = null,
-  stripe_account
+  currency,
+  stripeAccountId
 ) => {
   try {
-    const response = await axios.post(`${API_URL}stripe/create_product`, {
+    const response = await axios.post(API_URL + "stripe/create_product", {
       name,
       price,
       currency,
-      interval,
-      stripe_account,
+      stripe_account_id: stripeAccountId,
     });
-    const { price_id, error } = response.data;
+
+    const { product_id, price_id, error } = response.data;
 
     if (error) {
       throw new Error("Erro ao criar o produto na Stripe: " + error);
     }
 
-    return price_id;
+    return { product_id, price_id };
   } catch (error) {
     console.error("Erro ao criar o produto na Stripe:", error);
+    throw error;
+  }
+};
+
+const vinculateProduct = async (socioclubId, stripeId, priceId) => {
+  try {
+    const response = await axios.post(API_URL + "stripe/vinculate", {
+      socioclub_id: socioclubId,
+      stripe_id: stripeId,
+      price_id: priceId,
+    });
+
+    if (response.data && response.data.message) {
+      if (response.data.message.startsWith("Erro")) {
+        throw new Error(response.data.message);
+      } else {
+        console.log(response.data.message);
+      }
+    } else {
+      console.log("Produto vinculado com sucesso entre o sistema e Stripe.");
+    }
+  } catch (error) {
+    console.error("Erro ao vincular o produto:", error);
     throw error;
   }
 };
@@ -106,7 +128,8 @@ const StripeService = {
   createAccountLink,
   updateStripeAccount,
   updateClubStripeId,
-  createProduct,
+  createProductInStripe,
+  vinculateProduct,
 };
 
 export default StripeService;
