@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./CriarEvento.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import EventService from "../../services/event.service.js";
-import ImageService from "../../services/image.service.js"
+import ImageService from "../../services/image.service.js";
 
 const CriarEvento = () => {
   const [name, setName] = useState("");
@@ -18,17 +18,20 @@ const CriarEvento = () => {
 
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
+  const [stripeAccountId, setStripeAccountId] = useState("");
 
   useEffect(() => {
     if (auth?.club?.id) {
       setClubId(auth.club.id);
     }
+
+    if (auth?.club?.stripe_id) {
+      setStripeAccountId(auth.club.stripe_id);
+    }
   }, [auth]);
 
   const handleUpload = async (imgUrl) => {
     if (!image) return;
-
-    console.log('oi')
 
     const uploadResponse = await fetch(imgUrl, {
       method: "PUT",
@@ -38,16 +41,16 @@ const CriarEvento = () => {
       body: image,
     });
 
-    console.log(uploadResponse);
+    if (!uploadResponse.ok) {
+      throw new Error("Erro ao fazer upload da imagem.");
+    }
   };
 
   const handleImgUrl = async (imageName) => {
-    const response = await ImageService.generateImageUrl(
-      imageName
-    );
+    const response = await ImageService.generateImageUrl(imageName);
 
-    handleUpload(response.data.url);
-  }
+    await handleUpload(response.data.url);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,14 +73,18 @@ const CriarEvento = () => {
     }
 
     const timestamp = Date.now();
-    const imgName = timestamp + "_" + image.name
-
-    handleImgUrl(imgName);
+    const imgName = timestamp + "_" + image.name;
 
     try {
       setLoading(true);
+
+      await handleImgUrl(imgName);
+
       const imgUrl = `https://storage.googleapis.com/socioclub/${imgName}`;
 
+      console.log("Stripe ID no Criar Evento: ", stripeAccountId);
+
+      // Include stripeAccountId when calling createEvent
       const response = await EventService.createEvent(
         name,
         description,
@@ -86,10 +93,11 @@ const CriarEvento = () => {
         date,
         parseInt(ticketsAway, 10),
         parseInt(ticketsHome, 10),
-        parseInt(clubId, 10)
+        parseInt(clubId, 10),
+        stripeAccountId // Pass the stripeAccountId here
       );
 
-      if (response.message === "Evento criado com sucesso!") {
+      if (response.existingEvent) {
         setSuccess("Evento criado com sucesso!");
         setName("");
         setDescription("");

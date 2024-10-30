@@ -100,12 +100,13 @@ const createProductInStripe = async (
   }
 };
 
-const vinculateProduct = async (socioclubId, stripeId, priceId) => {
+const vinculateProduct = async (socioclubId, stripeId, priceId, isProduct) => {
   try {
     const response = await axios.post(API_URL + "stripe/vinculate", {
       socioclub_id: socioclubId,
       stripe_id: stripeId,
       price_id: priceId,
+      is_product: isProduct,
     });
 
     if (response.data && response.data.message) {

@@ -11,10 +11,12 @@ const GerenciamentoEventos = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [stripeError, setStripeError] = useState(""); // New state for Stripe error
   const navigate = useNavigate();
 
   const { auth } = useAuth();
   const clubId = auth?.club?.id;
+  const stripeId = auth?.club?.stripe_id; // Get stripe_id from auth
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -46,7 +48,7 @@ const GerenciamentoEventos = () => {
     fetchEvents();
   }, [clubId]);
 
-  // Função para deletar um evento e remover do estado
+  // Function to delete an event and remove it from the state
   const handleDeleteEvent = async (eventId) => {
     try {
       await EventService.deleteEvent(eventId);
@@ -67,7 +69,15 @@ const GerenciamentoEventos = () => {
           <Button
             buttonSize="btn--small"
             icon={<CiCirclePlus size={30} />}
-            onClick={() => navigate("/criar-evento")}
+            onClick={() => {
+              if (stripeId) {
+                navigate("/criar-evento");
+              } else {
+                setStripeError(
+                  "É necessário configurar a Stripe antes de criar um evento."
+                );
+              }
+            }}
           >
             Adicionar Evento
           </Button>
@@ -76,6 +86,7 @@ const GerenciamentoEventos = () => {
       <div className={styles.container}>
         {loading && <p>Carregando eventos...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
+        {stripeError && <p style={{ color: "red" }}>{stripeError}</p>}
 
         {!loading && !error && Array.isArray(events) && events.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
@@ -83,7 +94,7 @@ const GerenciamentoEventos = () => {
               <EventCard
                 key={event.id}
                 event={event}
-                onDelete={() => handleDeleteEvent(event.id)} // Passa o callback para deletar
+                onDelete={() => handleDeleteEvent(event.id)} // Pass the callback to delete
               />
             ))}
           </div>

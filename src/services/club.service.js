@@ -2,6 +2,14 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+// cores padrão
+const titles_color = "#FFFFFF";
+const subtitles_color = "#FFFFFF";
+const buttons_color = "#3F85E7";
+const palette_1 = "#001628";
+const palette_2 = "#283E5A";
+const palette_3 = "#080063";
+
 const createClub = async (name, email, password, cnpj, address) => {
   return axios.post(API_URL + "createClub", {
     name,
@@ -9,6 +17,12 @@ const createClub = async (name, email, password, cnpj, address) => {
     password,
     cnpj,
     address,
+    titles_color,
+    subtitles_color,
+    buttons_color,
+    palette_1,
+    palette_2,
+    palette_3,
   });
 };
 

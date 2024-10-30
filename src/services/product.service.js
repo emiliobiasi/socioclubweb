@@ -50,7 +50,8 @@ const createProduct = async (
     await StripeService.vinculateProduct(
       parseInt(socioclubId),
       stripeProductId,
-      stripePriceId
+      stripePriceId,
+      true
     );
 
     // Retorna as respostas

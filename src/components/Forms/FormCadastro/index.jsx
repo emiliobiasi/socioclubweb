@@ -1,9 +1,9 @@
 import { useState } from "react";
 import InputField from "../../Inputs/InputField";
 import styles from "./FormCadastro.module.css";
-import ClubService from "../../../services/club.service.js"
+import ClubService from "../../../services/club.service.js";
 import validarCampos from "../../../utils/ValidarCampos.js";
-import { Alert } from "bootstrap";
+
 const FormCadastro = () => {
   const [cnpj, setCnpj] = useState("");
   const [nomeClube, setNomeClube] = useState("");
@@ -11,9 +11,6 @@ const FormCadastro = () => {
   const [senhaAcesso, setSenhaAcesso] = useState("");
   const [cepClube, setCepClube] = useState("");
   const [enderecoComercial, setEnderecoComercial] = useState("");
-
-  const [erros, setErros] = useState({});
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,30 +22,30 @@ const FormCadastro = () => {
       senhaAcesso,
       cepClube,
       enderecoComercial,
-    }
+    };
     for (const campo in formData) {
-      if (!formData[campo]) { 
+      if (!formData[campo]) {
         alert(`O campo ${campo} está vazio. Por favor, preencha-o.`);
-        return; 
+        return;
       }
     }
 
     const errosValidados = validarCampos(formData);
 
-    if(!Object.keys(errosValidados).length == 0) {
-      alert('Formulário enviado com sucesso!');
-        ClubService.createClub(
-          nomeClube,
-          emailClube,
-          senhaAcesso,
-          cnpj,
-          cepClube
-        )
-        console.log('Dados do formulário:', formData);
+    if (!Object.keys(errosValidados).length == 0) {
+      alert("Formulário enviado com sucesso!");
+      ClubService.createClub(
+        nomeClube,
+        emailClube,
+        senhaAcesso,
+        cnpj,
+        cepClube
+      );
+      console.log("Dados do formulário:", formData);
     } else {
-      const mensagemErro = Object.values(errosValidados).join('\n');
+      const mensagemErro = Object.values(errosValidados).join("\n");
       alert(`Erros encontrados:\n${mensagemErro}`);
-    }   
+    }
   };
 
   return (
