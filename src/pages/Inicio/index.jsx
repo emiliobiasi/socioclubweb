@@ -9,6 +9,7 @@ const Inicio = () => {
   const clubInfo = auth?.club;
   const token = auth?.token;
   const expiresAt = auth?.expiresAt;
+  const stripeId = auth.club.stripe_id;
 
   return (
     <div className={styles.container}>
@@ -66,6 +67,7 @@ const Inicio = () => {
         </div>
         <p>Token: {token}</p>
         <p>Expira em: {expiresAt}</p>
+        <p>Stripe ID: {stripeId}</p>
         <button onClick={logout} className={styles.logoutButton}>
           Logout
         </button>

@@ -11,10 +11,12 @@ const GerenciamentoProdutos = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [stripeError, setStripeError] = useState(""); // Estado para erro de Stripe
   const navigate = useNavigate();
 
   const { auth } = useAuth();
   const clubId = auth?.club?.id;
+  const stripeId = auth?.club?.stripe_id; // Obter stripe_id do auth
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -58,7 +60,15 @@ const GerenciamentoProdutos = () => {
           <Button
             buttonSize="btn--small"
             icon={<CiCirclePlus size={30} />}
-            onClick={() => navigate("/criar-produto")}
+            onClick={() => {
+              if (stripeId) {
+                navigate("/criar-produto");
+              } else {
+                setStripeError(
+                  "É necessário configurar a Stripe antes de criar um produto."
+                );
+              }
+            }}
           >
             Adicionar Produto
           </Button>
@@ -67,6 +77,7 @@ const GerenciamentoProdutos = () => {
       <div className={styles.container}>
         {loading && <p>Carregando produtos...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
+        {stripeError && <p style={{ color: "red" }}>{stripeError}</p>}
 
         {!loading && !error && products.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
