@@ -1,4 +1,5 @@
 import axios from "axios";
+import StripeService from "./stripe.service";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,17 +10,58 @@ const createPlan = async (
   price,
   discount,
   priority,
-  club_id
+  club_id,
+  stripeAccountId // Precisamos do Stripe Account ID
 ) => {
-  return axios.post(API_URL + "createPlan", {
-    name,
-    description,
-    image,
-    price: parseFloat(price),
-    discount: parseInt(discount, 10),
-    priority: parseInt(priority, 10),
-    club_id: parseInt(club_id, 10),
-  });
+  try {
+    // Primeiro, cria o produto e o preço de assinatura na Stripe
+    const stripeProductData = await StripeService.createSubscriptionInStripe(
+      name,
+      parseInt(price * 100, 10), // Converter para centavos
+      "brl", // Moeda
+      "month", // Intervalo de recorrência (ex: 'month', 'year')
+      stripeAccountId
+    );
+
+    const { product_id: stripeProductId, price_id: stripePriceId } =
+      stripeProductData;
+
+    console.log("Produto e preço de assinatura criados na Stripe:", {
+      stripeProductId,
+      stripePriceId,
+    });
+
+    // Em seguida, cria o plano no seu sistema
+    const response = await axios.post(`${API_URL}createPlan`, {
+      name,
+      description,
+      image,
+      price: parseFloat(price),
+      discount: parseInt(discount, 10),
+      priority: parseInt(priority, 10),
+      club_id: parseInt(club_id, 10),
+    });
+
+    const { id: planId } = response.data; // Assume que a resposta inclui o ID do plano
+
+    console.log("Plano criado no sistema:", planId);
+
+    // Agora, vincula o plano com o produto e o preço da Stripe
+    await StripeService.vinculatePlan(
+      parseInt(planId),
+      stripeProductId,
+      stripePriceId
+    );
+
+    // Retorna as respostas
+    return {
+      stripeProduct: stripeProductData,
+      plan: response.data,
+    };
+  } catch (error) {
+    console.error("Erro ao criar o plano e vincular:", error);
+    throw error;
+  }
 };
 
 const getPlansByClubId = async (club_id) => {

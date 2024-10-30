@@ -124,6 +124,65 @@ const vinculateProduct = async (socioclubId, stripeId, priceId, isProduct) => {
   }
 };
 
+// NOVO MÉTODO: Criação de assinatura
+const createSubscriptionInStripe = async (
+  name,
+  price,
+  currency,
+  interval,
+  stripeAccountId
+) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}stripe/create_subscription_product`,
+      {
+        name,
+        price,
+        currency,
+        interval, // Intervalo da assinatura (ex: 'month', 'year')
+        stripe_account_id: stripeAccountId,
+      }
+    );
+
+    const { product_id, price_id, error } = response.data;
+
+    if (error) {
+      throw new Error(
+        "Erro ao criar o produto de assinatura na Stripe: " + error
+      );
+    }
+
+    return { product_id, price_id };
+  } catch (error) {
+    console.error("Erro ao criar o produto de assinatura na Stripe:", error);
+    throw error;
+  }
+};
+
+// NOVO MÉTODO: Vincular plano
+const vinculatePlan = async (planId, stripeId, priceId) => {
+  try {
+    const response = await axios.post(`${API_URL}stripe/vinculate_plan`, {
+      plan_id: planId,
+      stripe_id: stripeId,
+      price_id: priceId,
+    });
+
+    if (response.data && response.data.message) {
+      if (response.data.message.startsWith("Erro")) {
+        throw new Error(response.data.message);
+      } else {
+        console.log(response.data.message);
+      }
+    } else {
+      console.log("Plano vinculado com sucesso entre o sistema e Stripe.");
+    }
+  } catch (error) {
+    console.error("Erro ao vincular o plano:", error);
+    throw error;
+  }
+};
+
 const StripeService = {
   createStripeAccount,
   createAccountLink,
@@ -131,6 +190,8 @@ const StripeService = {
   updateClubStripeId,
   createProductInStripe,
   vinculateProduct,
+  createSubscriptionInStripe,
+  vinculatePlan,
 };
 
 export default StripeService;
