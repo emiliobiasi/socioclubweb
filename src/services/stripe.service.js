@@ -100,13 +100,13 @@ const createProductInStripe = async (
   }
 };
 
-const vinculateProduct = async (socioclubId, stripeId, priceId, isProduct) => {
+const vinculateProduct = async (socioclubId, stripeId, priceId, column) => {
   try {
     const response = await axios.post(API_URL + "stripe/vinculate", {
       socioclub_id: socioclubId,
       stripe_id: stripeId,
       price_id: priceId,
-      is_product: isProduct,
+      column: column,
     });
 
     if (response.data && response.data.message) {
@@ -159,29 +159,6 @@ const createSubscriptionInStripe = async (
   }
 };
 
-// NOVO MÉTODO: Vincular plano
-const vinculatePlan = async (planId, stripeId, priceId) => {
-  try {
-    const response = await axios.post(`${API_URL}stripe/vinculate_plan`, {
-      plan_id: planId,
-      stripe_id: stripeId,
-      price_id: priceId,
-    });
-
-    if (response.data && response.data.message) {
-      if (response.data.message.startsWith("Erro")) {
-        throw new Error(response.data.message);
-      } else {
-        console.log(response.data.message);
-      }
-    } else {
-      console.log("Plano vinculado com sucesso entre o sistema e Stripe.");
-    }
-  } catch (error) {
-    console.error("Erro ao vincular o plano:", error);
-    throw error;
-  }
-};
 
 const StripeService = {
   createStripeAccount,
@@ -191,7 +168,6 @@ const StripeService = {
   createProductInStripe,
   vinculateProduct,
   createSubscriptionInStripe,
-  vinculatePlan,
 };
 
 export default StripeService;

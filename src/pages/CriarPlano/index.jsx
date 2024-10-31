@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./CriarPlano.module.css";
 import PlanService from "../../services/plan.service.js";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
-import ImageService from "../../services/image.service.js"
+import ImageService from "../../services/image.service.js";
 
 const CriarPlano = () => {
   const [name, setName] = useState("");
@@ -17,17 +17,19 @@ const CriarPlano = () => {
 
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
+  const [stripeAccountId, setStripeAccountId] = useState("");
 
   useEffect(() => {
     if (auth?.club?.id) {
       setClubId(auth.club.id);
     }
+    if (auth?.club?.stripe_id) {
+      setStripeAccountId(auth.club.stripe_id);
+    }
   }, [auth]);
 
   const handleUpload = async (imgUrl) => {
     if (!image) return;
-
-    console.log('oi')
 
     const uploadResponse = await fetch(imgUrl, {
       method: "PUT",
@@ -37,16 +39,16 @@ const CriarPlano = () => {
       body: image,
     });
 
-    console.log(uploadResponse);
+    if (!uploadResponse.ok) {
+      throw new Error("Erro ao fazer upload da imagem.");
+    }
   };
 
   const handleImgUrl = async (imageName) => {
-    const response = await ImageService.generateImageUrl(
-      imageName
-    );
+    const response = await ImageService.generateImageUrl(imageName);
 
-    handleUpload(response.data.url);
-  }
+    await handleUpload(response.data.url);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,12 +62,13 @@ const CriarPlano = () => {
     }
 
     const timestamp = Date.now();
-    const imgName = timestamp + "_" + image.name
-
-    handleImgUrl(imgName);
+    const imgName = timestamp + "_" + image.name;
 
     try {
       setLoading(true);
+
+      await handleImgUrl(imgName);
+
       const imgUrl = `https://storage.googleapis.com/socioclub/${imgName}`;
 
       const response = await PlanService.createPlan(
@@ -75,10 +78,12 @@ const CriarPlano = () => {
         parseFloat(price),
         parseInt(discount, 10),
         parseInt(priority, 10),
-        parseInt(clubId, 10)
+        parseInt(clubId, 10),
+        stripeAccountId
       );
 
-      if (response.status === 200) {
+      // Verifique se o plano foi criado com sucesso
+      if (response.plan) {
         setSuccess("Plano criado com sucesso!");
         setName("");
         setDescription("");

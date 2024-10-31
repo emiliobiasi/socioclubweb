@@ -51,7 +51,7 @@ const createProduct = async (
       parseInt(socioclubId),
       stripeProductId,
       stripePriceId,
-      true
+      1
     );
 
     // Retorna as respostas

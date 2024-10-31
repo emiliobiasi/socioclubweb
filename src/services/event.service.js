@@ -52,7 +52,7 @@ const createEvent = async (
       parseInt(socioclubEventId),
       stripeProductId,
       stripePriceId,
-      false
+      2
     );
 
     // Return the combined data

@@ -11,7 +11,7 @@ const createPlan = async (
   discount,
   priority,
   club_id,
-  stripeAccountId // Precisamos do Stripe Account ID
+  stripeAccountId 
 ) => {
   try {
     // Primeiro, cria o produto e o preço de assinatura na Stripe
@@ -47,10 +47,11 @@ const createPlan = async (
     console.log("Plano criado no sistema:", planId);
 
     // Agora, vincula o plano com o produto e o preço da Stripe
-    await StripeService.vinculatePlan(
+    await StripeService.vinculateProduct(
       parseInt(planId),
       stripeProductId,
-      stripePriceId
+      stripePriceId,
+      3
     );
 
     // Retorna as respostas
