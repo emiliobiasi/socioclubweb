@@ -10,10 +10,81 @@
   margin-bottom: 5px;
 }
 
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  color: #555;
+}
+
 .inputElement {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 10px;
   font-size: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fileDropZone {
+  height: 200px;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.fileDropZone.active {
+  border-color: #007bff;
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.fileIcon {
+  color: #007bff;
+  margin-right: 10px;
+}
+
+.fileName {
+  font-size: 14px;
+  color: #333;
+}
+
+.fileDropZone p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.fileDropZone.active {
+  border-color: #007bff;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+/* Estilos específicos para o input de data */
+.dateInput {
+  cursor: pointer;
+  background-color: white;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(50%);
 }

@@ -3,6 +3,15 @@ import styles from "./CriarEvento.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import EventService from "../../services/event.service.js";
 import ImageService from "../../services/image.service.js";
+import InputField from "../../components/Inputs/InputField/index.jsx";
+import {
+  faTag,
+  faFileAlt,
+  faImage,
+  faDollarSign,
+  faCrown,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CriarEvento = () => {
   const [name, setName] = useState("");
@@ -125,76 +134,64 @@ const CriarEvento = () => {
       {success && <p className={styles.success}>{success}</p>}
 
       <form onSubmit={handleSubmit}>
-        <div className={styles.inputGroup}>
-          <label>Nome</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Nome"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          icon={faTag}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Descrição</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Descrição"
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          icon={faFileAlt}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Imagem (Arquivo)</label>
-          <input
-            type="file"
-            onChange={(e) => setImage(e.target.files[0])}
-            accept="image/*"
-            required
-          />
-        </div>
+        <InputField
+          label="Imagem (Arquivo)"
+          type="file"
+          onChange={(file) => setImage(file)}
+          icon={faImage}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Preço</label>
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            step="0.01"
-            required
-          />
-        </div>
+        <InputField
+          label="Preço"
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          icon={faDollarSign}
+          step="0.01"
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Data do Evento</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Selecione uma data"
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Ingressos para visitantes</label>
-          <input
-            type="number"
-            value={ticketsAway}
-            onChange={(e) => setTicketsAway(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Ingressos para visitantes"
+          type="number"
+          icon={faUsers}
+          value={ticketsAway}
+          onChange={(e) => setTicketsAway(e.target.value)}
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Ingressos para residentes</label>
-          <input
-            type="number"
-            value={ticketsHome}
-            onChange={(e) => setTicketsHome(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Ingressos para residentes"
+          icon={faCrown}
+          type="number"
+          value={ticketsHome}
+          onChange={(e) => setTicketsHome(e.target.value)}
+        />
 
         <button
           type="submit"

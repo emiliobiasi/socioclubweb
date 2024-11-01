@@ -87,3 +87,20 @@
     text-align: center;
   }
   
+  .inputIcon {
+    position: relative;
+  }
+  
+  .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+  }
+  
+  .inputIcon input,
+  .inputIcon textarea {
+    padding-left: 35px;
+  }
+  

@@ -3,6 +3,14 @@ import styles from "./CriarProduto.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import ProductService from "../../services/product.service.js";
 import ImageService from "../../services/image.service.js";
+import InputField from "../../components/Inputs/InputField/index.jsx";
+
+import {
+  faTag,
+  faFileAlt,
+  faImage,
+  faDollarSign,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CriarProduto = () => {
   const [name, setName] = useState("");
@@ -109,56 +117,53 @@ const CriarProduto = () => {
       {success && <p className={styles.success}>{success}</p>}
 
       <form onSubmit={handleSubmit}>
-        <div className={styles.inputGroup}>
-          <label>Nome</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Nome"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          icon={faTag}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Descrição</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Descrição"
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          icon={faFileAlt}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Imagem (Arquivo)</label>
-          <input
-            type="file"
-            onChange={(e) => setImage(e.target.files[0])}
-            accept="image/*"
-            required
-          />
-        </div>
+        <InputField
+          label="Imagem (Arquivo)"
+          type="file"
+          onChange={(file) => setImage(file)}
+          icon={faImage}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Preço</label>
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            step="0.01"
-            required
-          />
-        </div>
+        <InputField
+          label="Preço"
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          icon={faDollarSign}
+          step="0.01"
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Categoria do Produto (ID)</label>
-          <input
-            type="number"
-            value={categoryId}
-            onChange={(e) => setCategoryId(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Selecione uma opção"
+          type="dropdown"
+          value={categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
+          options={[
+            { name: "Vestimenta", value: "1" },
+            { name: "Brinquedo", value: "2" },
+            { name: "Utensilio", value: "3" },
+          ]}
+        />
 
         <button
           type="submit"

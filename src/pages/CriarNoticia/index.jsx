@@ -2,7 +2,15 @@ import { useState, useEffect } from "react";
 import styles from "./CriarNoticia.module.css";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import NewsService from "../../services/news.service.js";
-import ImageService from "../../services/image.service.js"
+import ImageService from "../../services/image.service.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeading,
+  faFileAlt,
+  faImage,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import InputField from "../../components/Inputs/InputField/index.jsx";
 
 const CriarNoticia = () => {
   const [title, setTitle] = useState("");
@@ -19,14 +27,12 @@ const CriarNoticia = () => {
   useEffect(() => {
     if (auth?.club?.id) {
       setClubId(auth.club.id);
-      setAuthor(auth?.user?.name || ""); // Definindo o autor a partir do usuário autenticado
+      setAuthor(auth?.user?.name || "");
     }
   }, [auth]);
 
   const handleUpload = async (imgUrl) => {
     if (!image) return;
-
-    console.log('oi')
 
     const uploadResponse = await fetch(imgUrl, {
       method: "PUT",
@@ -35,17 +41,12 @@ const CriarNoticia = () => {
       },
       body: image,
     });
-
-    console.log(uploadResponse);
   };
 
   const handleImgUrl = async (imageName) => {
-    const response = await ImageService.generateImageUrl(
-      imageName
-    );
-
+    const response = await ImageService.generateImageUrl(imageName);
     handleUpload(response.data.url);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +60,7 @@ const CriarNoticia = () => {
     }
 
     const timestamp = Date.now();
-    const imgName = timestamp + "_" + image.name
+    const imgName = timestamp + "_" + image.name;
 
     handleImgUrl(imgName);
 
@@ -80,12 +81,11 @@ const CriarNoticia = () => {
         setTitle("");
         setText("");
         setImage("");
-        setAuthor(auth?.user?.name || ""); // Mantém o autor como o usuário autenticado
+        setAuthor(auth?.user?.name || "");
       } else {
         setError("Erro ao criar a notícia. Tente novamente.");
       }
     } catch (error) {
-      console.error("Erro ao criar a notícia:", error);
       setError("Erro ao criar a notícia. Por favor, tente novamente.");
     } finally {
       setLoading(false);
@@ -100,46 +100,43 @@ const CriarNoticia = () => {
       {success && <p className={styles.success}>{success}</p>}
 
       <form onSubmit={handleSubmit}>
-        <div className={styles.inputGroup}>
-          <label>Título</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Título"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          icon={faHeading}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Texto da Notícia</label>
-          <textarea
-            className={styles.text_area}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            rows={5}
-            required
-          />
-        </div>
+        <InputField
+          label="Texto da Notícia"
+          type="textarea"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          icon={faFileAlt}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Imagem (Arquivo)</label>
-          <input
-            type="file"
-            onChange={(e) => setImage(e.target.files[0])}
-            accept="image/*"
-            required
-          />
-        </div>
+        <InputField
+          label="Imagem (Arquivo)"
+          type="file"
+          onChange={(file) => {
+            console.log("Arquivo selecionado:", file); // Verificação
+            setImage(file);
+          }}
+          icon={faImage}
+          required
+        />
 
-        <div className={styles.inputGroup}>
-          <label>Autor</label>
-          <input
-            type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            required
-          />
-        </div>
+        <InputField
+          label="Autor"
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          icon={faUser}
+          required
+        />
 
         <button
           type="submit"
@@ -152,5 +149,4 @@ const CriarNoticia = () => {
     </div>
   );
 };
-
 export default CriarNoticia;
