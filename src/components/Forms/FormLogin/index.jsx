@@ -2,7 +2,10 @@ import { useState } from "react";
 import InputField from "../../Inputs/InputField/index.jsx";
 import styles from "./FormLogin.module.css";
 import { useAuth } from "../../../contexts/auth/useAuth.jsx";
-
+import {
+  faLock,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 
 const FormLogin = () => {
   const [emailClube, setEmailClube] = useState("");
@@ -45,6 +48,7 @@ const FormLogin = () => {
         type="email"
         value={emailClube}
         onChange={(e) => setEmailClube(e.target.value)}
+        icon={faEnvelope}
       />
 
       <InputField
@@ -52,6 +56,7 @@ const FormLogin = () => {
         type="password"
         value={senhaAcesso}
         onChange={(e) => setSenhaAcesso(e.target.value)}
+        icon={faLock}
       />
 
       <button type="submit" className={styles.submitButton} disabled={loading}>

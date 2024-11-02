@@ -53,8 +53,8 @@ const InputField = ({ label, type, value, onChange, labelColor, icon, options })
           onDrop={handleDrop}
           onClick={() => document.getElementById('fileInput').click()}
         >
-          <FontAwesomeIcon icon={icon} className={styles.icon} />
-          <p>Arraste ou selecione o arquivo</p>
+          <FontAwesomeIcon icon={icon} className={styles.iconFile} />
+          <p>Arraste ou selecione uma imagem</p>
           <input
             id="fileInput"
             type="file"

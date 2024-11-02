@@ -45,7 +45,7 @@ const GerenciamentoPlanos = () => {
   };
 
   return (
-    <div>
+    <div className={styles.planosContainer}>
       <div className={styles.title}>
         <h1>Gerenciamento de Planos</h1>
         <div className={styles.button}>

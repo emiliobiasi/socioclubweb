@@ -53,7 +53,7 @@ const GerenciamentoProdutos = () => {
   };
 
   return (
-    <div>
+    <div className={styles.produtosContainer}>
       <div className={styles.title}>
         <h1>Gerenciamento de Produtos</h1>
         <div className={styles.button}>

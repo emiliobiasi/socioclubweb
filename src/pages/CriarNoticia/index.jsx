@@ -11,6 +11,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import InputField from "../../components/Inputs/InputField/index.jsx";
+import Alert from "../../components/Alertas/Alert/index.jsx";
 
 const CriarNoticia = () => {
   const [title, setTitle] = useState("");
@@ -23,6 +24,16 @@ const CriarNoticia = () => {
 
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "success",
+    message: "",
+  });
+
+  const showAlert = (type, message) => {
+    setAlertProps({ type, message });
+    setAlertVisible(true);
+  };
 
   useEffect(() => {
     if (auth?.club?.id) {
@@ -82,10 +93,12 @@ const CriarNoticia = () => {
         setText("");
         setImage("");
         setAuthor(auth?.user?.name || "");
+        showAlert("success", "Notícia criada com sucesso!");
       } else {
         setError("Erro ao criar a notícia. Tente novamente.");
       }
     } catch (error) {
+      showAlert("error", "Erro ao criar a notícia. Tente novamente");
       setError("Erro ao criar a notícia. Por favor, tente novamente.");
     } finally {
       setLoading(false);
@@ -93,59 +106,67 @@ const CriarNoticia = () => {
   };
 
   return (
-    <div className={styles.criarNoticiaContainer}>
-      <h1>Criar Notícia</h1>
+    <div className={styles.container}>
+      <div className={styles.criarNoticiaContainer}>
+        <h1>Criar Notícia</h1>
 
-      {error && <p className={styles.error}>{error}</p>}
-      {success && <p className={styles.success}>{success}</p>}
+        {error && <p className={styles.error}>{error}</p>}
+        {alertVisible && (
+          <Alert
+            type={alertProps.type}
+            message={alertProps.message}
+            onClose={() => setAlertVisible(false)}
+          />
+        )}
 
-      <form onSubmit={handleSubmit}>
-        <InputField
-          label="Título"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          icon={faHeading}
-          required
-        />
+        <form onSubmit={handleSubmit}>
+          <InputField
+            label="Título"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            icon={faHeading}
+            required
+          />
 
-        <InputField
-          label="Texto da Notícia"
-          type="textarea"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          icon={faFileAlt}
-          required
-        />
+          <InputField
+            label="Texto da Notícia"
+            type="textarea"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            icon={faFileAlt}
+            required
+          />
 
-        <InputField
-          label="Imagem (Arquivo)"
-          type="file"
-          onChange={(file) => {
-            console.log("Arquivo selecionado:", file); // Verificação
-            setImage(file);
-          }}
-          icon={faImage}
-          required
-        />
+          <InputField
+            label="Imagem (Arquivo)"
+            type="file"
+            onChange={(file) => {
+              console.log("Arquivo selecionado:", file); // Verificação
+              setImage(file);
+            }}
+            icon={faImage}
+            required
+          />
 
-        <InputField
-          label="Autor"
-          type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          icon={faUser}
-          required
-        />
+          <InputField
+            label="Autor"
+            type="text"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            icon={faUser}
+            required
+          />
 
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={loading}
-        >
-          {loading ? "Criando notícia..." : "Criar Notícia"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={loading}
+          >
+            {loading ? "Criando notícia..." : "Criar Notícia"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

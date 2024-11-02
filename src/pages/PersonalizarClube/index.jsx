@@ -6,13 +6,24 @@ import styles from "./PersonalizarClube.module.css";
 import Button from "../../components/Button";
 import ClubService from "../../services/club.service";
 import ProdutosScreen from "../../components/Smartphone/SmartphoneScreens/ProdutosScreen";
+import Alert from "../../components/Alertas/Alert";
 
 const PersonalizarClube = () => {
   const { auth } = useAuth();
   const clubInfo = auth?.club;
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "success",
+    message: "",
+  });
+
+  const showAlert = (type, message) => {
+    setAlertProps({ type, message });
+    setAlertVisible(true);
+  };
 
   // Mova todos os hooks useState para o topo, antes do retorno condicional
-  const [name, setName] = useState(clubInfo?.name || "");
+  const [name] = useState(clubInfo?.name || "");
   const [titleColor, setTitleColor] = useState(clubInfo?.titles_color || "");
   const [subtitleColor, setSubtitleColor] = useState(
     clubInfo?.subtitles_color || ""
@@ -43,17 +54,24 @@ const PersonalizarClube = () => {
 
       try {
         await ClubService.updateColorScheme(clubInfo.id, updatedColors);
-        alert("Cores atualizadas com sucesso!");
+        showAlert("success", "Cores atualizadas com sucesso!");
       } catch (error) {
         console.error("Erro ao atualizar as cores:", error);
-        alert("Erro ao atualizar as cores.");
+        showAlert("error", "Erro ao atualizar as cores.");
       }
     }
   };
 
   return (
-    <>
+    <div className={styles.personalizarContainer}>
       <h1>Personalizar Clube</h1>
+      {alertVisible && (
+        <Alert
+          type={alertProps.type}
+          message={alertProps.message}
+          onClose={() => setAlertVisible(false)}
+        />
+      )}
       <div className={styles.container}>
         <div className={styles.leftColumn}>
           <div>
@@ -118,7 +136,7 @@ const PersonalizarClube = () => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

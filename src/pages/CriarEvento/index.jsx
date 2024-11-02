@@ -12,6 +12,8 @@ import {
   faCrown,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import eventos from "../../assets/images/eventos.jpg";
+import Alert from "../../components/Alertas/Alert/index.jsx";
 
 const CriarEvento = () => {
   const [name, setName] = useState("");
@@ -28,6 +30,16 @@ const CriarEvento = () => {
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
   const [stripeAccountId, setStripeAccountId] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "success",
+    message: "",
+  });
+
+  const showAlert = (type, message) => {
+    setAlertProps({ type, message });
+    setAlertVisible(true);
+  };
 
   useEffect(() => {
     if (auth?.club?.id) {
@@ -115,11 +127,13 @@ const CriarEvento = () => {
         setDate("");
         setTicketsAway(0);
         setTicketsHome(0);
+        showAlert("success", "Evento criado com sucesso!");
       } else {
         setError("Erro ao criar o evento. Tente novamente.");
       }
     } catch (error) {
       console.error("Erro ao criar o evento:", error);
+      showAlert("error", "Erro o evento o produto. Tente novamente")
       setError("Erro ao criar o evento. Por favor, tente novamente.");
     } finally {
       setLoading(false);
@@ -127,80 +141,93 @@ const CriarEvento = () => {
   };
 
   return (
-    <div className={styles.criarEventoContainer}>
-      <h1>Criar Evento</h1>
+    <div
+      style={{ backgroundImage: `url(${eventos})`, height: "100%" }}
+      className={styles.containerBackground}
+    >
+      <div className={styles.container}>
+        <div className={styles.criarEventoContainer}>
+          <h1>Criar Evento</h1>
 
-      {error && <p className={styles.error}>{error}</p>}
-      {success && <p className={styles.success}>{success}</p>}
+          {error && <p className={styles.error}>{error}</p>}
+          {alertVisible && (
+            <Alert
+              type={alertProps.type}
+              message={alertProps.message}
+              onClose={() => setAlertVisible(false)}
+            />
+          )}
 
-      <form onSubmit={handleSubmit}>
-        <InputField
-          label="Nome"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          icon={faTag}
-          required
-        />
+          <form onSubmit={handleSubmit}>
+            <InputField
+              label="Nome"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              icon={faTag}
+              required
+            />
 
-        <InputField
-          label="Descrição"
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          icon={faFileAlt}
-          required
-        />
+            <InputField
+              label="Descrição"
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              icon={faFileAlt}
+              required
+            />
 
-        <InputField
-          label="Imagem (Arquivo)"
-          type="file"
-          onChange={(file) => setImage(file)}
-          icon={faImage}
-          required
-        />
+            <InputField
+              label="Imagem (Arquivo)"
+              type="file"
+              onChange={(file) => setImage(file)}
+              icon={faImage}
+              required
+            />
 
-        <InputField
-          label="Preço"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          icon={faDollarSign}
-          step="0.01"
-          required
-        />
+            <InputField
+              label="Preço"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              icon={faDollarSign}
+              step="0.01"
+              required
+            />
 
-        <InputField
-          label="Selecione uma data"
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
+            <InputField
+              label="Selecione uma data"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
 
-        <InputField
-          label="Ingressos para visitantes"
-          type="number"
-          icon={faUsers}
-          value={ticketsAway}
-          onChange={(e) => setTicketsAway(e.target.value)}
-        />
+            <InputField
+              label="Ingressos para visitantes"
+              type="number"
+              icon={faUsers}
+              value={ticketsAway}
+              onChange={(e) => setTicketsAway(e.target.value)}
+            />
 
-        <InputField
-          label="Ingressos para residentes"
-          icon={faCrown}
-          type="number"
-          value={ticketsHome}
-          onChange={(e) => setTicketsHome(e.target.value)}
-        />
+            <InputField
+              label="Ingressos para residentes"
+              icon={faCrown}
+              type="number"
+              value={ticketsHome}
+              onChange={(e) => setTicketsHome(e.target.value)}
+            />
 
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={loading}
-        >
-          {loading ? "Criando evento..." : "Criar Evento"}
-        </button>
-      </form>
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={loading}
+            >
+              {loading ? "Criando evento..." : "Criar Evento"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

@@ -62,7 +62,7 @@ const GerenciamentoEventos = () => {
   };
 
   return (
-    <div>
+    <div className={styles.eventosContainer}>
       <div className={styles.title}>
         <h1>Gerenciamento de Eventos</h1>
         <div className={styles.button}>

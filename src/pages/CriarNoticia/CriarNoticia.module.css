@@ -1,4 +1,7 @@
 /* CriarPlano.module.css */
+.container{
+  padding: 24px;
+}
 
 .criarPlanoContainer {
     max-width: 600px;

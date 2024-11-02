@@ -48,7 +48,7 @@ const GerenciamentoNoticias = () => {
   };
 
   return (
-    <div>
+    <div className={styles.noticiaContainer}>
       <div className={styles.title}>
         <h1>Gerenciamento de Notícias</h1>
         <div className={styles.button}>

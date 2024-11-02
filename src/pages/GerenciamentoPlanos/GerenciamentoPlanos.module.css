@@ -1,9 +1,14 @@
+.planosContainer {
+  padding: 40px;
+}
+
 .container {
   width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 24px;
 }
 
 .title {

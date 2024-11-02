@@ -5,6 +5,7 @@ import ImageService from "../../services/image.service.js";
 import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import InputField from "../../components/Inputs/InputField/index.jsx";
 import { faTag, faFileAlt, faImage, faDollarSign, faPercent, faSortNumericDown } from "@fortawesome/free-solid-svg-icons";
+import Alert from "../../components/Alertas/Alert/index.jsx";
 
 const CriarPlano = () => {
   const [name, setName] = useState("");
@@ -20,6 +21,16 @@ const CriarPlano = () => {
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
   const [stripeAccountId, setStripeAccountId] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "success",
+    message: "",
+  });
+
+  const showAlert = (type, message) => {
+    setAlertProps({ type, message });
+    setAlertVisible(true);
+  };
 
   useEffect(() => {
     if (auth?.club?.id) {
@@ -88,7 +99,9 @@ const CriarPlano = () => {
         setPrice(0);
         setDiscount(0);
         setPriority(0);
+        showAlert("success", "Plano criado com sucesso!");
       } else {
+        showAlert("error", "Erro ao criar o plano. Tente novamente")
         setError("Erro ao criar o plano. Tente novamente.");
       }
     } catch (error) {
@@ -104,7 +117,13 @@ const CriarPlano = () => {
       <h1>Criar Plano</h1>
 
       {error && <p className={styles.error}>{error}</p>}
-      {success && <p className={styles.success}>{success}</p>}
+      {alertVisible && (
+            <Alert
+              type={alertProps.type}
+              message={alertProps.message}
+              onClose={() => setAlertVisible(false)}
+            />
+          )}
 
       <form onSubmit={handleSubmit}>
         <InputField

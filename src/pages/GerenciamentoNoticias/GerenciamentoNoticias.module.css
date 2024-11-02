@@ -1,3 +1,7 @@
+.noticiaContainer {
+  padding: 40px;
+}
+
 .container {
   display: flex;
   justify-content: center;

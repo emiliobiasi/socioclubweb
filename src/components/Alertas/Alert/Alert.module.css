@@ -1,0 +1,42 @@
+.alert {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  color: white;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.success {
+  background-color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+.error {
+  background-color: #F44336;
+  border: 1px solid #F44336;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.closeBtn {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+.hide {
+  opacity: 0;
+  transform: translateY(-20px);
+}

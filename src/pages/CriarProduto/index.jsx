@@ -4,6 +4,7 @@ import { useAuth } from "../../contexts/auth/useAuth.jsx";
 import ProductService from "../../services/product.service.js";
 import ImageService from "../../services/image.service.js";
 import InputField from "../../components/Inputs/InputField/index.jsx";
+import produtos from "../../assets/images/produtos.jpg";
 
 import {
   faTag,
@@ -11,6 +12,7 @@ import {
   faImage,
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
+import Alert from "../../components/Alertas/Alert/index.jsx";
 
 const CriarProduto = () => {
   const [name, setName] = useState("");
@@ -24,6 +26,16 @@ const CriarProduto = () => {
   const { auth } = useAuth();
   const [clubId, setClubId] = useState("");
   const [stripeAccountId, setStripeAccountId] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "success",
+    message: "",
+  });
+
+  const showAlert = (type, message) => {
+    setAlertProps({ type, message });
+    setAlertVisible(true);
+  };
 
   useEffect(() => {
     if (auth?.club?.id) {
@@ -98,11 +110,15 @@ const CriarProduto = () => {
         setPrice(0);
         setImage("");
         setCategoryId("");
+        
+        // Exibe o alerta de sucesso
+        showAlert("success", "Produto criado com sucesso!");
       } else {
         setError("Erro ao criar o produto. Tente novamente.");
       }
     } catch (error) {
       console.error("Erro ao criar o produto:", error);
+      showAlert("error", "Erro ao criar o produto. Tente novamente")
       setError("Erro ao criar o produto. Por favor, tente novamente.");
     } finally {
       setLoading(false);
@@ -110,69 +126,83 @@ const CriarProduto = () => {
   };
 
   return (
-    <div className={styles.criarProdutoContainer}>
-      <h1>Criar Produto</h1>
+    <div
+      style={{ backgroundImage: `url(${produtos})`, height: "100%" }}
+      className={styles.containerBackground}
+    >
+      <div className={styles.container}>
+        <div className={styles.criarProdutoContainer}>
+          <h1>Criar Produto</h1>
 
-      {error && <p className={styles.error}>{error}</p>}
-      {success && <p className={styles.success}>{success}</p>}
+          {error && <p className={styles.error}>{error}</p>}
+          {alertVisible && (
+            <Alert
+              type={alertProps.type}
+              message={alertProps.message}
+              onClose={() => setAlertVisible(false)}
+            />
+          )}
 
-      <form onSubmit={handleSubmit}>
-        <InputField
-          label="Nome"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          icon={faTag}
-          required
-        />
+          <form onSubmit={handleSubmit}>
+            <InputField
+              label="Nome"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              icon={faTag}
+              required
+            />
 
-        <InputField
-          label="Descrição"
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          icon={faFileAlt}
-          required
-        />
+            <InputField
+              label="Descrição"
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              icon={faFileAlt}
+              required
+            />
 
-        <InputField
-          label="Imagem (Arquivo)"
-          type="file"
-          onChange={(file) => setImage(file)}
-          icon={faImage}
-          required
-        />
+            <InputField
+              label="Imagem (Arquivo)"
+              type="file"
+              onChange={(file) => setImage(file)}
+              icon={faImage}
+              required
+            />
 
-        <InputField
-          label="Preço"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          icon={faDollarSign}
-          step="0.01"
-          required
-        />
+            <InputField
+              label="Preço"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              icon={faDollarSign}
+              step="0.01"
+              required
+            />
 
-        <InputField
-          label="Selecione uma opção"
-          type="dropdown"
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
-          options={[
-            { name: "Vestimenta", value: "1" },
-            { name: "Brinquedo", value: "2" },
-            { name: "Utensilio", value: "3" },
-          ]}
-        />
+            <InputField
+              label="Selecione uma opção"
+              type="dropdown"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              options={[
+                { name: "", value: "0" },
+                { name: "Vestimenta", value: "1" },
+                { name: "Brinquedo", value: "2" },
+                { name: "Utensilio", value: "3" },
+              ]}
+            />
 
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={loading}
-        >
-          {loading ? "Criando produto..." : "Criar Produto"}
-        </button>
-      </form>
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={loading}
+            >
+              {loading ? "Criando produto..." : "Criar Produto"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

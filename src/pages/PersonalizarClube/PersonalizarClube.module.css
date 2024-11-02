@@ -1,3 +1,7 @@
+.personalizarContainer {
+  padding: 40px;
+}
+
 .container {
   display: flex;
   justify-content: space-between;

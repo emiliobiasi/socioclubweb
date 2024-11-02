@@ -48,7 +48,7 @@ const SideBar = ({ children }) => {
             onClick={() => setCollapsed(!collapsed)}
           />
         </Header>
-        <Content style={{ margin: "16px", padding: 24, background: colorBgContainer }}>
+        <Content style={{ margin: "16px", background: colorBgContainer }}>
           {children} 
         </Content>
       </Layout>
