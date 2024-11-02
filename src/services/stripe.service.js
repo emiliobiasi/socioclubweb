@@ -102,6 +102,11 @@ const createProductInStripe = async (
 
 const vinculateProduct = async (socioclubId, stripeId, priceId, column) => {
   try {
+    console.log("Vinculando produto entre o sistema e Stripe...");
+    console.log("socioclubId:", socioclubId);
+    console.log("stripeId:", stripeId);
+    console.log("priceId:", priceId);
+    console.log("column:", column);
     const response = await axios.post(API_URL + "stripe/vinculate", {
       socioclub_id: socioclubId,
       stripe_id: stripeId,
@@ -158,7 +163,6 @@ const createSubscriptionInStripe = async (
     throw error;
   }
 };
-
 
 const StripeService = {
   createStripeAccount,

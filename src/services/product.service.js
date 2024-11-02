@@ -42,9 +42,7 @@ const createProduct = async (
       }
     );
 
-    const { id: socioclubId } = existingProductResponse.data; // Assume que o retorno tem um campo 'id'
-
-    console.log("Produto criado no sistema:", socioclubId);
+    const { id: socioclubId } = existingProductResponse.data.product; // Assume que o retorno tem um campo 'id'
 
     // Agora faz a vinculação chamando a função do StripeService
     await StripeService.vinculateProduct(
