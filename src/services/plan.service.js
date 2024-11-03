@@ -11,7 +11,7 @@ const createPlan = async (
   discount,
   priority,
   club_id,
-  stripeAccountId 
+  stripeAccountId
 ) => {
   try {
     // Primeiro, cria o produto e o preço de assinatura na Stripe
@@ -42,7 +42,9 @@ const createPlan = async (
       club_id: parseInt(club_id, 10),
     });
 
-    const { id: planId } = response.data; // Assume que a resposta inclui o ID do plano
+    console.log("Plano criado no sistema:", response.data);
+
+    const { id: planId } = response.data.plan; // Assume que a resposta inclui o ID do plano
 
     console.log("Plano criado no sistema:", planId);
 
