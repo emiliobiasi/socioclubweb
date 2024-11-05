@@ -1,7 +1,7 @@
 import { Menu } from "antd";
 import {
   HomeOutlined,
-  // AppstoreOutlined,
+  AppstoreOutlined,
   AreaChartOutlined,
   PayCircleOutlined,
   SettingOutlined,
@@ -53,6 +53,13 @@ const MenuList = ({ darkTheme }) => {
         onClick={() => navigate("/financeiro")}
       >
         Financeiro
+      </Menu.Item>
+      <Menu.Item
+        key="analise"
+        icon={<AppstoreOutlined />}
+        onClick={() => navigate("/analise")}
+      >
+        Analise
       </Menu.Item>
       <Menu.Item
         key="payment"
