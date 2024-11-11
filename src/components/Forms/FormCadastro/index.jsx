@@ -10,7 +10,7 @@ const FormCadastro = () => {
   const [emailClube, setEmailClube] = useState("");
   const [senhaAcesso, setSenhaAcesso] = useState("");
   const [cepClube, setCepClube] = useState("");
-  const [enderecoComercial, setEnderecoComercial] = useState("");
+  // const [enderecoComercial, setEnderecoComercial] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const FormCadastro = () => {
       emailClube,
       senhaAcesso,
       cepClube,
-      enderecoComercial,
+      // enderecoComercial,
     };
     for (const campo in formData) {
       if (!formData[campo]) {
@@ -88,11 +88,11 @@ const FormCadastro = () => {
         onChange={(e) => setCepClube(e.target.value)}
       />
 
-      <InputField
+      {/* <InputField
         label="Comprovante de endereço comercial do clube"
         type="file"
         onChange={(e) => setEnderecoComercial(e.target.files[0])}
-      />
+      /> */}
 
       <button type="submit" className={styles.submitButton}>
         Tornar-se um membro

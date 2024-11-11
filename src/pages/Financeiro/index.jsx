@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import StripeService from "../../services/stripe.service";
 import { useAuth } from "../../contexts/auth/useAuth";
-import styles from "./Financeiro.module.css"; // Importar o arquivo CSS
+import styles from "./Financeiro.module.css";
+import OpenDashboardButton from "../../components/OpenDashBoardButton/OpenDashBoardButton";
 
 const Financeiro = () => {
   const [accountCreatePending, setAccountCreatePending] = useState(false);
   const [accountLinkCreatePending, setAccountLinkCreatePending] =
     useState(false);
-  const [accountUpdatePending, setAccountUpdatePending] = useState(false);
-  const [connectedAccountUpdated, setConnectedAccountUpdated] = useState(false);
   const [error, setError] = useState(false);
   const [connectedAccountId, setConnectedAccountId] = useState(null);
+  const [showAddEditButton, setShowAddEditButton] = useState(false);
 
   const { auth, setAuth } = useAuth();
   const clubId = auth?.club?.id;
@@ -59,17 +59,9 @@ const Financeiro = () => {
     }
   };
 
-  const handleUpdateAccount = async () => {
-    setAccountUpdatePending(true);
-    setError(false);
-    try {
-      await StripeService.updateStripeAccount(connectedAccountId, "individual");
-      setConnectedAccountUpdated(true);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setAccountUpdatePending(false);
-    }
+  const handleAccountNotConfigured = () => {
+    // Atualiza o estado para mostrar o botão "Adicionar/Editar informações"
+    setShowAddEditButton(true);
   };
 
   return (
@@ -80,20 +72,42 @@ const Financeiro = () => {
         </div>
         <div className={styles.content}>
           {error && <p className={styles.error}>Algo deu errado!</p>}
-          {!connectedAccountId && <h2>Prepare-se para a decolagem</h2>}
           {!connectedAccountId && (
-            <p>SocioClub: junte-se à nossa comunidade de clubes.</p>
+            <>
+              <h2>
+                Conecte sua conta SocioClub ao serviço parceiro da Stripe!
+              </h2>
+              <p>
+                SocioClub: junte-se à nossa comunidade de clubes, você poderá
+                disponibilizar produtos, planos e eventos de seu clube!
+              </p>
+            </>
           )}
           {connectedAccountId && (
-            <h2>
-              Adicione ou edite informações para começar a aceitar pagamentos
-            </h2>
-          )}
-          {connectedAccountId && (
-            <p>
-              SocioClub faz parceria com a Stripe para ajudar você a receber
-              pagamentos e manter seu banco pessoal e detalhes seguros.
-            </p>
+            <>
+              <h2>Bem-vindo ao seu painel financeiro!</h2>
+              <p>
+                Acesse o Dashboard da Stripe para gerenciar seus pagamentos e
+                informações.
+              </p>
+
+              <div className={styles.buttonContainer}>
+                {showAddEditButton && !accountLinkCreatePending && (
+                  <button
+                    onClick={handleCreateAccountLink}
+                    className={styles.button}
+                  >
+                    Adicionar/Editar informações
+                  </button>
+                )}
+
+                <OpenDashboardButton
+                  accountId={connectedAccountId}
+                  buttonClassName={styles.button}
+                  onAccountNotConfigured={handleAccountNotConfigured}
+                />
+              </div>
+            </>
           )}
 
           {!accountCreatePending && !connectedAccountId && (
@@ -102,30 +116,9 @@ const Financeiro = () => {
             </button>
           )}
 
-          {connectedAccountId && !accountLinkCreatePending && (
-            <button onClick={handleCreateAccountLink} className={styles.button}>
-              Adicionar/Editar informações
-            </button>
-          )}
-
-          {connectedAccountId &&
-            !accountUpdatePending &&
-            !connectedAccountUpdated && (
-              <button onClick={handleUpdateAccount} className={styles.button}>
-                Atualizar Conta
-              </button>
-            )}
-
-          {connectedAccountUpdated && (
-            <div className={styles["example-form"]}>
-              <h2>O fluxo de integração vai aqui</h2>
-            </div>
-          )}
-
           {(connectedAccountId ||
             accountCreatePending ||
-            accountLinkCreatePending ||
-            accountUpdatePending) && (
+            accountLinkCreatePending) && (
             <div className={styles["dev-callout"]}>
               {connectedAccountId && (
                 <p>
@@ -137,42 +130,8 @@ const Financeiro = () => {
               {accountLinkCreatePending && (
                 <p>Criando um novo link de conta...</p>
               )}
-              {accountUpdatePending && <p>Atualizando a conta...</p>}
-              {connectedAccountUpdated && (
-                <div>
-                  <p>
-                    O onboarding da conta começou. Determine as{" "}
-                    <a
-                      href="https://docs.stripe.com/connect/required-verification-information"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      informações necessárias
-                    </a>{" "}
-                    que você precisa reunir.
-                  </p>
-                  <p>
-                    Construa um fluxo para que as suas contas conectadas insiram
-                    essas informações e as enviem para a Stripe.
-                  </p>
-                </div>
-              )}
             </div>
           )}
-
-          <div className={styles["info-callout"]}>
-            <p>
-              Este é um app de exemplo para onboarding de Connect hospedado no
-              Stripe.{" "}
-              <a
-                href="https://docs.stripe.com/connect/onboarding/quickstart?connect-onboarding-surface=api"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ver documentação
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </div>

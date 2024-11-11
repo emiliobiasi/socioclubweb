@@ -164,6 +164,40 @@ const createSubscriptionInStripe = async (
   }
 };
 
+const createAccountSession = async (accountId) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}stripe/create_account_session`,
+      {
+        account_id: accountId,
+      }
+    );
+    const { client_secret } = response.data;
+    return client_secret;
+  } catch (error) {
+    console.error("Erro ao criar o client_secret da AccountSession:", error);
+    throw error;
+  }
+};
+
+const createLoginLink = async (accountId) => {
+  try {
+    const response = await axios.post(`${API_URL}stripe/create_login_link`, {
+      account_id: accountId,
+    });
+    const { login_url, error } = response.data;
+
+    if (error) {
+      throw new Error("Erro ao criar o login link na Stripe: " + error);
+    }
+
+    return login_url;
+  } catch (error) {
+    console.error("Erro ao criar o login link na Stripe:", error);
+    throw error;
+  }
+};
+
 const StripeService = {
   createStripeAccount,
   createAccountLink,
@@ -172,6 +206,8 @@ const StripeService = {
   createProductInStripe,
   vinculateProduct,
   createSubscriptionInStripe,
+  createAccountSession,
+  createLoginLink
 };
 
 export default StripeService;
