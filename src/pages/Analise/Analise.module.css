@@ -1,25 +1,68 @@
 .financeiroContainer {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ocupa 100% da altura da tela */
+  height: 90vh; /* Altura total da tela */
 }
 
 .grid_container {
   display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #2196F3;
-  padding: 5px;
-  flex-grow: 1; /* Faz com que o grid ocupe o espaço disponível */
+  grid-template-columns: 1fr 1fr; /* Configura duas colunas iguais */
+  grid-template-rows: 1fr 1fr; /* Configura duas linhas iguais */
+  gap: 10px;
   width: 100%;
-  height: 100%; /* Ocupa 100% da altura da tela */
+  height: 100%; /* Ocupa toda a altura disponível */
 }
 
 .grid_item {
+  position: relative;
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.openButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: black;
+  color: white;
+  border: none;
   padding: 5px;
-  margin: 5px;
-  font-size: 30px;
-  height: 240px; /* Ocupa 100% da altura da tela */
-  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  width: 85vw;
+  height: 85vh;
+  background: #fff;
+}
+
+.closeButton {
+  position: absolute;
+  top: 85px;
+  right: 155px;
+  padding: 8px 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.title {
+  padding-top: 10px;
 }
