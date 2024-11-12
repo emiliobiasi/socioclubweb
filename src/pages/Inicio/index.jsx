@@ -1,15 +1,38 @@
 import { useAuth } from "../../contexts/auth/useAuth";
 import styles from "./Inicio.module.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import CompleteCadastro from "../../components/Forms/CompleteCadastro";
 
 const Inicio = () => {
   const navigate = useNavigate();
   const { logout, auth } = useAuth();
+  const [cadastroCompleto, setCadastroCompleto] = useState(false);
 
   const clubInfo = auth?.club;
   const token = auth?.token;
   const expiresAt = auth?.expiresAt;
-  const stripeId = auth.club.stripe_id;
+
+  // Verifica se algum campo necessário está vazio
+  const isCadastroIncompleto =
+    !clubInfo?.description ||
+    !clubInfo?.logo ||
+    !clubInfo?.background ||
+    !clubInfo?.club_category;
+
+  const handleCadastroCompleto = () => {
+    // Atualiza o estado para indicar que o cadastro foi completado
+    setCadastroCompleto(true);
+  };
+
+  if (isCadastroIncompleto && !cadastroCompleto) {
+    return (
+      <CompleteCadastro
+        clubInfo={clubInfo}
+        onComplete={handleCadastroCompleto}
+      />
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -67,7 +90,6 @@ const Inicio = () => {
         </div>
         <p>Token: {token}</p>
         <p>Expira em: {expiresAt}</p>
-        <p>Stripe ID: {stripeId}</p>
         <button onClick={logout} className={styles.logoutButton}>
           Logout
         </button>

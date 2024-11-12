@@ -6,12 +6,15 @@ import {
   PayCircleOutlined,
   SettingOutlined,
   BarsOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import styles from "./SideBar.module.css";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth/useAuth";
 
 const MenuList = ({ darkTheme }) => {
+  const { logout } = useAuth();
   const navigate = useNavigate();
   return (
     <Menu
@@ -69,7 +72,10 @@ const MenuList = ({ darkTheme }) => {
         Personalização
       </Menu.Item>
       <Menu.Item key="setting" icon={<SettingOutlined />}>
-        Configuraçõespersonalizar-clube
+        Configurações
+      </Menu.Item>
+      <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
+        Sair
       </Menu.Item>
     </Menu>
   );

@@ -3,6 +3,7 @@ import InputField from "../../Inputs/InputField";
 import styles from "./FormCadastro.module.css";
 import ClubService from "../../../services/club.service.js";
 import validarCampos from "../../../utils/ValidarCampos.js";
+import { useAuth } from "../../../contexts/auth/useAuth.jsx";
 
 const FormCadastro = () => {
   const [cnpj, setCnpj] = useState("");
@@ -10,9 +11,11 @@ const FormCadastro = () => {
   const [emailClube, setEmailClube] = useState("");
   const [senhaAcesso, setSenhaAcesso] = useState("");
   const [cepClube, setCepClube] = useState("");
+  const { login } = useAuth();
+
   // const [enderecoComercial, setEnderecoComercial] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -42,6 +45,7 @@ const FormCadastro = () => {
         cepClube
       );
       console.log("Dados do formulário:", formData);
+      await login(emailClube, senhaAcesso);
     } else {
       const mensagemErro = Object.values(errosValidados).join("\n");
       alert(`Erros encontrados:\n${mensagemErro}`);
