@@ -7,6 +7,7 @@ import { useState } from "react";
 import ToggleThemeButton from "./ToggleThemeButton";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
+import LogoDark from "./LogoDark";
 
 
 const { Header, Sider, Content } = Layout; 
@@ -33,7 +34,7 @@ const SideBar = ({ children }) => {
         className={styles.sidebar}
         width={200}
       >
-        <Logo />
+        {darkTheme ? <Logo /> : <LogoDark />}
         <MenuList darkTheme={darkTheme} />
         <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
       </Sider>
