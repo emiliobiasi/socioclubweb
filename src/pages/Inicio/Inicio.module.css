@@ -4,107 +4,159 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #f5f5f5;
+  background-color: #f0f2f5;
+  font-family: Arial, sans-serif;
+  padding-bottom: 20px;
 }
 
 .clubbackground {
   width: 100%;
-  height: 300px;
-  background-size: cover;
-  background-position: center;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  background-color: #e6e8eb;
+  border-bottom: 2px solid #ddd;
 }
 
 .clubbackground img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.85);
+  transition: transform 0.5s ease;
+}
+
+.clubbackground img:hover {
+  transform: scale(1.05);
 }
 
 .profileSection {
   display: flex;
-  justify-content: space-between;
-  width: 95%;
+  flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  width: 90%;
+  max-width: 800px;
+  margin-top: -60px;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  gap: 15px;
+  z-index: 1;
+  position: relative;
 }
 
 .logoContainer {
-  width: 150px;
-  height: 150px;
-  background-color: #ddd;
+  width: 200px;
+  height: 200px;
+  background-color: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-right: 20px;
-  margin-top: -130px;
-  border: 2px solid #000
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  margin-top: -65px;
+}
+
+.logoContainer:hover {
+  transform: scale(1.05);
 }
 
 .logo {
-  width: 70%;
-  height: 70%;
-  object-fit: cover;
+  width: 100%; /* Ajuste o tamanho para ocupar completamente o contêiner */
+  height: 100%;
+  object-fit: cover; /* Cobre completamente o contêiner sem distorção */
 }
 
 .userInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 8px;
   width: 100%;
-  align-items: left;
-  justify-content: left;
-  margin-left: 110px;
 }
 
 .username {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
+  color: #333;
+  margin: 0;
 }
 
 .description,
 .address {
   font-size: 16px;
-  color: #666;
+  color: #555;
 }
 
 .editButton {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  color: #000;
-  padding: 8px 16px;
-  border-radius: 4px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-left: 60px;
-  align-self: flex-start;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
 }
 
 .quickAccessSection {
   text-align: center;
   width: 100%;
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.quickAccessSection h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
 }
 
 .buttonsContainer {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   justify-content: center;
-  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .quickButton {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  color: #000;
-  margin-bottom: 20px;
-  padding: 12px 24px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  width: 160px; /* Define uma largura fixa para todos os botões */
   border-radius: 8px;
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.2);
+  text-align: center;
+}
+
+.quickButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 15px rgba(0, 123, 255, 0.3);
 }
 
 .logoutButton {
-  background-color: #007bff;
+  background-color: #dc3545;
   border: none;
   color: white;
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: #c82333;
 }

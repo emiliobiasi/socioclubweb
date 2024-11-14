@@ -26,7 +26,7 @@ const Analise = () => {
   return (
     <div className={styles.financeiroContainer}>
       <div>
-        <h1 className={styles.title}>Analise</h1>
+        <h1 className={styles.title}>Análise</h1>
       </div>
       <div className={styles.grid_container}>
         {frameLinks.map((link, index) => (
@@ -38,7 +38,10 @@ const Analise = () => {
               frameBorder="0"
               title={`Frame ${index + 1}`}
             ></iframe>
-            <button onClick={() => openModal(link)} className={styles.openButton}>
+            <button
+              onClick={() => openModal(link)}
+              className={styles.openButton}
+            >
               <MdOpenWith size={24} color="#fff" />
             </button>
           </div>
@@ -47,9 +50,19 @@ const Analise = () => {
 
       {isModalOpen && (
         <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <iframe src={activeFrameSrc} width="100%" height="100%" frameBorder="0"></iframe>
-            <button onClick={closeModal} className={styles.closeButton}>Fechar</button>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src={activeFrameSrc}
+              width="100%"
+              height="100%"
+              frameBorder="0"
+            ></iframe>
+            <button onClick={closeModal} className={styles.closeButton}>
+              Fechar
+            </button>
           </div>
         </div>
       )}

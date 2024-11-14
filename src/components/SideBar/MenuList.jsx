@@ -62,7 +62,7 @@ const MenuList = ({ darkTheme }) => {
         icon={<AppstoreOutlined />}
         onClick={() => navigate("/analise")}
       >
-        Analise
+        Análise
       </Menu.Item>
       <Menu.Item
         key="payment"
