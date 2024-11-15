@@ -7,8 +7,8 @@ const SectionSocioClub = () => {
       <div className={styles.container}>
         {/* Coluna da esquerda */}
         <div className={styles["left-column-section1"]}>
-          <h1>SOCIOCLUB</h1>
-          <p>
+          <h1 className={styles.title}>SOCIOCLUB</h1>
+          <p className={styles.description}>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit.
             Consequatur sequi deserunt quia perferendis cum ipsam, quos itaque
             quam ex, ipsa molestias facere excepturi accusamus aliquid totam
@@ -23,12 +23,12 @@ const SectionSocioClub = () => {
           <button>🚀 Começar agora</button>
           <div className={styles["stats-row"]}>
             <div>
-              <h2>5.2m+</h2>
-              <p>Total Usuários</p>
+              <h2 className = {styles.stats}>5.2m+</h2>
+              <p className = {styles.stats}>Total Usuários</p>
             </div>
             <div>
-              <h2>1.1k+</h2>
-              <p>Total Clubes</p>
+              <h2 className = {styles.stats}>1.1k+</h2>
+              <p className = {styles.stats}>Total Clubes</p>
             </div>
           </div>
         </div>

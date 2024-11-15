@@ -7,10 +7,10 @@ const Analise = () => {
   const [activeFrameSrc, setActiveFrameSrc] = useState("");
 
   const frameLinks = [
-    "http://localhost:3000/d-solo/ae3oisbmpcdfkb/dashboard-1?from=1731357064357&to=1731378664357&timezone=browser&orgId=1&panelId=1&__feature.dashboardSceneSolo",
-    "http://localhost:3000/d-solo/ae3oisbmpcdfkb/dashboard-1?from=1731357064357&to=1731378664357&timezone=browser&orgId=1&panelId=1&__feature.dashboardSceneSolo",
-    "http://localhost:3000/d-solo/ae3oisbmpcdfkb/dashboard-1?from=1731357064357&to=1731378664357&timezone=browser&orgId=1&panelId=1&__feature.dashboardSceneSolo",
-    "http://localhost:3000/d-solo/ae3oisbmpcdfkb/dashboard-1?from=1731357064357&to=1731378664357&timezone=browser&orgId=1&panelId=1&__feature.dashboardSceneSolo",
+    "http://localhost:3000/d-solo/be31gl6cb7u9sb/socioclub?from=1731650294399&to=1731671894399&timezone=browser&orgId=1&panelId=4&__feature.dashboardSceneSolo",
+    "http://localhost:3000/d-solo/be31gl6cb7u9sb/socioclub?from=1731650294399&to=1731671894399&timezone=browser&orgId=1&panelId=3&__feature.dashboardSceneSolo",
+    "http://localhost:3000/d-solo/be31gl6cb7u9sb/socioclub?from=1731650294399&to=1731671894399&timezone=browser&orgId=1&panelId=2&__feature.dashboardSceneSolo",
+    "http://localhost:3000/d-solo/be31gl6cb7u9sb/socioclub?from=1731650294399&to=1731671894399&timezone=browser&orgId=1&panelId=1&__feature.dashboardSceneSolo",
   ];
 
   const openModal = (src) => {

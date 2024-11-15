@@ -147,7 +147,7 @@ const CriarNoticia = () => {
             }}
             icon={faImage}
             required
-          />
+          /> 
 
           <InputField
             label="Autor"

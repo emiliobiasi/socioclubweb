@@ -1,5 +1,5 @@
 .NavbarItems {
-  background: var(--color-blue1);
+  background-color: var(--color-blue2);
   height: 80px;
   display: flex;
   justify-content: center;
@@ -15,6 +15,7 @@
   justify-self: start;
   margin-left: 20px;
   cursor: pointer;
+  padding-top: 15px;
 }
 
 .fa-react {

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./TopBar.module.css";
+import logo from "../../../../assets/images/escudo-generico.png"
 
 const TopBar = ({ Name, PrimaryColor, ButtonColor, TitleColor }) => {
 
@@ -10,7 +11,7 @@ const TopBar = ({ Name, PrimaryColor, ButtonColor, TitleColor }) => {
     <div className={styles.topBar} style={{ backgroundColor: PrimaryColor }}>
       <img
         className={styles.logo}
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Brasao_do_Sao_Paulo_Futebol_Clube.svg/1200px-Brasao_do_Sao_Paulo_Futebol_Clube.svg.png"
+        src={logo}
         alt="Logo"
       />
       <h1 className={styles.title} style={{ color: titleColor }}>{Name}</h1>

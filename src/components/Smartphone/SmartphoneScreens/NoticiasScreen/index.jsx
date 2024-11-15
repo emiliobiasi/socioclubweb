@@ -4,6 +4,7 @@ import NoticiaCard from "../../Components/SmartphoneCards/NoticiaCard";
 import TopBar from "../../Components/TopBar";
 import styles from "./NoticiaScreen.module.css";
 import PropTypes from "prop-types";
+import imagemNoticia from "../../../../assets/images/torcedores.png";
 
 const NoticiaScreen = ({
   Name,
@@ -27,10 +28,10 @@ const NoticiaScreen = ({
             <h2 className={styles.title}>Notícias</h2>
           </div>
           <NoticiaCard
-            title="Renda em alta no Paulistão 2024"
-            description="O público e a renda no estádio do Morumbi seguem crescendo na temporada."
-            creator="São Paulo FC"
-            imageUrl="https://saopaulosempre.com.br/wp-content/uploads/2023/11/06-11-Planejamento.jpg"
+            title="Renda em alta no Campeonato 2024"
+            description="O público e a renda no estádio seguem crescendo na temporada."
+            creator="Criador da Notícia"
+            imageUrl={imagemNoticia}
             SecondaryColor={SecondaryColor}
             TitleColor={TitleColor}
             SubtitleColor={SubtitleColor}

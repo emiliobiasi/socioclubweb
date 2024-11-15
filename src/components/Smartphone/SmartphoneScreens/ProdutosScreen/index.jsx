@@ -5,6 +5,8 @@ import DropdownButton from "../../Components/DropButton";
 import SearchInput from "../../Components/SearchInput";
 import ProdutoCard from "../../Components/SmartphoneCards/ProdutoCard copy";
 import styles from "./ProdutosScreen.module.css";
+import camisa1 from "../../../../assets/images/camisa-1.png";
+import camisa2 from "../../../../assets/images/camisa-2.png";
 
 const ProdutosScreen = ({
   Name,
@@ -38,17 +40,17 @@ const ProdutosScreen = ({
             />
           </div>
           <ProdutoCard
-            productName="Camisa São Paulo II New Balance 24/25"
+            productName="Camisa Oficial Preta"
             price="R$ 380,00"
-            imageUrl="https://images.tcdn.com.br/img/img_prod/1141538/camisa_sao_paulo_ii_new_balance_24_25_superbet_listrada_18061_1_28901b9ea6cb2828d13d99fce2afe37a.jpg"
+            imageUrl={camisa1}
             SecondaryColor={SecondaryColor}
             TitleColor={TitleColor}
             SubtitleColor={SubtitleColor}
           />
           <ProdutoCard
-            productName="Camisa São Paulo II New Balance 24/25"
+            productName="Camisa de Treino Vermelha e Branca"
             price="R$ 380,00"
-            imageUrl="https://images.tcdn.com.br/img/img_prod/1141538/camisa_sao_paulo_ii_new_balance_24_25_superbet_listrada_18061_1_28901b9ea6cb2828d13d99fce2afe37a.jpg"
+            imageUrl={camisa2}
             SecondaryColor={SecondaryColor}
             TitleColor={TitleColor}
             SubtitleColor={SubtitleColor}

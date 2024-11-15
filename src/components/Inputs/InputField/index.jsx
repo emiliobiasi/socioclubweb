@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
-import styles from './InputField.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faChevronDown, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'; // Ícone para campo de número
-import { useState } from 'react';
+import PropTypes from "prop-types";
+import styles from "./InputField.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage, faChevronDown, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { useState, useRef } from "react";
 
 const InputField = ({ label, type, value, onChange, labelColor, icon, options }) => {
   const [dragActive, setDragActive] = useState(false);
-  const [fileName, setFileName] = useState(null); // Estado para armazenar o nome do arquivo
+  const [fileName, setFileName] = useState(null);
+  const inputRef = useRef(null); // Cria um ref para o input de arquivo
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -21,9 +22,9 @@ const InputField = ({ label, type, value, onChange, labelColor, icon, options })
     e.preventDefault();
     setDragActive(false);
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) { // Verifica se o arquivo é uma imagem
+    if (file && file.type.startsWith("image/")) {
       onChange(file);
-      setFileName(file.name); // Define o nome do arquivo
+      setFileName(file.name);
     } else {
       alert("Por favor, selecione um arquivo de imagem.");
     }
@@ -31,12 +32,12 @@ const InputField = ({ label, type, value, onChange, labelColor, icon, options })
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) { // Verifica se o arquivo é uma imagem
+    if (file && file.type.startsWith("image/")) {
       onChange(file);
-      setFileName(file.name); // Define o nome do arquivo
+      setFileName(file.name);
     } else {
       alert("Por favor, selecione um arquivo de imagem.");
-      e.target.value = null; // Limpa o campo de seleção de arquivo
+      e.target.value = null;
     }
   };
 
@@ -45,25 +46,25 @@ const InputField = ({ label, type, value, onChange, labelColor, icon, options })
       <label className={styles.label} style={{ color: labelColor }}>
         {label}
       </label>
-      {type === 'file' ? (
+      {type === "file" ? (
         <div
-          className={`${styles.fileDropZone} ${dragActive ? styles.active : ''}`}
+          className={`${styles.fileDropZone} ${dragActive ? styles.active : ""}`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          onClick={() => document.getElementById('fileInput').click()}
+          onClick={() => inputRef.current.click()} // Usa o ref para acionar o clique
         >
           <FontAwesomeIcon icon={icon} className={styles.iconFile} />
           <p>Arraste ou selecione uma imagem</p>
           <input
-            id="fileInput"
+            ref={inputRef} // Associa o ref ao input
             type="file"
             onChange={handleFileSelect}
             className={styles.hiddenInput}
-            accept="image/*" // Aceita apenas imagens
+            accept="image/*"
           />
         </div>
-      ) : type === 'dropdown' ? (
+      ) : type === "dropdown" ? (
         <div className={styles.inputWrapper}>
           <FontAwesomeIcon icon={faChevronDown} className={styles.icon} />
           <select value={value} onChange={onChange} className={styles.inputElement}>
@@ -74,39 +75,28 @@ const InputField = ({ label, type, value, onChange, labelColor, icon, options })
             ))}
           </select>
         </div>
-      ) : type === 'date' ? (
+      ) : type === "date" ? (
         <div className={styles.inputWrapper}>
           <FontAwesomeIcon icon={faCalendarAlt} className={styles.icon} />
           <input
             type="date"
             value={value}
             onChange={onChange}
-            className={`${styles.inputElement} ${styles.dateInput}`} // Estilos adicionais para o campo de data
+            className={`${styles.inputElement} ${styles.dateInput}`}
           />
         </div>
-      ) : type === 'number' ? (  // Adicionando suporte para o tipo number
+      ) : type === "number" ? (
         <div className={styles.inputWrapper}>
           <FontAwesomeIcon icon={icon} className={styles.icon} />
-          <input
-            type="number"
-            value={value}
-            onChange={onChange}
-            className={styles.inputElement}
-          />
+          <input type="number" value={value} onChange={onChange} className={styles.inputElement} />
         </div>
       ) : (
         <div className={styles.inputWrapper}>
           {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
-          <input
-            type={type}
-            value={value}
-            onChange={onChange}
-            className={styles.inputElement}
-          />
+          <input type={type} value={value} onChange={onChange} className={styles.inputElement} />
         </div>
       )}
-      
-      {/* Exibe o nome do arquivo e ícone de imagem, se um arquivo estiver selecionado */}
+
       {fileName && (
         <div className={styles.fileInfo}>
           <FontAwesomeIcon icon={faImage} className={styles.fileIcon} />
@@ -133,8 +123,8 @@ InputField.propTypes = {
 };
 
 InputField.defaultProps = {
-  type: 'text',
-  labelColor: '#333',
+  type: "text",
+  labelColor: "#333",
   options: [],
 };
 

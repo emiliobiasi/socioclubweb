@@ -76,34 +76,34 @@ const PersonalizarClube = () => {
         <div className={styles.leftColumn}>
           <div>
             <ColorCard
-              title="Title color"
+              title="Cor dos Títulos"
               color={titleColor}
               onColorChange={setTitleColor}
             />
             <ColorCard
-              title="Subtitle color"
+              title="Cor de Subtítulos"
               color={subtitleColor}
               onColorChange={setSubtitleColor}
             />
             <ColorCard
-              title="Button color"
+              title="Cor dos Botões"
               color={buttonColor}
               onColorChange={setButtonColor}
             />
           </div>
           <div>
             <ColorCard
-              title="Primary color"
+              title="Cor Primária"
               color={primaryColor}
               onColorChange={setPrimaryColor}
             />
             <ColorCard
-              title="Secondary color"
+              title="Cor Secundária"
               color={secondaryColor}
               onColorChange={setSecondaryColor}
             />
             <ColorCard
-              title="Alternative color"
+              title="Cor Alternativa"
               color={alternativeColor}
               onColorChange={setAlternativeColor}
             />

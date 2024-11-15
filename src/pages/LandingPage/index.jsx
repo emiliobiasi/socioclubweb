@@ -19,7 +19,7 @@ const LandingPage = () => {
       <SectionEvents />
       <SectionCategoryDestaque />
       <SectionJoinClubCard />
-      <div className={styles.footer}>footer</div>
+      {/* <div className={styles.footer}>footer</div> */}
     </>
   );
 };

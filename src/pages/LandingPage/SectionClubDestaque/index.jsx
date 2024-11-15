@@ -4,9 +4,9 @@ import BestClubsCard from "../../../components/Cards/BestClubsCard";
 const SectionClubDestaque = () => {
   return (
     <div id="section2" className={styles.container}>
-      <div className={styles.title}>
-        <h2>Clubes Em Destaque</h2>
-      </div>
+      
+        <h2 className={styles.title}>Clubes Em Destaque</h2>
+      
         <div className={styles.cardsRow}>
           <div className={styles.cardColumn}>
             <BestClubsCard

@@ -9,6 +9,14 @@
   margin: 0 auto;
 }
 
+.title{
+  color: white
+}
+
+.description{
+  color: white
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -65,8 +73,13 @@
 .stats-row {
   display: flex;
   justify-content: space-between;
+  
 }
 
 .stats-row div {
   text-align: center;
+}
+
+.stats {
+  color: white;
 }

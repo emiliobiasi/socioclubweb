@@ -7,9 +7,7 @@ import IconCultura from "../../../assets/images/IconCultura.svg";
 const SectionCategoryDestaque = () => {
   return (
     <div id="section3" className={styles.container}>
-      <div className={styles.title}>
-        <h2>Categorias com mais acessos</h2>
-      </div>
+      <h2 className={styles.title}>Categorias com mais acessos</h2>
       <div className={styles.cardsRow}>
         <div className={styles.cardColumn}>
           <BestCategoryCard

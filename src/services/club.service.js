@@ -37,9 +37,19 @@ const updateColorScheme = async (club_id, colors) => {
   });
 };
 
+const setUpClub = async (club_id, description, logo, background_img) => {
+  return axios.put(`${API_URL}setupClub/${club_id}`, {
+    description: description,
+    logo: logo,
+    background_img: background_img,
+    club_category: '1'
+  });
+}
+
 const ClubService = {
   createClub,
   updateColorScheme,
+  setUpClub
 };
 
 export default ClubService;
